@@ -1,0 +1,1278 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Evolution Mindset - Read • Learn • Grow</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Playfair+Display:ital,wght@0,600;0,700;1,600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+  <style>
+    :root {
+      --primary: #f59e0b;
+      --primary-hover: #d97706;
+      --card-bg: rgba(22, 27, 34, 0.75);
+      --card-border: rgba(255, 255, 255, 0.1);
+      --text-main: #f3f4f6;
+      --text-muted: #9ca3af;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Plus Jakarta Sans', sans-serif; }
+    body { color: var(--text-main); background-color: #0b0f17; min-height: 100vh; overflow-x: hidden; position: relative; }
+    button { font-family: inherit; }
+
+    /* BACKGROUND VIDEO */
+    .video-bg-container { position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; z-index: -2; overflow: hidden; }
+    .video-bg-container video { width: 100%; height: 100%; object-fit: cover; transform: scale(1.03); filter: brightness(0.7) contrast(1.1); }
+    .video-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: radial-gradient(circle at center, rgba(11,15,23,0.6) 0%, rgba(11,15,23,0.88) 100%); backdrop-filter: blur(4px); z-index: -1; pointer-events: none; transition: background 0.4s ease, backdrop-filter 0.4s ease; }
+    .video-overlay.dimmed { background: rgba(11,15,23,0.94); backdrop-filter: blur(8px); }
+
+    /* VIDEO DOCK */
+    .video-controls-dock { position: fixed; bottom: 24px; right: 24px; z-index: 100; display: flex; gap: 8px; background: rgba(15,23,42,0.85); border: 1px solid var(--card-border); padding: 8px 12px; border-radius: 40px; backdrop-filter: blur(12px); box-shadow: 0 10px 25px rgba(0,0,0,0.4); }
+    .ctrl-btn { background: transparent; border: none; color: #fff; font-size: 14px; cursor: pointer; width: 34px; height: 34px; display: flex; align-items: center; justify-content: center; border-radius: 50%; transition: all 0.2s; }
+    .ctrl-btn:hover { background: rgba(255,255,255,0.15); color: var(--primary); }
+
+    /* HEADER */
+    header { background: rgba(11,15,23,0.85); border-bottom: 1px solid var(--card-border); backdrop-filter: blur(16px); position: sticky; top: 0; z-index: 50; }
+    .header-top { max-width: 1380px; margin: 0 auto; padding: 14px 24px; display: flex; align-items: center; justify-content: space-between; gap: 20px; }
+    .brand { display: flex; align-items: center; gap: 12px; text-decoration: none; }
+    .brand-logo { font-size: 30px; color: var(--primary); }
+    .brand-text h1 { font-size: 19px; font-weight: 800; letter-spacing: -0.5px; color: #fff; line-height: 1.1; }
+    .brand-text span { font-size: 11px; color: var(--text-muted); letter-spacing: 1px; text-transform: uppercase; }
+    .search-bar { flex: 1; max-width: 540px; position: relative; }
+    .search-bar input { width: 100%; padding: 12px 48px 12px 20px; border-radius: 30px; background: rgba(255,255,255,0.95); border: 1px solid transparent; font-size: 14px; color: #111; outline: none; transition: all 0.3s ease; }
+    .search-bar input:focus { box-shadow: 0 0 0 3px rgba(245,158,11,0.4); }
+    .search-bar button { position: absolute; right: 6px; top: 50%; transform: translateY(-50%); width: 36px; height: 36px; border-radius: 50%; border: none; background: var(--primary); color: #111; cursor: pointer; display: flex; align-items: center; justify-content: center; font-size: 14px; }
+
+    .nav-actions { display: flex; align-items: center; gap: 14px; }
+    .action-btn { background: transparent; border: none; color: var(--text-main); display: flex; align-items: center; gap: 8px; cursor: pointer; font-size: 14px; position: relative; padding: 6px 12px; border-radius: 8px; transition: 0.2s; }
+    .action-btn:hover { background: rgba(255,255,255,0.08); }
+    .badge { background: var(--primary); color: #111; font-size: 11px; font-weight: 700; border-radius: 10px; padding: 2px 6px; position: absolute; top: -3px; right: -2px; }
+
+    /* USER MENU */
+    .user-profile-menu { position: relative; }
+    .user-pill-btn { display: flex; align-items: center; gap: 8px; background: rgba(255,255,255,0.08); border: 1px solid var(--card-border); padding: 5px 14px 5px 6px; border-radius: 28px; cursor: pointer; color: #fff; font-size: 13px; font-weight: 600; transition: all 0.2s; }
+    .user-pill-btn.guest { padding: 8px 16px; background: var(--primary); color: #111; border-color: var(--primary); }
+    .user-pill-btn:hover { border-color: var(--primary); background: rgba(245,158,11,0.12); }
+    .user-pill-btn.guest:hover { background: var(--primary-hover); }
+    .user-pill-avatar { width: 28px; height: 28px; border-radius: 50%; object-fit: cover; border: 1.5px solid var(--primary); }
+
+    .user-dropdown { position: absolute; right: 0; top: 48px; width: 260px; background: #161b22; border: 1px solid var(--card-border); border-radius: 16px; box-shadow: 0 16px 36px rgba(0,0,0,0.6); display: none; flex-direction: column; overflow: hidden; z-index: 100; }
+    .user-dropdown.show { display: flex; }
+    .user-dropdown-header { padding: 16px; background: rgba(255,255,255,0.03); border-bottom: 1px solid rgba(255,255,255,0.08); display: flex; align-items: center; gap: 12px; }
+    .user-dropdown-header img { width: 44px; height: 44px; border-radius: 50%; object-fit: cover; border: 2px solid var(--primary); }
+    .user-dropdown-name { font-size: 14px; font-weight: 700; color: #fff; line-height: 1.2; word-break: break-word; }
+    .user-dropdown-tier { font-size: 11px; color: var(--primary); background: rgba(245,158,11,0.15); padding: 2px 8px; border-radius: 10px; display: inline-block; margin-top: 4px; font-weight: 600; }
+    .user-dropdown a, .user-dropdown button { padding: 12px 18px; color: var(--text-main); text-decoration: none; font-size: 13px; display: flex; align-items: center; gap: 12px; background: transparent; border: none; cursor: pointer; text-align: left; width: 100%; transition: background 0.2s; }
+    .user-dropdown a:hover, .user-dropdown button:hover { background: rgba(255,255,255,0.08); color: var(--primary); }
+    .user-dropdown .logout-btn { color: #f87171; border-top: 1px solid rgba(255,255,255,0.06); }
+    .user-dropdown .logout-btn:hover { background: rgba(239,68,68,0.1); color: #f87171; }
+
+    /* SUB NAV */
+    .sub-nav { border-top: 1px solid rgba(255,255,255,0.06); }
+    .sub-nav ul { max-width: 1380px; margin: 0 auto; padding: 0 24px; display: flex; list-style: none; gap: 28px; overflow-x: auto; }
+    .sub-nav a { display: block; padding: 12px 0; font-size: 13px; font-weight: 500; color: var(--text-muted); text-decoration: none; transition: 0.2s; white-space: nowrap; border-bottom: 2px solid transparent; }
+    .sub-nav a.active, .sub-nav a:hover { color: var(--primary); border-bottom: 2px solid var(--primary); }
+
+    .container { max-width: 1380px; margin: 0 auto; padding: 24px; }
+
+    /* HERO */
+    .hero-grid { display: grid; grid-template-columns: 2.2fr 1fr; gap: 24px; margin-bottom: 32px; }
+    .hero-banner { background: linear-gradient(135deg, rgba(20,24,33,0.75), rgba(30,36,50,0.5)), url('https://images.unsplash.com/photo-1507842229458-7790156c376e?auto=format&fit=crop&w=1200&q=80') center/cover; border: 1px solid var(--card-border); border-radius: 20px; padding: 48px; position: relative; display: flex; flex-direction: column; justify-content: center; overflow: hidden; }
+    .hero-tag { font-size: 12px; letter-spacing: 2px; color: var(--primary); font-weight: 700; margin-bottom: 12px; }
+    .hero-title { font-size: 42px; font-weight: 800; line-height: 1.2; margin-bottom: 16px; font-family: 'Playfair Display', serif; }
+    .hero-title span { color: var(--primary); font-family: 'Playfair Display', serif; }
+    .hero-desc { font-size: 15px; color: #d1d5db; max-width: 520px; line-height: 1.6; margin-bottom: 28px; }
+    .hero-actions { display: flex; gap: 14px; align-items: center; flex-wrap: wrap; }
+    .btn-primary { background: var(--primary); color: #111; padding: 12px 28px; border-radius: 30px; font-weight: 700; font-size: 14px; border: none; cursor: pointer; display: inline-flex; align-items: center; gap: 8px; transition: all 0.2s; text-decoration: none; }
+    .btn-primary:hover { background: var(--primary-hover); transform: translateY(-2px); box-shadow: 0 8px 20px rgba(245,158,11,0.35); }
+    .btn-outline { background: rgba(255,255,255,0.1); color: #fff; padding: 12px 24px; border-radius: 30px; font-weight: 600; font-size: 14px; border: 1px solid var(--card-border); cursor: pointer; display: inline-flex; align-items: center; gap: 8px; text-decoration: none; backdrop-filter: blur(4px); transition: 0.2s; }
+    .btn-outline:hover { background: rgba(255,255,255,0.2); }
+    .hero-special-card { background: linear-gradient(180deg, rgba(26,31,44,0.85) 0%, rgba(18,22,31,0.85) 100%); border: 1px solid var(--card-border); border-radius: 20px; padding: 36px 28px; display: flex; flex-direction: column; justify-content: center; backdrop-filter: blur(12px); box-shadow: 0 16px 32px rgba(0,0,0,0.3); }
+    .hero-special-card .tag { font-size: 11px; font-weight: 700; letter-spacing: 1.5px; color: var(--primary); margin-bottom: 8px; }
+    .hero-special-card h3 { font-size: 32px; font-weight: 800; line-height: 1.1; margin-bottom: 8px; }
+    .hero-special-card p { color: var(--text-muted); font-size: 13px; margin-bottom: 24px; }
+
+    /* TOOLBAR & CATEGORIES */
+    .catalog-toolbar { display: flex; align-items: center; justify-content: space-between; gap: 16px; margin-bottom: 18px; flex-wrap: wrap; }
+    .catalog-toolbar h3 { font-size: 16px; font-weight: 700; display: flex; align-items: center; gap: 8px; }
+    .toolbar-actions { display: flex; gap: 10px; align-items: center; flex-wrap: wrap; }
+    .pill-filter-btn { background: rgba(255,255,255,0.06); border: 1px solid var(--card-border); color: #fff; padding: 7px 16px; border-radius: 20px; font-size: 12px; font-weight: 600; cursor: pointer; display: flex; align-items: center; gap: 6px; transition: 0.2s; }
+    .pill-filter-btn:hover, .pill-filter-btn.active { background: rgba(245,158,11,0.2); border-color: var(--primary); color: var(--primary); }
+    .sort-select { background: rgba(255,255,255,0.06); border: 1px solid var(--card-border); color: #fff; padding: 7px 12px; border-radius: 20px; font-size: 12px; font-weight: 600; cursor: pointer; outline: none; }
+    .sort-select option { background: #161b22; color: #fff; }
+
+    .categories-bar { display: grid; grid-template-columns: repeat(auto-fit, minmax(130px, 1fr)); gap: 14px; margin-bottom: 40px; }
+    .category-card { background: var(--card-bg); border: 1px solid var(--card-border); border-radius: 16px; padding: 18px 12px; text-align: center; cursor: pointer; transition: all 0.3s ease; backdrop-filter: blur(10px); }
+    .category-card:hover, .category-card.active { background: rgba(245,158,11,0.15); border-color: var(--primary); transform: translateY(-4px); }
+    .category-icon { width: 48px; height: 48px; margin: 0 auto 10px; border-radius: 50%; background: rgba(255,255,255,0.06); display: flex; align-items: center; justify-content: center; font-size: 20px; color: var(--primary); }
+    .category-card h4 { font-size: 14px; font-weight: 600; margin-bottom: 4px; }
+    .category-card span { font-size: 11px; color: var(--text-muted); }
+
+    /* CONTENT GRID */
+    .content-grid { display: grid; grid-template-columns: 2.6fr 1fr; gap: 32px; margin-bottom: 48px; }
+    .section-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 24px; }
+    .section-header h2 { font-size: 22px; font-weight: 700; display: flex; align-items: center; gap: 10px; }
+    .view-all-link { color: var(--primary); text-decoration: none; font-size: 13px; font-weight: 600; display: flex; align-items: center; gap: 4px; }
+
+    /* BOOK CARDS */
+    .books-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(215px, 1fr)); gap: 20px; }
+    .book-card { background: var(--card-bg); border: 1px solid var(--card-border); border-radius: 16px; padding: 16px; position: relative; display: flex; flex-direction: column; transition: all 0.3s cubic-bezier(0.16,1,0.3,1); backdrop-filter: blur(10px); }
+    .book-card:hover { transform: translateY(-6px); box-shadow: 0 16px 30px rgba(0,0,0,0.4); border-color: rgba(245,158,11,0.4); }
+    .book-badge { position: absolute; top: 24px; left: 24px; padding: 4px 10px; border-radius: 20px; font-size: 11px; font-weight: 700; z-index: 2; text-transform: capitalize; }
+    .badge-bestseller { background: #f59e0b; color: #111; }
+    .badge-new { background: #10b981; color: #fff; }
+    .badge-popular { background: #3b82f6; color: #fff; }
+    .badge-trending { background: #8b5cf6; color: #fff; }
+    .book-cover-wrap { width: 100%; aspect-ratio: 5 / 7; border-radius: 4px 8px 8px 4px; overflow: hidden; margin-bottom: 14px; background: #111; position: relative; box-shadow: 0 14px 24px rgba(0,0,0,0.55), 3px 0 0 rgba(255,255,255,0.08); }
+    .book-cover-wrap img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.4s ease; }
+    .book-card:hover .book-cover-wrap img { transform: scale(1.05); }
+    .book-title { font-size: 15px; font-weight: 700; line-height: 1.3; margin-bottom: 4px; color: #fff; min-height: 38px; display: -webkit-box; -webkit-line-clamp: 2; line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
+    .book-author { font-size: 12px; color: var(--text-muted); margin-bottom: 8px; }
+    .rating-wrap { display: flex; align-items: center; gap: 6px; font-size: 12px; margin-bottom: 12px; }
+    .rating-wrap i { color: #fbbf24; font-size: 11px; }
+    .rating-score { font-weight: 700; color: #fff; }
+    .review-count { color: var(--text-muted); }
+    .price-row { display: flex; align-items: baseline; gap: 8px; margin-top: auto; margin-bottom: 14px; }
+    .price-current { font-size: 18px; font-weight: 800; color: #fff; }
+    .price-original { font-size: 13px; color: var(--text-muted); text-decoration: line-through; }
+    .card-footer { display: flex; gap: 8px; }
+    .btn-add-cart { flex: 1; background: #0f172a; border: 1px solid var(--card-border); color: #fff; padding: 10px; border-radius: 10px; font-size: 12px; font-weight: 600; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 6px; transition: 0.2s; }
+    .btn-add-cart:hover { background: var(--primary); color: #111; border-color: var(--primary); }
+    .btn-wishlist { width: 38px; background: transparent; border: 1px solid var(--card-border); color: var(--text-muted); border-radius: 10px; cursor: pointer; display: flex; align-items: center; justify-content: center; transition: 0.2s; }
+    .btn-wishlist:hover, .btn-wishlist.active { color: #ef4444; border-color: rgba(239,68,68,0.4); background: rgba(239,68,68,0.1); }
+    .empty-state { grid-column: 1 / -1; text-align: center; color: var(--text-muted); padding: 40px 0; font-size: 15px; }
+
+    /* BEST SELLERS */
+    .bestsellers-list { background: var(--card-bg); border: 1px solid var(--card-border); border-radius: 20px; padding: 24px; backdrop-filter: blur(12px); align-self: start; }
+    .bestseller-item { display: flex; align-items: center; gap: 16px; padding: 14px 0; border-bottom: 1px solid rgba(255,255,255,0.06); }
+    .bestseller-item:first-child { padding-top: 0; }
+    .bestseller-item:last-child { border-bottom: none; padding-bottom: 0; }
+    .rank-number { font-size: 18px; font-weight: 800; color: var(--primary); min-width: 20px; }
+    .bestseller-thumb { width: 48px; height: 68px; border-radius: 6px; overflow: hidden; background: #222; flex-shrink: 0; }
+    .bestseller-thumb img { width: 100%; height: 100%; object-fit: cover; }
+    .bestseller-info { flex: 1; min-width: 0; }
+    .bestseller-info h4 { font-size: 13px; font-weight: 700; margin-bottom: 2px; color: #fff; }
+    .bestseller-info p { font-size: 11px; color: var(--text-muted); margin-bottom: 4px; }
+    .bestseller-pricing { display: flex; align-items: baseline; gap: 6px; margin-top: 4px; }
+    .bestseller-pricing .cur { font-size: 13px; font-weight: 700; color: #fff; }
+    .bestseller-pricing .orig { font-size: 11px; color: var(--text-muted); text-decoration: line-through; }
+
+    /* MODALS */
+    .modal-overlay { position: fixed; inset: 0; background: rgba(0,0,0,0.75); backdrop-filter: blur(6px); display: none; align-items: center; justify-content: center; z-index: 200; padding: 20px; }
+    .modal-overlay.active { display: flex; }
+    .modal-card { background: #161b22; border: 1px solid var(--card-border); border-radius: 22px; width: 100%; max-width: 440px; max-height: 90vh; overflow-y: auto; padding: 32px; box-shadow: 0 20px 48px rgba(0,0,0,0.6); position: relative; animation: popIn 0.25s cubic-bezier(0.16,1,0.3,1); }
+    @keyframes popIn { from { transform: scale(0.93) translateY(10px); opacity: 0; } to { transform: scale(1) translateY(0); opacity: 1; } }
+    .modal-close { position: absolute; top: 20px; right: 20px; background: transparent; border: none; color: var(--text-muted); font-size: 18px; cursor: pointer; transition: 0.2s; }
+    .modal-close:hover { color: #fff; }
+    .modal-card h3 { font-size: 24px; font-weight: 800; font-family: 'Playfair Display', serif; margin-bottom: 6px; }
+    .modal-card p.subtitle { color: var(--text-muted); font-size: 13px; margin-bottom: 22px; }
+    .form-group { margin-bottom: 16px; }
+    .form-group label { display: block; font-size: 12px; font-weight: 600; color: #d1d5db; margin-bottom: 6px; }
+    .form-group input { width: 100%; padding: 12px 16px; border-radius: 12px; border: 1px solid var(--card-border); background: rgba(11,15,23,0.8); color: #fff; outline: none; font-size: 14px; transition: 0.2s; }
+    .form-group input:focus { border-color: var(--primary); }
+    .btn-form-submit { width: 100%; background: var(--primary); color: #111; padding: 12px; border-radius: 12px; font-weight: 700; border: none; font-size: 14px; cursor: pointer; margin-top: 6px; transition: 0.2s; }
+    .btn-form-submit:hover { background: var(--primary-hover); }
+    .btn-form-submit.secondary { background: rgba(255,255,255,0.08); color: #f87171; border: 1px solid var(--card-border); }
+    .btn-form-submit.secondary:hover { background: rgba(239,68,68,0.12); }
+
+    .persona-section { margin-top: 22px; border-top: 1px solid rgba(255,255,255,0.08); padding-top: 16px; }
+    .persona-section > span { font-size: 11px; font-weight: 700; letter-spacing: 0.8px; color: var(--text-muted); text-transform: uppercase; margin-bottom: 10px; display: block; }
+    .persona-list { display: flex; flex-direction: column; gap: 8px; }
+    .persona-btn { display: flex; align-items: center; justify-content: space-between; background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.08); padding: 8px 12px; border-radius: 10px; cursor: pointer; transition: 0.2s; color: #fff; width: 100%; }
+    .persona-btn:hover { border-color: var(--primary); background: rgba(245,158,11,0.1); }
+    .persona-profile-left { display: flex; align-items: center; gap: 10px; text-align: left; }
+    .persona-profile-left img { width: 32px; height: 32px; border-radius: 50%; object-fit: cover; }
+    .persona-profile-left .name { font-size: 13px; font-weight: 700; color: #fff; display: block; }
+    .persona-profile-left .email { font-size: 11px; color: var(--text-muted); display: block; }
+    .persona-tier-tag { font-size: 10px; font-weight: 700; color: var(--primary); background: rgba(245,158,11,0.15); padding: 3px 8px; border-radius: 10px; }
+
+    .profile-hero { display: flex; align-items: center; gap: 16px; padding-bottom: 18px; border-bottom: 1px solid rgba(255,255,255,0.08); margin-bottom: 20px; }
+    .profile-avatar-lg { width: 64px; height: 64px; border-radius: 50%; object-fit: cover; border: 2px solid var(--primary); }
+    .profile-hero h3 { margin-bottom: 2px; font-family: 'Plus Jakarta Sans', sans-serif; font-size: 20px; word-break: break-word; }
+    .profile-hero p { font-size: 12px; color: var(--text-muted); word-break: break-all; }
+    .stats-counter-row { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; margin-bottom: 22px; }
+    .stat-box { background: rgba(255,255,255,0.04); border: 1px solid var(--card-border); border-radius: 12px; padding: 12px 8px; text-align: center; }
+    .stat-box .count { font-size: 18px; font-weight: 800; color: var(--primary); }
+    .stat-box .label { font-size: 11px; color: var(--text-muted); margin-top: 3px; }
+
+    /* CART */
+    .cart-list { display: flex; flex-direction: column; gap: 12px; margin-bottom: 18px; }
+    .cart-item { display: flex; align-items: center; gap: 12px; }
+    .cart-item img { width: 44px; height: 62px; object-fit: cover; border-radius: 6px; }
+    .cart-item .info { flex: 1; min-width: 0; }
+    .cart-item .info h4 { font-size: 13px; font-weight: 700; }
+    .cart-item .info p { font-size: 12px; color: var(--text-muted); }
+    .cart-remove { background: transparent; border: none; color: #f87171; cursor: pointer; font-size: 14px; padding: 6px; }
+    .cart-total { display: flex; justify-content: space-between; font-weight: 800; font-size: 16px; padding-top: 14px; border-top: 1px solid rgba(255,255,255,0.08); }
+
+    /* NEWSLETTER & FEATURES */
+    .newsletter-section { background: linear-gradient(90deg, rgba(20,24,33,0.9), rgba(15,23,42,0.8)), url('https://images.unsplash.com/photo-1524995997946-a1c2e315a42f?auto=format&fit=crop&w=1200&q=80') center/cover; border: 1px solid var(--card-border); border-radius: 20px; padding: 40px; display: flex; align-items: center; justify-content: space-between; gap: 32px; margin-bottom: 32px; }
+    .newsletter-text h3 { font-size: 26px; font-weight: 800; font-family: 'Playfair Display', serif; margin-bottom: 6px; }
+    .newsletter-text p { color: var(--text-muted); font-size: 14px; }
+    .newsletter-form { display: flex; max-width: 480px; width: 100%; background: #fff; border-radius: 40px; overflow: hidden; padding: 4px; }
+    .newsletter-form input { flex: 1; border: none; padding: 12px 20px; font-size: 13px; outline: none; color: #111; min-width: 0; background: transparent; }
+    .newsletter-form button { background: var(--primary); border: none; padding: 10px 24px; border-radius: 30px; font-weight: 700; font-size: 13px; color: #111; cursor: pointer; }
+    .features-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 20px; padding-top: 20px; border-top: 1px solid rgba(255,255,255,0.08); }
+    .feature-item { display: flex; align-items: center; gap: 16px; }
+    .feature-icon { font-size: 28px; color: var(--primary); }
+    .feature-item h5 { font-size: 14px; font-weight: 700; margin-bottom: 2px; }
+    .feature-item p { font-size: 12px; color: var(--text-muted); }
+    footer { text-align: center; color: var(--text-muted); font-size: 12px; padding: 24px; border-top: 1px solid rgba(255,255,255,0.06); }
+
+    .toast { position: fixed; bottom: 30px; left: 50%; transform: translateX(-50%) translateY(100px); background: #10b981; color: #fff; padding: 12px 24px; border-radius: 30px; font-weight: 600; font-size: 14px; box-shadow: 0 10px 25px rgba(0,0,0,0.4); opacity: 0; transition: all 0.3s cubic-bezier(0.16,1,0.3,1); z-index: 1000; pointer-events: none; }
+    .toast.show { transform: translateX(-50%) translateY(0); opacity: 1; }
+
+
+    html { scroll-behavior: smooth; }
+    section[id], aside[id], div[id="books"] { scroll-margin-top: 150px; }
+    .section-block { margin-bottom: 56px; }
+    .section-title { text-align: center; margin-bottom: 32px; }
+    .section-title .eyebrow { font-size: 12px; letter-spacing: 2px; color: var(--primary); font-weight: 700; text-transform: uppercase; margin-bottom: 8px; }
+    .section-title h2 { font-family: 'Playfair Display', serif; font-size: 32px; font-weight: 700; margin-bottom: 8px; }
+    .section-title p { color: var(--text-muted); font-size: 14px; max-width: 620px; margin: 0 auto; line-height: 1.6; }
+
+    /* STATS STRIP */
+    .stats-strip { display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; margin-bottom: 48px; }
+    .stats-strip .s { background: var(--card-bg); border: 1px solid var(--card-border); border-radius: 16px; padding: 22px 12px; text-align: center; backdrop-filter: blur(10px); }
+    .stats-strip .n { font-size: 30px; font-weight: 800; color: var(--primary); }
+    .stats-strip .l { font-size: 12px; color: var(--text-muted); margin-top: 4px; }
+
+    /* BOOK CARD EXTRAS */
+    .book-cover-wrap, .book-title { cursor: pointer; }
+    .book-meta { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 10px; }
+    .chip { font-size: 10.5px; font-weight: 600; color: #d1d5db; background: rgba(255,255,255,0.07); border: 1px solid rgba(255,255,255,0.08); padding: 3px 8px; border-radius: 12px; }
+    .book-blurb { font-size: 12px; color: var(--text-muted); line-height: 1.5; margin-bottom: 10px; display: -webkit-box; -webkit-line-clamp: 2; line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
+    .save-tag { font-size: 11px; font-weight: 700; color: #34d399; }
+    .btn-details { width: 100%; margin-bottom: 8px; background: transparent; border: 1px solid var(--card-border); color: var(--primary); padding: 8px; border-radius: 10px; font-size: 12px; font-weight: 600; cursor: pointer; transition: .2s; }
+    .btn-details:hover { background: rgba(245,158,11,0.12); border-color: var(--primary); }
+    .bestseller-item { cursor: pointer; }
+    .bestseller-item:hover h4 { color: var(--primary); }
+
+    /* BOOK DETAIL MODAL */
+    .modal-card.wide { max-width: 940px; padding: 36px; }
+    .detail-grid { display: grid; grid-template-columns: 260px 1fr; gap: 32px; }
+    .detail-cover { width: 100%; aspect-ratio: 5 / 7; border-radius: 4px 10px 10px 4px; overflow: hidden; box-shadow: 0 18px 32px rgba(0,0,0,0.6); }
+    .detail-cover img { width: 100%; height: 100%; object-fit: cover; display: block; }
+    .detail-left { display: flex; flex-direction: column; gap: 14px; }
+    .detail-price { display: flex; align-items: baseline; gap: 10px; flex-wrap: wrap; }
+    .detail-price .cur { font-size: 28px; font-weight: 800; }
+    .detail-price .orig { color: var(--text-muted); text-decoration: line-through; }
+    .detail-actions { display: flex; gap: 8px; }
+    .detail-actions .btn-add-cart { padding: 12px; font-size: 13px; background: var(--primary); color: #111; border-color: var(--primary); }
+    .detail-actions .btn-add-cart:hover { background: var(--primary-hover); }
+    .detail-actions .btn-wishlist { width: 46px; }
+    .detail-perks { list-style: none; font-size: 12px; color: var(--text-muted); display: flex; flex-direction: column; gap: 8px; }
+    .detail-perks i { color: var(--primary); width: 18px; }
+    .detail-right h3 { font-size: 30px; font-family: 'Playfair Display', serif; margin-bottom: 4px; line-height: 1.2; }
+    .detail-right .by { color: var(--text-muted); font-size: 14px; margin-bottom: 10px; }
+    .detail-right .by strong { color: var(--primary); }
+    .detail-right .tagline { font-style: italic; color: #d1d5db; font-size: 15px; margin-bottom: 14px; }
+    .detail-right h4 { font-size: 13px; letter-spacing: 1px; text-transform: uppercase; color: var(--primary); margin: 22px 0 10px; }
+    .detail-right p.desc { font-size: 14px; line-height: 1.75; color: #d1d5db; margin-bottom: 8px; }
+    .learn-list, .chapter-list { list-style: none; display: flex; flex-direction: column; gap: 8px; font-size: 13.5px; color: #d1d5db; }
+    .learn-list li { display: flex; gap: 10px; align-items: flex-start; line-height: 1.5; }
+    .learn-list i { color: #34d399; margin-top: 3px; }
+    .chapter-list { counter-reset: ch; }
+    .chapter-list li { counter-increment: ch; display: flex; gap: 10px; padding: 8px 12px; background: rgba(255,255,255,0.04); border-radius: 8px; }
+    .chapter-list li::before { content: counter(ch); color: var(--primary); font-weight: 800; min-width: 16px; }
+    .spec-table { width: 100%; border-collapse: collapse; font-size: 13px; }
+    .spec-table td { padding: 9px 0; border-bottom: 1px solid rgba(255,255,255,0.07); }
+    .spec-table td:first-child { color: var(--text-muted); width: 38%; }
+    .spec-table td:last-child { color: #fff; font-weight: 600; }
+    .review-box { background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.08); border-radius: 12px; padding: 14px 16px; margin-bottom: 10px; }
+    .review-box .rh { display: flex; justify-content: space-between; align-items: center; font-size: 13px; font-weight: 700; margin-bottom: 4px; gap: 8px; }
+    .review-box .rh .st i { color: #fbbf24; font-size: 11px; }
+    .review-box p { font-size: 13px; color: #d1d5db; line-height: 1.6; }
+    .rating-bars { display: flex; flex-direction: column; gap: 6px; margin-bottom: 14px; font-size: 12px; color: var(--text-muted); }
+    .rating-bars .row { display: flex; align-items: center; gap: 10px; }
+    .rating-bars .bar { flex: 1; height: 6px; background: rgba(255,255,255,0.08); border-radius: 4px; overflow: hidden; }
+    .rating-bars .bar span { display: block; height: 100%; background: var(--primary); }
+    .related-row { display: flex; gap: 12px; flex-wrap: wrap; }
+    .related-item { display: flex; gap: 10px; align-items: center; cursor: pointer; background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.08); padding: 8px 12px 8px 8px; border-radius: 10px; font-size: 12px; font-weight: 600; transition: .2s; }
+    .related-item:hover { border-color: var(--primary); }
+    .related-item img { width: 32px; height: 45px; object-fit: cover; border-radius: 3px; }
+
+    /* ABOUT / HOW IT WORKS / TESTIMONIALS */
+    .about-grid { display: grid; grid-template-columns: 1.1fr 1fr; gap: 32px; align-items: center; background: var(--card-bg); border: 1px solid var(--card-border); border-radius: 22px; padding: 40px; backdrop-filter: blur(12px); }
+    .about-grid h2 { font-family: 'Playfair Display', serif; font-size: 30px; margin-bottom: 14px; }
+    .about-grid p { color: #d1d5db; font-size: 14px; line-height: 1.8; margin-bottom: 12px; }
+    .about-points { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+    .about-point { background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.08); border-radius: 14px; padding: 18px; }
+    .about-point i { color: var(--primary); font-size: 22px; margin-bottom: 10px; display: block; }
+    .about-point h5 { font-size: 14px; margin-bottom: 4px; }
+    .about-point p { font-size: 12px; color: var(--text-muted); margin: 0; line-height: 1.55; }
+    .steps-grid, .testi-grid, .blog-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; }
+    .step-card { background: var(--card-bg); border: 1px solid var(--card-border); border-radius: 18px; padding: 28px 24px; text-align: center; backdrop-filter: blur(10px); }
+    .step-num { width: 44px; height: 44px; border-radius: 50%; background: var(--primary); color: #111; font-weight: 800; display: flex; align-items: center; justify-content: center; margin: 0 auto 14px; }
+    .step-card h4 { font-size: 16px; margin-bottom: 6px; }
+    .step-card p { font-size: 13px; color: var(--text-muted); line-height: 1.6; }
+    .testi-card { background: var(--card-bg); border: 1px solid var(--card-border); border-radius: 18px; padding: 24px; backdrop-filter: blur(10px); display: flex; flex-direction: column; gap: 14px; }
+    .testi-card .q { font-size: 14px; line-height: 1.7; color: #e5e7eb; font-style: italic; }
+    .testi-card .who { display: flex; align-items: center; gap: 12px; margin-top: auto; }
+    .testi-card .who img { width: 40px; height: 40px; border-radius: 50%; }
+    .testi-card .who b { font-size: 13px; display: block; }
+    .testi-card .who span { font-size: 11px; color: var(--text-muted); }
+    .testi-card .st i { color: #fbbf24; font-size: 12px; }
+
+    /* BLOG */
+    .blog-card { background: var(--card-bg); border: 1px solid var(--card-border); border-radius: 18px; overflow: hidden; backdrop-filter: blur(10px); transition: .3s; }
+    .blog-card:hover { transform: translateY(-5px); border-color: rgba(245,158,11,0.4); }
+    .blog-art { height: 120px; display: flex; align-items: center; justify-content: center; font-size: 40px; color: rgba(255,255,255,0.9); }
+    .blog-body { padding: 18px 20px 22px; }
+    .blog-body .tag { font-size: 11px; color: var(--primary); font-weight: 700; letter-spacing: 1px; text-transform: uppercase; }
+    .blog-body h4 { font-size: 16px; margin: 6px 0; line-height: 1.35; }
+    .blog-body p { font-size: 13px; color: var(--text-muted); line-height: 1.6; margin-bottom: 10px; }
+    .blog-body .read { font-size: 12px; color: #9ca3af; }
+
+    /* FAQ */
+    .faq-list { max-width: 820px; margin: 0 auto; display: flex; flex-direction: column; gap: 10px; }
+    .faq-list details { background: var(--card-bg); border: 1px solid var(--card-border); border-radius: 14px; padding: 0 20px; backdrop-filter: blur(10px); }
+    .faq-list details[open] { border-color: rgba(245,158,11,0.45); }
+    .faq-list summary { cursor: pointer; padding: 16px 0; font-size: 14.5px; font-weight: 600; list-style: none; display: flex; justify-content: space-between; align-items: center; gap: 12px; }
+    .faq-list summary::-webkit-details-marker { display: none; }
+    .faq-list summary::after { content: '+'; color: var(--primary); font-size: 22px; font-weight: 400; }
+    .faq-list details[open] summary::after { content: '–'; }
+    .faq-list details p { padding: 0 0 18px; font-size: 13.5px; color: var(--text-muted); line-height: 1.7; }
+
+    /* CONTACT */
+    .contact-grid { display: grid; grid-template-columns: 1fr 1.2fr; gap: 28px; background: var(--card-bg); border: 1px solid var(--card-border); border-radius: 22px; padding: 36px; backdrop-filter: blur(12px); }
+    .contact-info h3 { font-family: 'Playfair Display', serif; font-size: 26px; margin-bottom: 10px; }
+    .contact-info > p { color: var(--text-muted); font-size: 14px; line-height: 1.7; margin-bottom: 20px; }
+    .contact-line { display: flex; gap: 14px; align-items: center; margin-bottom: 14px; font-size: 13.5px; }
+    .contact-line i { width: 38px; height: 38px; border-radius: 50%; background: rgba(245,158,11,0.15); color: var(--primary); display: flex; align-items: center; justify-content: center; }
+    .contact-form textarea { width: 100%; padding: 12px 16px; border-radius: 12px; border: 1px solid var(--card-border); background: rgba(11,15,23,0.8); color: #fff; outline: none; font-size: 14px; min-height: 110px; resize: vertical; }
+    .contact-form textarea:focus, .contact-form select:focus { border-color: var(--primary); }
+    .contact-form select { width: 100%; padding: 12px 16px; border-radius: 12px; border: 1px solid var(--card-border); background: rgba(11,15,23,0.8); color: #fff; font-size: 14px; outline: none; }
+
+    /* FOOTER */
+    .site-footer { border-top: 1px solid rgba(255,255,255,0.08); background: rgba(11,15,23,0.9); backdrop-filter: blur(10px); margin-top: 20px; }
+    .footer-grid { max-width: 1380px; margin: 0 auto; padding: 48px 24px 28px; display: grid; grid-template-columns: 1.6fr 1fr 1fr 1.2fr; gap: 32px; }
+    .footer-grid h5 { font-size: 13px; letter-spacing: 1px; text-transform: uppercase; margin-bottom: 14px; color: #fff; }
+    .footer-grid p, .footer-grid a { font-size: 13px; color: var(--text-muted); line-height: 1.7; text-decoration: none; display: block; margin-bottom: 8px; }
+    .footer-grid a:hover { color: var(--primary); }
+    .footer-social { display: flex; gap: 10px; margin-top: 12px; }
+    .footer-social a { width: 36px; height: 36px; border-radius: 50%; background: rgba(255,255,255,0.07); display: flex; align-items: center; justify-content: center; margin: 0; }
+    .payment-row { display: flex; gap: 12px; font-size: 26px; color: #6b7280; margin-top: 10px; }
+    .footer-bottom { text-align: center; color: var(--text-muted); font-size: 12px; padding: 18px; border-top: 1px solid rgba(255,255,255,0.06); }
+    .back-top { position: fixed; bottom: 24px; left: 24px; width: 42px; height: 42px; border-radius: 50%; border: 1px solid var(--card-border); background: rgba(15,23,42,0.85); color: #fff; cursor: pointer; z-index: 100; display: none; align-items: center; justify-content: center; backdrop-filter: blur(10px); }
+    .back-top.show { display: flex; }
+    .back-top:hover { color: var(--primary); }
+
+    @media (max-width: 1024px) {
+      .about-grid, .contact-grid, .detail-grid { grid-template-columns: 1fr; }
+      .detail-left { max-width: 280px; margin: 0 auto; }
+      .steps-grid, .testi-grid, .blog-grid { grid-template-columns: 1fr; }
+      .stats-strip { grid-template-columns: repeat(2, 1fr); }
+      .footer-grid { grid-template-columns: 1fr 1fr; }
+    }
+    @media (max-width: 640px) {
+      .about-grid, .contact-grid { padding: 24px 18px; }
+      .about-points, .footer-grid { grid-template-columns: 1fr; }
+      .modal-card.wide { padding: 24px 18px; }
+      .section-title h2 { font-size: 26px; }
+      .back-top { bottom: 14px; left: 14px; }
+    }
+
+    @media (max-width: 1024px) {
+      .hero-grid, .content-grid { grid-template-columns: 1fr; }
+      .features-grid { grid-template-columns: repeat(2, 1fr); gap: 24px; }
+      .newsletter-section { flex-direction: column; text-align: center; }
+      .newsletter-form { width: 100%; }
+    }
+    @media (max-width: 640px) {
+      .header-top { flex-wrap: wrap; padding: 12px 16px; }
+      .search-bar { order: 3; flex-basis: 100%; max-width: none; }
+      .container { padding: 16px; }
+      .hero-banner { padding: 28px 22px; }
+      .hero-title { font-size: 30px; }
+      .features-grid { grid-template-columns: 1fr; }
+      .newsletter-section { padding: 28px 20px; }
+      .action-btn span.label { display: none; }
+      .video-controls-dock { bottom: 14px; right: 14px; }
+      .modal-card { padding: 24px 20px; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Background video (replace background.mp4 with your own video; poster image is used if it is missing) -->
+  <div class="video-bg-container">
+    <video id="bgVideo" autoplay muted loop playsinline poster="https://images.unsplash.com/photo-1481627834876-b7833e8f5570?auto=format&fit=crop&w=1600&q=70">
+      <source id="bgSource" src="background.mp4" type="video/mp4">
+    </video>
+  </div>
+  <div class="video-overlay" id="videoOverlay"></div>
+
+  <div class="video-controls-dock" id="videoDock">
+    <button class="ctrl-btn" id="playPauseBtn" title="Play / Pause" aria-label="Play or pause"><i class="fa-solid fa-pause"></i></button>
+    <button class="ctrl-btn" id="muteBtn" title="Mute / Unmute" aria-label="Mute or unmute"><i class="fa-solid fa-volume-xmark"></i></button>
+    <button class="ctrl-btn" id="dimBtn" title="Dim background" aria-label="Dim background"><i class="fa-solid fa-circle-half-stroke"></i></button>
+  </div>
+
+  <header>
+    <div class="header-top">
+      <a href="#" class="brand" data-nav="home">
+        <i class="fa-solid fa-book-open-reader brand-logo"></i>
+        <div class="brand-text"><h1>Evolution Mindset</h1><span>Read • Learn • Grow</span></div>
+      </a>
+      <div class="search-bar">
+        <input type="text" id="searchInput" placeholder="Search books, authors, categories...">
+        <button type="button" aria-label="Search"><i class="fa-solid fa-magnifying-glass"></i></button>
+      </div>
+      <div class="nav-actions">
+        <button class="action-btn" id="wishBtn" type="button"><i class="fa-regular fa-heart"></i><span class="label">Wishlist</span><span class="badge" id="wishCount">0</span></button>
+        <button class="action-btn" id="cartBtn" type="button"><i class="fa-solid fa-cart-shopping"></i><span class="label">Cart</span><span class="badge" id="cartCount">0</span></button>
+        <div class="user-profile-menu" id="userMenu"></div>
+      </div>
+    </div>
+    <nav class="sub-nav">
+      <ul id="subNav">
+        <li><a href="#" data-nav="home" class="active">Home</a></li>
+        <li><a href="#books" data-nav="all">All Books</a></li>
+        <li><a href="#bestsellers" data-nav="bestsellers">Best Sellers</a></li>
+        <li><a href="#books" data-nav="new">New Arrivals</a></li>
+        <li><a href="#books" data-nav="growth">Self Growth</a></li>
+        <li><a href="#books" data-nav="business">Business</a></li>
+        <li><a href="#about" data-nav="about">About</a></li>
+        <li><a href="#how" data-nav="how">How It Works</a></li>
+        <li><a href="#reviews" data-nav="reviews">Reviews</a></li>
+        <li><a href="#blog" data-nav="blog">Blog</a></li>
+        <li><a href="#faq" data-nav="faq">FAQ</a></li>
+        <li><a href="#contact" data-nav="contact">Contact</a></li>
+        <li><a href="#newsletter" data-nav="newsletter">Newsletter</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <main class="container">
+    <section class="hero-grid">
+      <div class="hero-banner">
+        <div class="hero-tag">READ • LEARN • GROW</div>
+        <h2 class="hero-title">Upgrade your mind,<br><span>evolve your life</span></h2>
+        <p class="hero-desc">Discover handpicked books on mindset, habits, money and leadership. Build a reading habit that changes how you think.</p>
+        <div class="hero-actions">
+          <a href="#books" class="btn-primary"><i class="fa-solid fa-book"></i> Shop Now</a>
+          <a href="#bestsellers" class="btn-outline"><i class="fa-solid fa-fire"></i> Best Sellers</a>
+        </div>
+      </div>
+      <div class="hero-special-card">
+        <div class="tag">LIMITED OFFER</div>
+        <h3>Up to 40% OFF</h3>
+        <p>On selected mindset &amp; self-growth titles this week.</p>
+        <a href="#books" class="btn-primary" style="align-self:flex-start">Grab the Deal <i class="fa-solid fa-arrow-right"></i></a>
+      </div>
+    </section>
+
+    <section class="stats-strip">
+      <div class="s"><div class="n">50,000+</div><div class="l">Happy readers</div></div>
+      <div class="s"><div class="n">500+</div><div class="l">Handpicked titles</div></div>
+      <div class="s"><div class="n">4.7★</div><div class="l">Average rating</div></div>
+      <div class="s"><div class="n">28,000+</div><div class="l">Pin codes delivered</div></div>
+    </section>
+
+    <div class="catalog-toolbar">
+      <h3><i class="fa-solid fa-sliders" style="color:var(--primary)"></i> Browse the catalogue</h3>
+      <div class="toolbar-actions">
+        <button class="pill-filter-btn" id="fTop" type="button"><i class="fa-solid fa-star"></i> Top Rated 4.5+</button>
+        <button class="pill-filter-btn" id="fUnder" type="button"><i class="fa-solid fa-tag"></i> Under ₹350</button>
+        <select class="sort-select" id="sortSelect" aria-label="Sort books">
+          <option value="featured">Sort: Featured</option>
+          <option value="priceAsc">Price: Low to High</option>
+          <option value="priceDesc">Price: High to Low</option>
+          <option value="rating">Rating</option>
+        </select>
+      </div>
+    </div>
+
+    <section class="categories-bar" id="categories"></section>
+
+    <section class="content-grid">
+      <div id="books">
+        <div class="section-header">
+          <h2><i class="fa-solid fa-layer-group" style="color:var(--primary)"></i> Featured Books</h2>
+          <a href="#" class="view-all-link" id="viewAll">View all <i class="fa-solid fa-arrow-right"></i></a>
+        </div>
+        <div class="books-grid" id="booksGrid"></div>
+      </div>
+
+      <aside id="bestsellers">
+        <div class="section-header">
+          <h2><i class="fa-solid fa-trophy" style="color:var(--primary)"></i> Best Sellers</h2>
+        </div>
+        <div class="bestsellers-list" id="bestsellersList"></div>
+      </aside>
+    </section>
+
+    <section class="section-block" id="about">
+      <div class="about-grid">
+        <div>
+          <div class="hero-tag">ABOUT US</div>
+          <h2>A bookstore built around the way you think</h2>
+          <p>Evolution Mindset began with a simple belief: one good book, read well, can change the direction of a life. We are a small team of readers who select every title on this site by hand &mdash; from mindset and habits to money and leadership.</p>
+          <p>We read before we stock. Each book is rated on clarity, practicality and how easily it can be applied in the first week. Anything that is padding, hype or recycled advice does not make the shelf.</p>
+          <a href="#books" class="btn-primary"><i class="fa-solid fa-book"></i> Explore the books</a>
+        </div>
+        <div class="about-points">
+          <div class="about-point"><i class="fa-solid fa-hand-holding-heart"></i><h5>Handpicked</h5><p>Every book is read and reviewed by our editors first.</p></div>
+          <div class="about-point"><i class="fa-solid fa-bolt"></i><h5>Actionable</h5><p>Ideas you can apply this week, not just inspiration.</p></div>
+          <div class="about-point"><i class="fa-solid fa-indian-rupee-sign"></i><h5>Fair prices</h5><p>Up to 40% off the cover price on selected titles.</p></div>
+          <div class="about-point"><i class="fa-solid fa-people-group"></i><h5>Community</h5><p>Join the Evolution Club for reading challenges and picks.</p></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section-block" id="how">
+      <div class="section-title">
+        <div class="eyebrow">Simple &amp; quick</div>
+        <h2>How it works</h2>
+        <p>From discovering your next read to having it at your door in three easy steps.</p>
+      </div>
+      <div class="steps-grid">
+        <div class="step-card"><div class="step-num">1</div><h4>Find your book</h4><p>Browse by category, search by title or author, and open any book to read its summary, chapters and reviews.</p></div>
+        <div class="step-card"><div class="step-num">2</div><h4>Add &amp; checkout</h4><p>Save favourites to your wishlist, add to cart and check out securely with UPI, cards, net banking or cash on delivery.</p></div>
+        <div class="step-card"><div class="step-num">3</div><h4>Read &amp; grow</h4><p>Get doorstep delivery in 3&ndash;6 working days. Then put one idea to work every week with our reading guide.</p></div>
+      </div>
+    </section>
+
+    <section class="section-block" id="reviews">
+      <div class="section-title">
+        <div class="eyebrow">Reader stories</div>
+        <h2>What our readers say</h2>
+        <p>Real feedback from members of the Evolution Club.</p>
+      </div>
+      <div class="testi-grid" id="testiGrid"></div>
+    </section>
+
+    <section class="section-block" id="blog">
+      <div class="section-title">
+        <div class="eyebrow">From the journal</div>
+        <h2>Reading tips &amp; ideas</h2>
+        <p>Short, useful reads to help you get more from every book.</p>
+      </div>
+      <div class="blog-grid">
+        <article class="blog-card"><div class="blog-art" style="background:linear-gradient(135deg,#f59e0b,#7c2d12)"><i class="fa-solid fa-clock"></i></div><div class="blog-body"><span class="tag">Habits</span><h4>How to read 20 minutes a day and actually finish books</h4><p>A simple habit-stacking routine that turns scattered reading into a steady streak.</p><span class="read"><i class="fa-regular fa-clock"></i> 5 min read</span></div></article>
+        <article class="blog-card"><div class="blog-art" style="background:linear-gradient(135deg,#10b981,#064e3b)"><i class="fa-solid fa-sack-dollar"></i></div><div class="blog-body"><span class="tag">Money</span><h4>5 money beliefs that quietly hold you back</h4><p>Spot the stories you tell yourself about money and learn how to rewrite them.</p><span class="read"><i class="fa-regular fa-clock"></i> 6 min read</span></div></article>
+        <article class="blog-card"><div class="blog-art" style="background:linear-gradient(135deg,#8b5cf6,#2e1065)"><i class="fa-solid fa-pen-to-square"></i></div><div class="blog-body"><span class="tag">Learning</span><h4>The note-taking method that makes ideas stick</h4><p>Capture, connect and review: a light system for remembering what you read.</p><span class="read"><i class="fa-regular fa-clock"></i> 4 min read</span></div></article>
+      </div>
+    </section>
+
+    <section class="section-block" id="faq">
+      <div class="section-title">
+        <div class="eyebrow">Got questions?</div>
+        <h2>Frequently asked questions</h2>
+      </div>
+      <div class="faq-list">
+        <details><summary>How long does delivery take?</summary><p>Most orders arrive in 3&ndash;6 working days across India. Metro cities are often faster. You will get tracking details by email once your order ships.</p></details>
+        <details><summary>Is delivery free?</summary><p>Yes. Delivery is free on orders above &#8377;499. Below that, a flat shipping fee of &#8377;49 applies.</p></details>
+        <details><summary>What is your return policy?</summary><p>You can return a book within 7 days of delivery if it is damaged, defective or not the title you ordered. Items must be unused and in original packaging.</p></details>
+        <details><summary>Which payment methods do you accept?</summary><p>UPI, debit and credit cards, net banking, popular wallets and cash on delivery (select pin codes). All payments are encrypted.</p></details>
+        <details><summary>Are the books original and new?</summary><p>Every book is a new, original copy sourced directly from publishers and authorised distributors.</p></details>
+        <details><summary>Can I order in bulk or gift books?</summary><p>Yes. We offer gift wrapping and discounts on orders of 10 or more copies. Use the contact form below and we will get back to you within a day.</p></details>
+        <details><summary>How do I track my order?</summary><p>Log in and open <em>My Orders</em> from your profile menu, or use the tracking link in your shipping confirmation email.</p></details>
+      </div>
+    </section>
+
+    <section class="section-block" id="contact">
+      <div class="contact-grid">
+        <div class="contact-info">
+          <h3>Talk to us</h3>
+          <p>Need help choosing a book, tracking an order or planning a bulk purchase? Our team replies within one working day.</p>
+          <div class="contact-line"><i class="fa-solid fa-envelope"></i><span>support@evolutionmindset.example</span></div>
+          <div class="contact-line"><i class="fa-solid fa-phone"></i><span>+91 00000 00000 (10am&ndash;7pm IST)</span></div>
+          <div class="contact-line"><i class="fa-solid fa-location-dot"></i><span>Evolution Mindset, India</span></div>
+        </div>
+        <form class="contact-form" id="contactForm">
+          <div class="form-group"><label for="cName">Name</label><input id="cName" type="text" required maxlength="40" placeholder="Your name"></div>
+          <div class="form-group"><label for="cEmail">Email</label><input id="cEmail" type="email" required maxlength="80" placeholder="you@example.com"></div>
+          <div class="form-group"><label for="cTopic">Topic</label><select id="cTopic"><option>Book recommendation</option><option>Order &amp; delivery</option><option>Returns</option><option>Bulk / gifting</option><option>Other</option></select></div>
+          <div class="form-group"><label for="cMsg">Message</label><textarea id="cMsg" required maxlength="500" placeholder="How can we help?"></textarea></div>
+          <button type="submit" class="btn-form-submit">Send message</button>
+        </form>
+      </div>
+    </section>
+
+    <section class="newsletter-section" id="newsletter">
+      <div class="newsletter-text">
+        <h3>Join the Evolution Club</h3>
+        <p>Weekly book picks, reading tips and exclusive offers. No spam.</p>
+      </div>
+      <form class="newsletter-form" id="newsletterForm">
+        <input type="email" placeholder="Enter your email" required>
+        <button type="submit">Subscribe</button>
+      </form>
+    </section>
+
+    <section class="features-grid">
+      <div class="feature-item"><i class="fa-solid fa-truck-fast feature-icon"></i><div><h5>Free Delivery</h5><p>On orders above ₹499</p></div></div>
+      <div class="feature-item"><i class="fa-solid fa-rotate-left feature-icon"></i><div><h5>Easy Returns</h5><p>7-day return policy</p></div></div>
+      <div class="feature-item"><i class="fa-solid fa-shield-halved feature-icon"></i><div><h5>Secure Payment</h5><p>100% protected checkout</p></div></div>
+      <div class="feature-item"><i class="fa-solid fa-headset feature-icon"></i><div><h5>24/7 Support</h5><p>We're here to help</p></div></div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="footer-grid">
+      <div>
+        <h5><i class="fa-solid fa-book-open-reader" style="color:var(--primary)"></i> Evolution Mindset</h5>
+        <p>Read &bull; Learn &bull; Grow. Handpicked books on mindset, habits, money and leadership, delivered to your door.</p>
+        <div class="footer-social">
+          <a href="#" aria-label="Instagram"><i class="fa-brands fa-instagram"></i></a>
+          <a href="#" aria-label="YouTube"><i class="fa-brands fa-youtube"></i></a>
+          <a href="#" aria-label="X"><i class="fa-brands fa-x-twitter"></i></a>
+          <a href="#" aria-label="LinkedIn"><i class="fa-brands fa-linkedin-in"></i></a>
+        </div>
+      </div>
+      <div>
+        <h5>Shop</h5>
+        <a href="#books" data-nav="all">All Books</a>
+        <a href="#bestsellers" data-nav="bestsellers">Best Sellers</a>
+        <a href="#books" data-nav="new">New Arrivals</a>
+        <a href="#books" data-nav="growth">Self Growth</a>
+        <a href="#books" data-nav="business">Business</a>
+      </div>
+      <div>
+        <h5>Company</h5>
+        <a href="#about">About Us</a>
+        <a href="#how">How It Works</a>
+        <a href="#blog">Blog</a>
+        <a href="#faq">FAQ</a>
+        <a href="#contact">Contact</a>
+      </div>
+      <div>
+        <h5>Policies &amp; Payments</h5>
+        <a href="#faq">Shipping &amp; Delivery</a>
+        <a href="#faq">Returns &amp; Refunds</a>
+        <a href="#" data-policy="privacy">Privacy Policy</a>
+        <a href="#" data-policy="terms">Terms of Use</a>
+        <div class="payment-row"><i class="fa-brands fa-cc-visa"></i><i class="fa-brands fa-cc-mastercard"></i><i class="fa-solid fa-mobile-screen"></i><i class="fa-solid fa-money-bill-wave"></i></div>
+      </div>
+    </div>
+    <div class="footer-bottom">© 2026 Evolution Mindset. All rights reserved.</div>
+  </footer>
+  <button class="back-top" id="backTop" type="button" aria-label="Back to top"><i class="fa-solid fa-arrow-up"></i></button>
+
+  <!-- LOGIN MODAL -->
+  <div class="modal-overlay" id="loginModal">
+    <div class="modal-card" role="dialog" aria-modal="true" aria-labelledby="loginTitle">
+      <button class="modal-close" data-close aria-label="Close"><i class="fa-solid fa-xmark"></i></button>
+      <h3 id="loginTitle">Welcome back</h3>
+      <p class="subtitle">Log in to save your wishlist and track orders.</p>
+      <form id="loginForm">
+        <div class="form-group"><label for="loginName">Name</label><input id="loginName" type="text" placeholder="Your name" required maxlength="40"></div>
+        <div class="form-group"><label for="loginEmail">Email</label><input id="loginEmail" type="email" placeholder="you@example.com" required maxlength="80"></div>
+        <button type="submit" class="btn-form-submit">Login</button>
+      </form>
+      <div class="persona-section">
+        <span>Or continue as a demo user</span>
+        <div class="persona-list" id="personaList"></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- PROFILE MODAL -->
+  <div class="modal-overlay" id="profileModal">
+    <div class="modal-card" role="dialog" aria-modal="true">
+      <button class="modal-close" data-close aria-label="Close"><i class="fa-solid fa-xmark"></i></button>
+      <div class="profile-hero">
+        <img class="profile-avatar-lg" id="pfAvatar" alt="Avatar">
+        <div><h3 id="pfName"></h3><p id="pfEmail"></p><span class="user-dropdown-tier" id="pfTier"></span></div>
+      </div>
+      <div class="stats-counter-row">
+        <div class="stat-box"><div class="count" id="pfCart">0</div><div class="label">In Cart</div></div>
+        <div class="stat-box"><div class="count" id="pfWish">0</div><div class="label">Wishlist</div></div>
+        <div class="stat-box"><div class="count" id="pfOrders">0</div><div class="label">Orders</div></div>
+      </div>
+      <button class="btn-form-submit secondary" id="pfLogout" type="button"><i class="fa-solid fa-right-from-bracket"></i> Logout</button>
+    </div>
+  </div>
+
+  <!-- CART MODAL -->
+  <div class="modal-overlay" id="cartModal">
+    <div class="modal-card" role="dialog" aria-modal="true">
+      <button class="modal-close" data-close aria-label="Close"><i class="fa-solid fa-xmark"></i></button>
+      <h3>Your Cart</h3>
+      <p class="subtitle" id="cartSubtitle"></p>
+      <div class="cart-list" id="cartList"></div>
+      <div class="cart-total" id="cartTotalRow" style="display:none"><span>Total</span><span id="cartTotal"></span></div>
+      <button class="btn-form-submit" id="checkoutBtn" type="button" style="display:none">Checkout</button>
+    </div>
+  </div>
+
+  <!-- BOOK DETAIL MODAL -->
+  <div class="modal-overlay" id="bookModal">
+    <div class="modal-card wide" role="dialog" aria-modal="true" aria-labelledby="bdTitle">
+      <button class="modal-close" data-close aria-label="Close"><i class="fa-solid fa-xmark"></i></button>
+      <div id="bookDetail"></div>
+    </div>
+  </div>
+
+  <div class="toast" id="toast"></div>
+
+  <script>
+    // ---------- Data ----------
+    const categories = [
+      { name: 'All', icon: 'fa-border-all' },
+      { name: 'Mindset', icon: 'fa-brain' },
+      { name: 'Habits', icon: 'fa-repeat' },
+      { name: 'Money', icon: 'fa-sack-dollar' },
+      { name: 'Leadership', icon: 'fa-users' },
+      { name: 'Fiction', icon: 'fa-feather-pointed' }
+    ];
+
+    const books = [
+      { id: 1, title: 'The Growth Blueprint', author: 'A. Sharma', cat: 'Mindset', price: 349, orig: 499, rating: 4.7, reviews: 1280, badge: 'bestseller', img: 'https://images.unsplash.com/photo-1544947950-fa07a98d237f?auto=format&fit=crop&w=500&q=80' },
+      { id: 2, title: 'Tiny Daily Wins', author: 'R. Mehta', cat: 'Habits', price: 299, orig: 449, rating: 4.6, reviews: 960, badge: 'popular', img: 'https://images.unsplash.com/photo-1512820790803-83ca734da794?auto=format&fit=crop&w=500&q=80' },
+      { id: 3, title: 'Wealth Within', author: 'K. Iyer', cat: 'Money', price: 399, orig: 599, rating: 4.8, reviews: 2150, badge: 'bestseller', img: 'https://images.unsplash.com/photo-1495446815901-a7297e633e8d?auto=format&fit=crop&w=500&q=80' },
+      { id: 4, title: 'Lead Without Title', author: 'S. Kapoor', cat: 'Leadership', price: 379, orig: 529, rating: 4.5, reviews: 540, badge: 'new', img: 'https://images.unsplash.com/photo-1481627834876-b7833e8f5570?auto=format&fit=crop&w=500&q=80' },
+      { id: 5, title: 'Deep Focus', author: 'M. Rao', cat: 'Mindset', price: 329, orig: 479, rating: 4.4, reviews: 710, badge: 'trending', img: 'https://images.unsplash.com/photo-1589998059171-988d887df646?auto=format&fit=crop&w=500&q=80' },
+      { id: 6, title: 'The Habit Loop Guide', author: 'N. Verma', cat: 'Habits', price: 279, orig: 399, rating: 4.6, reviews: 880, badge: 'popular', img: 'https://images.unsplash.com/photo-1532012197267-da84d127e765?auto=format&fit=crop&w=500&q=80' },
+      { id: 7, title: 'Money Mindset 101', author: 'P. Nair', cat: 'Money', price: 359, orig: 549, rating: 4.7, reviews: 1430, badge: 'trending', img: 'https://images.unsplash.com/photo-1507842229458-7790156c376e?auto=format&fit=crop&w=500&q=80' },
+      { id: 8, title: 'Midnight Library Days', author: 'T. Bose', cat: 'Fiction', price: 249, orig: 349, rating: 4.3, reviews: 390, badge: 'new', img: 'https://images.unsplash.com/photo-1524995997946-a1c2e315a42f?auto=format&fit=crop&w=500&q=80' }
+    ];
+
+    const personas = [
+      { name: 'Aarav Sharma', email: 'aarav@example.com', tier: 'Gold Reader' },
+      { name: 'Priya Nair', email: 'priya@example.com', tier: 'Silver Reader' },
+      { name: 'Rohan Mehta', email: 'rohan@example.com', tier: 'Member' }
+    ];
+
+    const navFilters = {
+      home: () => true, all: () => true, bestsellers: () => true, newsletter: () => true,
+      new: b => b.badge === 'new',
+      growth: b => b.cat === 'Mindset' || b.cat === 'Habits',
+      business: b => b.cat === 'Money' || b.cat === 'Leadership'
+    };
+
+    // ---------- State ----------
+    const state = { cat: 'All', query: '', nav: 'home', top: false, under: false, sort: 'featured' };
+    const cart = new Set(), wish = new Set();
+    let user = null, orders = 0;
+
+    // ---------- Helpers ----------
+    const $ = id => document.getElementById(id);
+    const rupee = n => '₹' + n.toLocaleString('en-IN');
+    function avatar(name) {
+      const initials = (name || '?').trim().split(/\s+/).map(w => w[0]).slice(0, 2).join('').toUpperCase() || '?';
+      const svg = `<svg xmlns="http://www.w3.org/2000/svg" width="96" height="96"><rect width="96" height="96" fill="#f59e0b"/><text x="50%" y="50%" dy=".35em" text-anchor="middle" font-family="Arial,sans-serif" font-size="38" font-weight="700" fill="#111">${initials.replace(/[<>&"]/g, '')}</text></svg>`;
+      return 'data:image/svg+xml;charset=utf-8,' + encodeURIComponent(svg);
+    }
+    // Fallback cover (inline SVG) so every book always shows a picture, even if its photo URL fails to load
+    const coverColors = { Mindset: ['#f59e0b', '#7c2d12'], Habits: ['#3b82f6', '#1e1b4b'], Money: ['#10b981', '#064e3b'], Leadership: ['#8b5cf6', '#2e1065'], Fiction: ['#ec4899', '#500724'] };
+    function wrapTitle(t) {
+      const words = t.split(' '), lines = []; let cur = '';
+      words.forEach(w => { if ((cur + ' ' + w).trim().length > 14) { lines.push(cur.trim()); cur = w; } else cur += ' ' + w; });
+      if (cur.trim()) lines.push(cur.trim());
+      return lines.slice(0, 4);
+    }
+    function coverFallback(b) {
+      const [c1, c2] = coverColors[b.cat] || ['#f59e0b', '#1f2937'];
+      const esc = s => String(s).replace(/[<>&"']/g, '');
+      const lines = wrapTitle(esc(b.title)).map((l, i) => `<text x="150" y="${150 + i * 34}" text-anchor="middle" font-family="Georgia,serif" font-size="28" font-weight="700" fill="#fff">${l}</text>`).join('');
+      const svg = `<svg xmlns="http://www.w3.org/2000/svg" width="300" height="420" viewBox="0 0 300 420"><defs><linearGradient id="g" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="${c1}"/><stop offset="1" stop-color="${c2}"/></linearGradient></defs><rect width="300" height="420" fill="url(#g)"/><rect x="18" y="18" width="264" height="384" fill="none" stroke="rgba(255,255,255,0.45)" stroke-width="2"/><text x="150" y="70" text-anchor="middle" font-family="Arial,sans-serif" font-size="13" letter-spacing="3" fill="rgba(255,255,255,0.8)">${esc(b.cat).toUpperCase()}</text>${lines}<text x="150" y="375" text-anchor="middle" font-family="Arial,sans-serif" font-size="16" fill="rgba(255,255,255,0.9)">${esc(b.author)}</text></svg>`;
+      return 'data:image/svg+xml;charset=utf-8,' + encodeURIComponent(svg);
+    }
+    // ---------- Realistic front covers (unique artwork per book, drawn as inline SVG) ----------
+    function seeded(seed) { let s = seed; return () => (s = (s * 9301 + 49297) % 233280) / 233280; }
+    const coverDefs = {
+      1: { bg: ['#12467a', '#050d1a'], accent: '#f5b942', kicker: 'THE INTERNATIONAL BESTSELLER', lines: ['THE GROWTH', 'BLUEPRINT'], font: 'Arial Black,Helvetica,sans-serif', fs: 33, fw: 900, ls: 1,
+        art: () => {
+          let g = '';
+          for (let i = 0; i <= 15; i++) g += `<line x1="${30 + i * 16}" y1="62" x2="${30 + i * 16}" y2="232" /><line x1="30" y1="${62 + i * 11.4}" x2="270" y2="${62 + i * 11.4}" />`;
+          return `<g stroke="rgba(140,190,255,.22)" stroke-width="1">${g}</g>
+            <path d="M44 226 H92 V196 H140 V166 H188 V136 H236 V106" fill="none" stroke="#f5b942" stroke-width="5" stroke-linejoin="round"/>
+            <path d="M44 226 H92 V196 H140 V166 H188 V136 H236 V106 V226 Z" fill="rgba(245,185,66,.12)"/>
+            <path d="M236 106 V80" stroke="#7ee08a" stroke-width="4" stroke-linecap="round"/>
+            <path d="M236 92 C214 92 208 74 214 66 C228 66 236 76 236 92Z" fill="#7ee08a"/>
+            <path d="M236 84 C256 84 262 66 256 58 C242 58 236 68 236 84Z" fill="#4cc069"/>
+            <circle cx="44" cy="226" r="5" fill="#fff"/><circle cx="236" cy="106" r="5" fill="#fff"/>`;
+        } },
+      2: { bg: ['#ff8a5c', '#b3261e'], accent: '#fff3c4', kicker: 'SMALL STEPS. BIG CHANGE.', lines: ['TINY DAILY', 'WINS'], font: 'Georgia,Times,serif', fs: 36, fw: 700, ls: 0.5,
+        art: () => {
+          let rays = '';
+          for (let i = 0; i < 13; i++) { const a = Math.PI + (i / 12) * Math.PI, x1 = 150 + Math.cos(a) * 72, y1 = 168 + Math.sin(a) * 72, x2 = 150 + Math.cos(a) * 98, y2 = 168 + Math.sin(a) * 98; rays += `<line x1="${x1.toFixed(1)}" y1="${y1.toFixed(1)}" x2="${x2.toFixed(1)}" y2="${y2.toFixed(1)}"/>`; }
+          let dots = '';
+          for (let i = 0; i < 5; i++) { const x = 70 + i * 40; dots += `<circle cx="${x}" cy="208" r="14" fill="#fff3c4" opacity="${0.55 + i * 0.11}"/><path d="M${x - 6} 208 l4 5 l8 -10" fill="none" stroke="#b3261e" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>`; }
+          return `<g stroke="#fff3c4" stroke-width="4" stroke-linecap="round" opacity=".85">${rays}</g>
+            <path d="M78 168 A72 72 0 0 1 222 168 Z" fill="#fff3c4"/>
+            <rect x="40" y="168" width="220" height="3" fill="rgba(255,255,255,.5)"/>${dots}`;
+        } },
+      3: { bg: ['#0f5a3a', '#04180f'], accent: '#e8c36a', kicker: 'THE FINANCIAL FREEDOM CLASSIC', lines: ['WEALTH', 'WITHIN'], font: 'Georgia,Times,serif', fs: 42, fw: 700, ls: 4, tc: '#f3deaa',
+        art: () => `<defs><radialGradient id="coin" cx=".35" cy=".3" r=".9"><stop offset="0" stop-color="#fff2b8"/><stop offset=".5" stop-color="#e2b13c"/><stop offset="1" stop-color="#8a5a0b"/></radialGradient></defs>
+          <ellipse cx="150" cy="226" rx="78" ry="10" fill="rgba(0,0,0,.45)"/>
+          <circle cx="90" cy="206" r="22" fill="url(#coin)"/><circle cx="90" cy="206" r="16" fill="none" stroke="#8a5a0b" stroke-width="2"/>
+          <circle cx="212" cy="208" r="20" fill="url(#coin)"/><circle cx="212" cy="208" r="14" fill="none" stroke="#8a5a0b" stroke-width="2"/>
+          <circle cx="150" cy="140" r="70" fill="url(#coin)"/><circle cx="150" cy="140" r="58" fill="none" stroke="#8a5a0b" stroke-width="3"/><circle cx="150" cy="140" r="52" fill="none" stroke="rgba(255,240,180,.8)" stroke-width="1.5" stroke-dasharray="3 4"/>
+          <text x="150" y="162" text-anchor="middle" font-family="Georgia,serif" font-size="68" font-weight="700" fill="#7a4d08">₹</text>` },
+      4: { bg: ['#2b2f38', '#0b0c10'], accent: '#ff4d4f', kicker: 'LEADERSHIP IS A CHOICE', lines: ['LEAD', 'WITHOUT', 'TITLE'], font: 'Arial Black,Helvetica,sans-serif', fs: 36, fw: 900, ls: 2,
+        art: () => {
+          let f = '';
+          const pts = [[100, 190], [200, 190], [70, 218], [230, 218], [130, 214], [170, 214]];
+          pts.forEach(([x, y]) => { f += `<path d="M${x} ${y - 26} L${x + 15} ${y + 8} L${x - 15} ${y + 8} Z" fill="#6b7280" opacity=".75"/>`; });
+          return `${f}<path d="M150 62 L186 160 L114 160 Z" fill="#ff4d4f"/><path d="M150 62 L186 160 L150 148 Z" fill="#c2272a"/><circle cx="150" cy="62" r="4" fill="#fff"/>
+            <path d="M150 170 V232" stroke="#ff4d4f" stroke-width="3" stroke-dasharray="3 6"/>`;
+        } },
+      5: { bg: ['#1c1750', '#05040f'], accent: '#7dd3fc', kicker: 'MASTER YOUR ATTENTION', lines: ['DEEP', 'FOCUS'], font: 'Helvetica,Arial,sans-serif', fs: 46, fw: 300, ls: 10,
+        art: () => {
+          let r = '';
+          for (let i = 1; i <= 6; i++) r += `<circle cx="150" cy="146" r="${i * 15}" fill="none" stroke="#7dd3fc" stroke-width="${i === 6 ? 1 : 1.5}" opacity="${(1 - i * 0.13).toFixed(2)}"/>`;
+          return `<defs><radialGradient id="glow"><stop offset="0" stop-color="#e0f7ff"/><stop offset=".4" stop-color="#7dd3fc" stop-opacity=".7"/><stop offset="1" stop-color="#7dd3fc" stop-opacity="0"/></radialGradient></defs>
+            <circle cx="150" cy="146" r="60" fill="url(#glow)"/>${r}<circle cx="150" cy="146" r="7" fill="#fff"/>`;
+        } },
+      6: { bg: ['#5b21b6', '#1a0a3d'], accent: '#ffb347', kicker: 'BUILD ROUTINES THAT STICK', lines: ['THE HABIT', 'LOOP', 'GUIDE'], font: 'Georgia,Times,serif', fs: 36, fw: 700, ls: 1,
+        art: () => {
+          const cx = 150, cy = 146, r = 70; let out = '';
+          [[-80, 20, 'CUE'], [40, 140, 'ROUTINE'], [160, 260, 'REWARD']].forEach(([a0, a1, label], i) => {
+            const p = a => [cx + r * Math.cos(a * Math.PI / 180), cy + r * Math.sin(a * Math.PI / 180)];
+            const [x0, y0] = p(a0), [x1, y1] = p(a1), ang = (a1 + 90) * Math.PI / 180;
+            const hx = x1 + Math.cos(ang) * 0, hy = y1 + Math.sin(ang) * 0;
+            const tip = [x1 + Math.cos(ang) * 14, y1 + Math.sin(ang) * 14], l = [x1 + Math.cos(ang + 2.2) * 11, y1 + Math.sin(ang + 2.2) * 11], rr = [x1 + Math.cos(ang - 2.2) * 11, y1 + Math.sin(ang - 2.2) * 11];
+            out += `<path d="M${x0.toFixed(1)} ${y0.toFixed(1)} A${r} ${r} 0 0 1 ${hx.toFixed(1)} ${hy.toFixed(1)}" fill="none" stroke="#ffb347" stroke-width="9" stroke-linecap="round" opacity="${1 - i * 0.2}"/>
+              <path d="M${tip.map(n => n.toFixed(1)).join(' ')} L${l.map(n => n.toFixed(1)).join(' ')} L${rr.map(n => n.toFixed(1)).join(' ')} Z" fill="#ffb347" opacity="${1 - i * 0.2}"/>`;
+          });
+          return `${out}<circle cx="150" cy="146" r="40" fill="rgba(255,255,255,.08)"/><text x="150" y="160" text-anchor="middle" font-family="Georgia,serif" font-size="42" font-weight="700" fill="#fff">21</text><text x="150" y="178" text-anchor="middle" font-family="Arial,sans-serif" font-size="9" letter-spacing="3" fill="#ffd9a0">DAYS</text>`;
+        } },
+      7: { bg: ['#064e4b', '#021615'], accent: '#c6f432', kicker: 'RETHINK YOUR RELATIONSHIP WITH MONEY', lines: ['MONEY', 'MINDSET', '101'], font: 'Arial Black,Helvetica,sans-serif', fs: 36, fw: 900, ls: 1,
+        art: () => `<defs><linearGradient id="area" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#c6f432" stop-opacity=".45"/><stop offset="1" stop-color="#c6f432" stop-opacity="0"/></linearGradient></defs>
+          <g stroke="rgba(255,255,255,.12)" stroke-width="1"><line x1="40" y1="80" x2="260" y2="80"/><line x1="40" y1="130" x2="260" y2="130"/><line x1="40" y1="180" x2="260" y2="180"/><line x1="40" y1="226" x2="260" y2="226"/></g>
+          <path d="M40 214 L88 190 L128 198 L170 148 L212 128 L248 80 L248 226 L40 226 Z" fill="url(#area)"/>
+          <path d="M40 214 L88 190 L128 198 L170 148 L212 128 L248 80" fill="none" stroke="#c6f432" stroke-width="5" stroke-linejoin="round" stroke-linecap="round"/>
+          <circle cx="248" cy="80" r="17" fill="#c6f432"/><text x="248" y="88" text-anchor="middle" font-family="Arial,sans-serif" font-size="22" font-weight="700" fill="#064e4b">₹</text>` },
+      8: { bg: ['#0e1a45', '#04060f'], accent: '#ffd479', kicker: 'A NOVEL', lines: ['MIDNIGHT', 'LIBRARY', 'DAYS'], font: 'Georgia,Times,serif', fs: 36, fw: 400, ls: 3, italic: true,
+        art: () => {
+          const rnd = seeded(7); let stars = '';
+          for (let i = 0; i < 34; i++) stars += `<circle cx="${(36 + rnd() * 228).toFixed(1)}" cy="${(60 + rnd() * 110).toFixed(1)}" r="${(0.6 + rnd() * 1.4).toFixed(1)}" fill="#fff" opacity="${(0.4 + rnd() * 0.6).toFixed(2)}"/>`;
+          let shelf = '', x = 40; const hs = [58, 76, 50, 68, 82, 54, 70, 62, 78, 56, 66];
+          hs.forEach((h, i) => { const w = 14 + (i % 3) * 4; shelf += `<rect x="${x}" y="${230 - h}" width="${w}" height="${h}" fill="${['#2a3a7a', '#7a2a4a', '#2a6a6a', '#8a5a2a'][i % 4]}"/><rect x="${x + 3}" y="${230 - h + 8}" width="${w - 6}" height="3" fill="rgba(255,255,255,.35)"/>`; x += w + 2; });
+          return `${stars}<circle cx="212" cy="108" r="34" fill="#ffe9a8"/><circle cx="226" cy="98" r="30" fill="#0e1a45"/>
+            <rect x="34" y="230" width="232" height="5" fill="#ffd479"/>${shelf}
+            <rect x="170" y="150" width="30" height="40" fill="#ffd479" opacity=".18"/>`;
+        } }
+    };
+    function coverArt(b) {
+      const c = coverDefs[b.id]; if (!c) return coverFallback(b);
+      const esc = s => String(s).replace(/[<>&"']/g, '');
+      const ty = 262, lineH = c.fs * 1.1;
+      const title = c.lines.map((l, i) => `<text x="150" y="${(ty + i * lineH).toFixed(1)}" text-anchor="middle" font-family="${c.font}" font-size="${c.fs}" font-weight="${c.fw}" letter-spacing="${c.ls}" ${c.italic ? 'font-style="italic"' : ''} fill="${c.tc || '#fff'}">${l}</text>`).join('');
+      const seal = b.badge === 'bestseller' ? `<g transform="translate(246 62) rotate(12)"><circle r="26" fill="#f5b942"/><circle r="22" fill="none" stroke="#7a4d08" stroke-width="1.2" stroke-dasharray="2 2"/><text y="-4" text-anchor="middle" font-family="Arial,sans-serif" font-size="8" font-weight="700" fill="#4a2e04">#1</text><text y="6" text-anchor="middle" font-family="Arial,sans-serif" font-size="6.5" font-weight="700" fill="#4a2e04">BESTSELLER</text></g>` : '';
+      const svg = `<svg xmlns="http://www.w3.org/2000/svg" width="300" height="420" viewBox="0 0 300 420">
+        <defs>
+          <linearGradient id="bg" x1="0" y1="0" x2="0.6" y2="1"><stop offset="0" stop-color="${c.bg[0]}"/><stop offset="1" stop-color="${c.bg[1]}"/></linearGradient>
+          <linearGradient id="spine" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#000" stop-opacity=".55"/><stop offset=".6" stop-color="#000" stop-opacity=".08"/><stop offset="1" stop-color="#fff" stop-opacity=".18"/></linearGradient>
+          <linearGradient id="gloss" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#fff" stop-opacity=".16"/><stop offset=".45" stop-color="#fff" stop-opacity="0"/></linearGradient>
+          <filter id="paper"><feTurbulence type="fractalNoise" baseFrequency=".85" numOctaves="2" seed="3"/><feColorMatrix values="0 0 0 0 0  0 0 0 0 0  0 0 0 0 0  0 0 0 .09 0"/></filter>
+        </defs>
+        <rect width="300" height="420" fill="url(#bg)"/>
+        <rect width="300" height="420" filter="url(#paper)"/>
+        <text x="150" y="40" text-anchor="middle" font-family="Arial,sans-serif" font-size="9.5" font-weight="700" letter-spacing="2.6" fill="${c.accent}">${esc(c.kicker)}</text>
+        <line x1="90" y1="48" x2="210" y2="48" stroke="${c.accent}" stroke-width="1" opacity=".7"/>
+        ${c.art()}
+        ${title}
+        <line x1="110" y1="${(ty + (c.lines.length - 1) * lineH + 22).toFixed(1)}" x2="190" y2="${(ty + (c.lines.length - 1) * lineH + 22).toFixed(1)}" stroke="${c.accent}" stroke-width="2"/>
+        <text x="150" y="388" text-anchor="middle" font-family="Arial,sans-serif" font-size="14" font-weight="700" letter-spacing="5" fill="#fff">${esc(b.author).toUpperCase()}</text>
+        <text x="150" y="408" text-anchor="middle" font-family="Arial,sans-serif" font-size="7.5" letter-spacing="3" fill="rgba(255,255,255,.6)">EVOLUTION MINDSET PRESS</text>
+        ${seal}
+        <rect width="300" height="420" fill="url(#gloss)"/>
+        <rect width="18" height="420" fill="url(#spine)"/><line x1="19" y1="0" x2="19" y2="420" stroke="#fff" stroke-opacity=".2"/><line x1="22" y1="0" x2="22" y2="420" stroke="#000" stroke-opacity=".18"/>
+        <rect x=".5" y=".5" width="299" height="419" fill="none" stroke="#000" stroke-opacity=".5"/>
+      </svg>`;
+      return 'data:image/svg+xml;charset=utf-8,' + encodeURIComponent(svg);
+    }
+
+    // ---------- Extra book details ----------
+    const details = {
+      1: { tag: 'Turn small decisions into a lifelong growth plan.', pages: 288, year: 2025, lang: 'English', isbn: '978-81-00001-01-1', format: 'Paperback', pub: 'Evolution Mindset Press', time: '6 hrs',
+        desc: ['The Growth Blueprint shows how to design your personal growth the way an engineer designs a bridge: with clear goals, a solid structure and regular inspections.', 'Across twelve practical chapters, A. Sharma breaks the idea of "self-improvement" into a repeatable system you can start in a single afternoon.'],
+        learn: ['Set a 12-month direction using a one-page blueprint', 'Replace vague goals with measurable weekly milestones', 'Build resilience with a simple failure-review ritual', 'Track progress without burnout or perfectionism'],
+        chapters: ['Why most goals fail', 'The one-page blueprint', 'Foundations: values and vision', 'Weekly milestones', 'Feedback loops', 'Rebuilding after setbacks'],
+        revs: [['Ananya R.', 5, 'Clear, practical and refreshingly short on fluff. My blueprint is pinned above my desk.'], ['Vikram S.', 4, 'Great framework. The review ritual chapter alone was worth the price.']] },
+      2: { tag: 'Small steps. Big change.', pages: 224, year: 2024, lang: 'English', isbn: '978-81-00001-02-8', format: 'Paperback', pub: 'Evolution Mindset Press', time: '4.5 hrs',
+        desc: ['Big change rarely comes from big effort. R. Mehta argues that tiny daily wins, repeated, compound into a completely different life.', 'This book gives you a 21-day plan, ready-to-use habit templates and honest advice for the days you miss.'],
+        learn: ['Shrink any habit to a two-minute starter version', 'Stack new habits on routines you already have', 'Design your space so good choices are the easy ones', 'Recover quickly after a missed day'],
+        chapters: ['The power of small', 'Starting ridiculously small', 'Habit stacking', 'Your environment', 'The 21-day plan', 'When you slip'],
+        revs: [['Meera K.', 5, 'I finally have a morning routine that lasts longer than a week.'], ['Arjun D.', 4, 'Easy to read and very doable. The templates are handy.']] },
+      3: { tag: 'The financial freedom classic for the modern Indian saver.', pages: 336, year: 2024, lang: 'English', isbn: '978-81-00001-03-5', format: 'Paperback', pub: 'Evolution Mindset Press', time: '8 hrs',
+        desc: ['Wealth Within begins where most money books end: with your own beliefs. K. Iyer explains how your upbringing shapes spending, saving and risk, and how to reset those instincts.', 'Alongside the mindset work you get simple, jargon-free guidance on budgeting, emergency funds, investing basics and building wealth steadily over decades.'],
+        learn: ['Identify the money beliefs you inherited', 'Build a budget that you will actually follow', 'Create an emergency fund and a debt payoff plan', 'Understand long-term investing in plain language'],
+        chapters: ['Your money story', 'Needs, wants and values', 'The simple budget', 'Safety nets', 'Investing without fear', 'Wealth that lasts'],
+        revs: [['Sanjay P.', 5, 'The best money book I have read. Practical and honest.'], ['Divya T.', 5, 'Finally explained without complicated jargon. Highly recommended.']] },
+      4: { tag: 'Leadership is a choice, not a job title.', pages: 256, year: 2026, lang: 'English', isbn: '978-81-00001-04-2', format: 'Paperback', pub: 'Evolution Mindset Press', time: '5.5 hrs',
+        desc: ['You do not need a promotion to lead. S. Kapoor shows how influence, trust and initiative can be built from wherever you are standing today.', 'Packed with short case studies and scripts for difficult conversations, this book is ideal for early-career professionals and aspiring managers.'],
+        learn: ['Lead through influence rather than authority', 'Communicate clearly in meetings and one-to-ones', 'Give and receive honest feedback', 'Build a reputation people trust'],
+        chapters: ['Leadership without permission', 'Owning outcomes', 'Communicating with impact', 'Hard conversations', 'Building trust', 'Growing other leaders'],
+        revs: [['Rahul M.', 5, 'Helped me step up in my team before I was a manager. Got promoted six months later.'], ['Neha J.', 4, 'Practical scripts and clear examples.']] },
+      5: { tag: 'Master your attention in a world of distraction.', pages: 240, year: 2025, lang: 'English', isbn: '978-81-00001-05-9', format: 'Paperback', pub: 'Evolution Mindset Press', time: '5 hrs',
+        desc: ['Your attention is your most valuable asset, and everything around you is built to take it. Deep Focus offers a calm, science-informed way to take it back.', 'M. Rao combines research on attention with simple daily practices that help you work deeply, rest properly and enjoy your time offline.'],
+        learn: ['Create a distraction-free deep work routine', 'Use phone and notification rules that work', 'Structure your day around energy, not just time', 'Train your focus like a muscle'],
+        chapters: ['The attention crisis', 'Anatomy of focus', 'Designing deep work', 'Taming your phone', 'Rest and recovery', 'A focused life'],
+        revs: [['Karthik V.', 5, 'My screen time dropped by half and my work improved.'], ['Isha B.', 4, 'Calm, practical and not preachy.']] },
+      6: { tag: 'Build routines that stick, using the science of habit.', pages: 208, year: 2024, lang: 'English', isbn: '978-81-00001-06-6', format: 'Paperback', pub: 'Evolution Mindset Press', time: '4 hrs',
+        desc: ['Every habit follows the same loop: cue, routine, reward. N. Verma walks you through each step so you can build good habits and break the stubborn ones.', 'Short chapters, worksheets and real-life examples make this guide a perfect first book on habits.'],
+        learn: ['Map your own habit loops', 'Find the real reward behind a bad habit', 'Swap routines instead of fighting them', 'Use a 21-day tracker to stay consistent'],
+        chapters: ['Meet the habit loop', 'Cues and triggers', 'Designing routines', 'Rewards that work', 'Breaking bad habits', 'Staying consistent'],
+        revs: [['Pooja L.', 5, 'Short, clear and full of useful worksheets.'], ['Aditya N.', 4, 'Perfect for beginners.']] },
+      7: { tag: 'Rethink your relationship with money.', pages: 272, year: 2025, lang: 'English', isbn: '978-81-00001-07-3', format: 'Paperback', pub: 'Evolution Mindset Press', time: '6 hrs',
+        desc: ['Money Mindset 101 is a beginner-friendly crash course in how money works and, more importantly, how you feel about it.', 'P. Nair covers earning, saving, investing and giving, with exercises to build confident, calm money habits at any income level.'],
+        learn: ['Understand the psychology behind spending', 'Set clear financial goals and priorities', 'Start investing with small, regular amounts', 'Avoid common money mistakes'],
+        chapters: ['Money and emotion', 'Earning with intent', 'Saving that sticks', 'Starting to invest', 'Protecting what you build', 'Giving and growing'],
+        revs: [['Tanvi G.', 5, 'Perfect first money book. Easy to understand and actually enjoyable.'], ['Harish C.', 4, 'Solid basics with practical exercises.']] },
+      8: { tag: 'A novel about second chances and the books that shape us.', pages: 312, year: 2026, lang: 'English', isbn: '978-81-00001-08-0', format: 'Paperback', pub: 'Evolution Mindset Press', time: '7 hrs',
+        desc: ['After a sleepless night, a young librarian discovers a hidden section of the library where every book is a different version of her life.', 'T. Bose weaves warmth, mystery and gentle humour into a story about regret, courage and the lives we might have lived.'],
+        learn: ['A comforting, thoughtful read for quiet evenings', 'Themes of choice, regret and renewal', 'A perfect gift for fellow book lovers'],
+        chapters: ['The closing bell', 'The hidden shelf', 'Other lives', 'The choice', 'Dawn', 'Last page'],
+        revs: [['Sneha A.', 5, 'Beautiful and moving. Could not put it down.'], ['Rishi O.', 4, 'A warm, thoughtful story.']] }
+    };
+    books.forEach(b => Object.assign(b, details[b.id] || {}));
+    // Keep the original photo as b.photo; the realistic generated cover becomes the main picture
+    books.forEach(b => { b.photo = b.img; b.img = coverArt(b); });
+
+    // Any book photo that fails to load is swapped for its generated cover
+    document.addEventListener('error', e => {
+      const img = e.target;
+      if (!(img instanceof HTMLImageElement) || img.dataset.fallback) return;
+      const b = books.find(x => x.id === +img.dataset.book);
+      if (b) { img.dataset.fallback = '1'; img.src = coverFallback(b); }
+    }, true);
+    function stars(r) {
+      let s = '';
+      for (let i = 1; i <= 5; i++) {
+        if (r >= i) s += '<i class="fa-solid fa-star"></i>';
+        else if (r >= i - 0.5) s += '<i class="fa-solid fa-star-half-stroke"></i>';
+        else s += '<i class="fa-regular fa-star"></i>';
+      }
+      return s;
+    }
+    function toast(msg) {
+      const t = $('toast'); t.textContent = msg; t.classList.add('show');
+      clearTimeout(toast._t); toast._t = setTimeout(() => t.classList.remove('show'), 2000);
+    }
+    function saveUser() { try { user ? localStorage.setItem('em_user', JSON.stringify(user)) : localStorage.removeItem('em_user'); } catch (e) {} }
+    function loadUser() { try { const u = JSON.parse(localStorage.getItem('em_user') || 'null'); if (u && u.name && u.email) user = u; } catch (e) {} }
+
+    // ---------- Filtering ----------
+    function visibleBooks() {
+      let list = books.filter(b =>
+        (state.cat === 'All' || b.cat === state.cat) &&
+        navFilters[state.nav](b) &&
+        (!state.top || b.rating >= 4.5) &&
+        (!state.under || b.price <= 350) &&
+        (b.title + ' ' + b.author + ' ' + b.cat).toLowerCase().includes(state.query));
+      if (state.sort === 'priceAsc') list.sort((a, b) => a.price - b.price);
+      else if (state.sort === 'priceDesc') list.sort((a, b) => b.price - a.price);
+      else if (state.sort === 'rating') list.sort((a, b) => b.rating - a.rating);
+      return list;
+    }
+
+    // ---------- Render ----------
+    function renderCategories() {
+      $('categories').innerHTML = categories.map(c => {
+        const n = c.name === 'All' ? books.length : books.filter(b => b.cat === c.name).length;
+        return `<div class="category-card ${c.name === state.cat ? 'active' : ''}" data-cat="${c.name}">
+          <div class="category-icon"><i class="fa-solid ${c.icon}"></i></div>
+          <h4>${c.name}</h4><span>${n} books</span></div>`;
+      }).join('');
+    }
+
+    function renderBooks() {
+      const list = visibleBooks();
+      $('booksGrid').innerHTML = list.length ? list.map(b => `
+        <article class="book-card">
+          <span class="book-badge badge-${b.badge}">${b.badge}</span>
+          <div class="book-cover-wrap" data-detail="${b.id}"><img src="${b.img}" data-book="${b.id}" alt="${b.title}" loading="lazy"></div>
+          <h3 class="book-title" data-detail="${b.id}">${b.title}</h3>
+          <p class="book-author">by ${b.author} &bull; ${b.cat}</p>
+          <p class="book-blurb">${b.tag}</p>
+          <div class="book-meta"><span class="chip">${b.pages} pages</span><span class="chip">${b.format}</span><span class="chip">${b.lang}</span></div>
+          <div class="rating-wrap">${stars(b.rating)} <span class="rating-score">${b.rating}</span><span class="review-count">(${b.reviews.toLocaleString('en-IN')})</span></div>
+          <div class="price-row"><span class="price-current">${rupee(b.price)}</span><span class="price-original">${rupee(b.orig)}</span><span class="save-tag">${Math.round((1 - b.price / b.orig) * 100)}% off</span></div>
+          <button class="btn-details" data-detail="${b.id}"><i class="fa-solid fa-circle-info"></i> View details</button>
+          <div class="card-footer">
+            <button class="btn-add-cart" data-cart="${b.id}"><i class="fa-solid ${cart.has(b.id) ? 'fa-check' : 'fa-cart-plus'}"></i> ${cart.has(b.id) ? 'In Cart' : 'Add to Cart'}</button>
+            <button class="btn-wishlist ${wish.has(b.id) ? 'active' : ''}" data-wish="${b.id}" aria-label="Wishlist"><i class="fa-${wish.has(b.id) ? 'solid' : 'regular'} fa-heart"></i></button>
+          </div>
+        </article>`).join('') : '<div class="empty-state">No books found.</div>';
+    }
+
+    function renderBestsellers() {
+      const top = [...books].sort((a, b) => b.reviews - a.reviews).slice(0, 5);
+      $('bestsellersList').innerHTML = top.map((b, i) => `
+        <div class="bestseller-item" data-detail="${b.id}">
+          <div class="rank-number">${i + 1}</div>
+          <div class="bestseller-thumb"><img src="${b.img}" data-book="${b.id}" alt="${b.title}" loading="lazy"></div>
+          <div class="bestseller-info">
+            <h4>${b.title}</h4><p>${b.author}</p>
+            <div class="bestseller-pricing"><span class="cur">${rupee(b.price)}</span><span class="orig">${rupee(b.orig)}</span></div>
+          </div>
+        </div>`).join('');
+    }
+
+    function renderUserMenu() {
+      const m = $('userMenu');
+      if (!user) {
+        m.innerHTML = '<button class="user-pill-btn guest" id="loginOpenBtn" type="button"><i class="fa-regular fa-circle-user"></i> Login</button>';
+        return;
+      }
+      m.innerHTML = `
+        <button class="user-pill-btn" id="userBtn" type="button"><img class="user-pill-avatar" id="pillAv" alt=""><span id="pillName"></span><i class="fa-solid fa-chevron-down" style="font-size:10px"></i></button>
+        <div class="user-dropdown" id="userDropdown">
+          <div class="user-dropdown-header"><img id="ddAv" alt=""><div><div class="user-dropdown-name" id="ddName"></div><span class="user-dropdown-tier" id="ddTier"></span></div></div>
+          <button type="button" data-action="profile"><i class="fa-solid fa-user"></i> My Profile</button>
+          <button type="button" data-action="orders"><i class="fa-solid fa-box"></i> My Orders</button>
+          <button type="button" data-action="settings"><i class="fa-solid fa-gear"></i> Settings</button>
+          <button type="button" class="logout-btn" data-action="logout"><i class="fa-solid fa-right-from-bracket"></i> Logout</button>
+        </div>`;
+      const av = avatar(user.name);
+      $('pillAv').src = av; $('ddAv').src = av;
+      $('pillName').textContent = user.name.split(' ')[0];
+      $('ddName').textContent = user.name;
+      $('ddTier').textContent = user.tier;
+    }
+
+    function renderCounts() {
+      $('cartCount').textContent = cart.size;
+      $('wishCount').textContent = wish.size;
+    }
+
+    function renderCart() {
+      const items = books.filter(b => cart.has(b.id));
+      $('cartSubtitle').textContent = items.length ? `${items.length} item${items.length > 1 ? 's' : ''} in your cart` : 'Your cart is empty.';
+      $('cartList').innerHTML = items.map(b => `
+        <div class="cart-item">
+          <img src="${b.img}" data-book="${b.id}" alt="">
+          <div class="info"><h4>${b.title}</h4><p>${rupee(b.price)}</p></div>
+          <button class="cart-remove" data-remove="${b.id}" aria-label="Remove"><i class="fa-solid fa-trash"></i></button>
+        </div>`).join('');
+      const total = items.reduce((s, b) => s + b.price, 0);
+      $('cartTotal').textContent = rupee(total);
+      $('cartTotalRow').style.display = items.length ? 'flex' : 'none';
+      $('checkoutBtn').style.display = items.length ? 'block' : 'none';
+    }
+
+    function renderNav() {
+      document.querySelectorAll('#subNav a').forEach(a => a.classList.toggle('active', a.dataset.nav === state.nav));
+      $('fTop').classList.toggle('active', state.top);
+      $('fUnder').classList.toggle('active', state.under);
+    }
+
+    function renderAll() { renderCategories(); renderBooks(); renderCounts(); renderNav(); }
+
+
+    const testimonials = [
+      { n: 'Ananya Rao', r: 'Product Designer, Bengaluru', t: 'I used to buy books and never finish them. The short summaries and chapter lists here help me pick the right ones, and I have read six this year.' },
+      { n: 'Vikram Singh', r: 'Startup Founder, Delhi', t: 'Fast delivery, original copies and genuinely good recommendations. Lead Without Title changed how I run my team meetings.' },
+      { n: 'Meera Krishnan', r: 'Teacher, Chennai', t: 'The Evolution Club newsletter is the only email I look forward to. Every pick has been worth reading.' }
+    ];
+    function renderTestimonials() {
+      $('testiGrid').innerHTML = testimonials.map(x => `
+        <div class="testi-card">
+          <div class="st">${stars(5)}</div>
+          <p class="q">&ldquo;${x.t}&rdquo;</p>
+          <div class="who"><img src="${avatar(x.n)}" alt=""><div><b>${x.n}</b><span>${x.r}</span></div></div>
+        </div>`).join('');
+    }
+
+    function openBook(id) {
+      const b = books.find(x => x.id === id); if (!b) return;
+      const inCart = cart.has(b.id), inWish = wish.has(b.id);
+      const dist = [[5, 72], [4, 20], [3, 5], [2, 2], [1, 1]];
+      const related = books.filter(x => x.cat === b.cat && x.id !== b.id).concat(books.filter(x => x.cat !== b.cat && x.id !== b.id)).slice(0, 3);
+      $('bookDetail').innerHTML = `
+        <div class="detail-grid">
+          <div class="detail-left">
+            <div class="detail-cover"><img src="${b.img}" data-book="${b.id}" alt="${b.title} cover"></div>
+            <div class="detail-price"><span class="cur">${rupee(b.price)}</span><span class="orig">${rupee(b.orig)}</span><span class="save-tag">${Math.round((1 - b.price / b.orig) * 100)}% off</span></div>
+            <div class="detail-actions">
+              <button class="btn-add-cart" data-cart="${b.id}"><i class="fa-solid ${inCart ? 'fa-check' : 'fa-cart-plus'}"></i> ${inCart ? 'In Cart' : 'Add to Cart'}</button>
+              <button class="btn-wishlist ${inWish ? 'active' : ''}" data-wish="${b.id}" aria-label="Wishlist"><i class="fa-${inWish ? 'solid' : 'regular'} fa-heart"></i></button>
+            </div>
+            <ul class="detail-perks">
+              <li><i class="fa-solid fa-truck-fast"></i>Free delivery above ₹499</li>
+              <li><i class="fa-solid fa-rotate-left"></i>7-day easy returns</li>
+              <li><i class="fa-solid fa-circle-check"></i>100% original copy</li>
+            </ul>
+          </div>
+          <div class="detail-right">
+            <span class="chip">${b.cat}</span>
+            <h3 id="bdTitle" style="margin-top:10px">${b.title}</h3>
+            <div class="by">by <strong>${b.author}</strong></div>
+            <div class="rating-wrap">${stars(b.rating)} <span class="rating-score">${b.rating}</span><span class="review-count">(${b.reviews.toLocaleString('en-IN')} ratings)</span></div>
+            <p class="tagline">${b.tag}</p>
+            <h4>About this book</h4>
+            ${b.desc.map(p => `<p class="desc">${p}</p>`).join('')}
+            <h4>What you will learn</h4>
+            <ul class="learn-list">${b.learn.map(l => `<li><i class="fa-solid fa-circle-check"></i><span>${l}</span></li>`).join('')}</ul>
+            <h4>Inside the book</h4>
+            <ol class="chapter-list">${b.chapters.map(c => `<li>${c}</li>`).join('')}</ol>
+            <h4>Book details</h4>
+            <table class="spec-table">
+              <tr><td>Publisher</td><td>${b.pub}</td></tr>
+              <tr><td>Published</td><td>${b.year}</td></tr>
+              <tr><td>Format</td><td>${b.format}</td></tr>
+              <tr><td>Pages</td><td>${b.pages}</td></tr>
+              <tr><td>Language</td><td>${b.lang}</td></tr>
+              <tr><td>Reading time</td><td>About ${b.time}</td></tr>
+              <tr><td>ISBN</td><td>${b.isbn}</td></tr>
+            </table>
+            <h4>Reader reviews</h4>
+            <div class="rating-bars">${dist.map(([s, p]) => `<div class="row"><span>${s}★</span><div class="bar"><span style="width:${p}%"></span></div><span>${p}%</span></div>`).join('')}</div>
+            ${b.revs.map(([n, r, t]) => `<div class="review-box"><div class="rh"><span>${n}</span><span class="st">${stars(r)}</span></div><p>${t}</p></div>`).join('')}
+            <h4>You may also like</h4>
+            <div class="related-row">${related.map(r => `<div class="related-item" data-detail="${r.id}"><img src="${r.img}" data-book="${r.id}" alt=""><span>${r.title}</span></div>`).join('')}</div>
+          </div>
+        </div>`;
+      openBook.cur = id; openModal('bookModal');
+      $('bookModal').querySelector('.modal-card').scrollTop = 0;
+    }
+    function refreshBookModal() {
+      if ($('bookModal').classList.contains('active') && openBook.cur) { const sc = $('bookModal').querySelector('.modal-card').scrollTop; openBook(openBook.cur); $('bookModal').querySelector('.modal-card').scrollTop = sc; }
+    }
+
+    // ---------- Modals ----------
+    function openModal(id) {
+      closeModals();
+      $(id).classList.add('active');
+      if (id === 'cartModal') renderCart();
+      if (id === 'profileModal') fillProfile();
+    }
+    function closeModals() { document.querySelectorAll('.modal-overlay.active').forEach(m => m.classList.remove('active')); }
+    function fillProfile() {
+      if (!user) return;
+      $('pfAvatar').src = avatar(user.name);
+      $('pfName').textContent = user.name;
+      $('pfEmail').textContent = user.email;
+      $('pfTier').textContent = user.tier;
+      $('pfCart').textContent = cart.size;
+      $('pfWish').textContent = wish.size;
+      $('pfOrders').textContent = orders;
+    }
+    function login(u) {
+      user = u; saveUser(); renderUserMenu(); closeModals();
+      toast('Welcome, ' + u.name.split(' ')[0] + '!');
+    }
+    function logout() {
+      user = null; saveUser(); renderUserMenu(); closeModals(); toast('Logged out');
+    }
+
+    // ---------- Events ----------
+    document.addEventListener('click', e => {
+      const t = e.target;
+
+      const det = t.closest('[data-detail]');
+      if (det && !t.closest('[data-cart],[data-wish]')) { openBook(+det.dataset.detail); return; }
+
+      const pol = t.closest('[data-policy]');
+      if (pol) { e.preventDefault(); toast(pol.dataset.policy === 'privacy' ? 'We never sell your personal data' : 'Terms of use: be kind, read more'); }
+
+      const catEl = t.closest('[data-cat]');
+      if (catEl) { state.cat = catEl.dataset.cat; renderCategories(); renderBooks(); }
+
+      const c = t.closest('[data-cart]');
+      if (c) {
+        const id = +c.dataset.cart;
+        if (cart.has(id)) toast('Already in cart'); else { cart.add(id); toast('Added to cart'); }
+        renderCounts(); renderBooks(); refreshBookModal();
+      }
+
+      const w = t.closest('[data-wish]');
+      if (w) {
+        const id = +w.dataset.wish;
+        if (wish.has(id)) { wish.delete(id); toast('Removed from wishlist'); } else { wish.add(id); toast('Added to wishlist'); }
+        renderCounts(); renderBooks(); refreshBookModal();
+      }
+
+      const rm = t.closest('[data-remove]');
+      if (rm) { cart.delete(+rm.dataset.remove); renderCounts(); renderCart(); renderBooks(); }
+
+      const nav = t.closest('[data-nav]');
+      if (nav) {
+        const key = nav.dataset.nav;
+        if (key === 'home' && nav.getAttribute('href') === '#') e.preventDefault();
+        if (navFilters[key]) {
+          state.nav = key; state.cat = 'All';
+          if (key === 'home' || key === 'all') { state.query = ''; $('searchInput').value = ''; }
+          renderCategories(); renderBooks(); renderNav();
+        }
+      }
+
+      const act = t.closest('[data-action]');
+      if (act) {
+        const a = act.dataset.action;
+        $('userDropdown') && $('userDropdown').classList.remove('show');
+        if (a === 'profile') openModal('profileModal');
+        else if (a === 'orders') toast(orders ? `You have placed ${orders} order${orders > 1 ? 's' : ''}` : 'No orders yet');
+        else if (a === 'settings') toast('Settings coming soon');
+        else if (a === 'logout') logout();
+      }
+
+      if (t.closest('#userBtn')) $('userDropdown').classList.toggle('show');
+      else if (!t.closest('.user-profile-menu') && $('userDropdown')) $('userDropdown').classList.remove('show');
+
+      if (t.closest('#loginOpenBtn')) openModal('loginModal');
+      if (t.closest('#cartBtn')) openModal('cartModal');
+      if (t.closest('#wishBtn')) toast(wish.size ? `${wish.size} book${wish.size > 1 ? 's' : ''} in your wishlist` : 'Your wishlist is empty');
+      if (t.closest('[data-close]') || t.classList.contains('modal-overlay')) closeModals();
+
+      const p = t.closest('[data-persona]');
+      if (p) login({ ...personas[+p.dataset.persona] });
+    });
+
+    document.addEventListener('keydown', e => { if (e.key === 'Escape') closeModals(); });
+
+    $('loginForm').addEventListener('submit', e => {
+      e.preventDefault();
+      const name = $('loginName').value.trim(), email = $('loginEmail').value.trim();
+      if (!name || !email) return;
+      login({ name, email, tier: 'Member' });
+      e.target.reset();
+    });
+    $('pfLogout').addEventListener('click', logout);
+    $('checkoutBtn').addEventListener('click', () => {
+      if (!user) { toast('Please login to checkout'); openModal('loginModal'); return; }
+      orders += 1; cart.clear(); renderCounts(); renderBooks(); closeModals(); toast('Order placed. Thank you!');
+    });
+
+    $('searchInput').addEventListener('input', e => { state.query = e.target.value.trim().toLowerCase(); renderBooks(); });
+    $('viewAll').addEventListener('click', e => {
+      e.preventDefault();
+      Object.assign(state, { cat: 'All', query: '', nav: 'all', top: false, under: false, sort: 'featured' });
+      $('searchInput').value = ''; $('sortSelect').value = 'featured';
+      renderAll();
+    });
+    $('fTop').addEventListener('click', () => { state.top = !state.top; renderNav(); renderBooks(); });
+    $('fUnder').addEventListener('click', () => { state.under = !state.under; renderNav(); renderBooks(); });
+    $('sortSelect').addEventListener('change', e => { state.sort = e.target.value; renderBooks(); });
+    $('contactForm').addEventListener('submit', e => { e.preventDefault(); e.target.reset(); toast('Message sent. We will reply within one working day.'); });
+    window.addEventListener('scroll', () => $('backTop').classList.toggle('show', window.scrollY > 600), { passive: true });
+    $('backTop').addEventListener('click', () => window.scrollTo({ top: 0, behavior: 'smooth' }));
+    $('newsletterForm').addEventListener('submit', e => { e.preventDefault(); e.target.reset(); toast('Subscribed! Welcome aboard.'); });
+
+    // ---------- Video controls ----------
+    const vid = $('bgVideo');
+    function safePlay() { const p = vid.play(); if (p && p.catch) p.catch(() => {}); }
+    $('bgSource').addEventListener('error', () => { $('videoDock').style.display = 'none'; });
+    $('playPauseBtn').addEventListener('click', e => {
+      const icon = e.currentTarget.querySelector('i');
+      if (vid.paused) { safePlay(); icon.className = 'fa-solid fa-pause'; } else { vid.pause(); icon.className = 'fa-solid fa-play'; }
+    });
+    $('muteBtn').addEventListener('click', e => {
+      vid.muted = !vid.muted;
+      e.currentTarget.querySelector('i').className = vid.muted ? 'fa-solid fa-volume-xmark' : 'fa-solid fa-volume-high';
+    });
+    $('dimBtn').addEventListener('click', () => $('videoOverlay').classList.toggle('dimmed'));
+
+    // ---------- Init ----------
+    $('personaList').innerHTML = personas.map((p, i) => `
+      <button type="button" class="persona-btn" data-persona="${i}">
+        <span class="persona-profile-left"><img src="${avatar(p.name)}" alt=""><span><span class="name">${p.name}</span><span class="email">${p.email}</span></span></span>
+        <span class="persona-tier-tag">${p.tier}</span>
+      </button>`).join('');
+
+    loadUser();
+    renderUserMenu();
+    renderAll();
+    renderBestsellers();
+    renderTestimonials();
+  </script>
+</body>
+</html>
