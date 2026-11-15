@@ -1,0 +1,3042 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="referrer" content="no-referrer">
+<meta http-equiv="X-Content-Type-Options" content="nosniff">
+<meta http-equiv="Permissions-Policy" content="camera=(), microphone=(), geolocation=(), browsing-topics=(), interest-cohort=(), payment=(), usb=(), serial=(), bluetooth=(), hid=(), accelerometer=(), gyroscope=(), magnetometer=()">
+<meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline'; img-src 'self' blob: data:; font-src 'self'; connect-src 'self'; media-src 'self' blob: data:; object-src 'none'; child-src 'none'; frame-src 'none'; worker-src 'none'; manifest-src 'none'; base-uri 'none'; form-action 'none'">
+<title>Evolution Midset | Professional Network</title>
+<style>
+:root{
+  --bg1:#0b0a1f;--bg2:#1e1b4b;--bg3:#0e3a4a;
+  --a1:#22d3ee;--a2:#a78bfa;--a3:#f472b6;--ok:#34d399;--warn:#fbbf24;--danger:#fb7185;
+  --text:#f8fafc;--muted:#b4bfd3;
+  --glass:rgba(255,255,255,.10);--glass-2:rgba(255,255,255,.17);--edge:rgba(255,255,255,.22);
+  --field:rgba(8,8,30,.38);
+  --radius:20px;--shadow:0 10px 40px rgba(2,6,23,.45);
+  --grad:linear-gradient(135deg,var(--a1),var(--a2) 55%,var(--a3));
+}
+*{box-sizing:border-box}
+[hidden]{display:none!important}
+body{margin:0;min-height:100vh;font-family:Inter,-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;font-size:14px;line-height:1.5;color:var(--text);background:linear-gradient(135deg,var(--bg1),var(--bg2) 50%,var(--bg3)) fixed;overflow-x:hidden;transition:filter .2s ease}
+body.privacy-blur .topbar,body.privacy-blur .layout,body.privacy-blur .foot,body.privacy-blur .modal-bg,body.privacy-blur .quick-chat-dock{filter:blur(18px) brightness(.6);pointer-events:none;user-select:none}
+#privacyShieldBanner{position:fixed;inset:0;z-index:100;display:none;place-items:center;background:rgba(8,8,28,.55);backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);text-align:center;padding:24px}
+body.privacy-blur #privacyShieldBanner{display:grid}
+a{color:var(--a1)}
+button,input,textarea,select{font:inherit}
+input,textarea,select{border:1px solid rgba(255,255,255,.2);border-radius:12px;padding:9px 12px;outline:none;background:var(--field);color:var(--text)}
+select option{background:#161337;color:var(--text)}
+input::placeholder,textarea::placeholder{color:var(--muted)}
+input:focus,textarea:focus,select:focus{border-color:var(--a1);box-shadow:0 0 0 3px rgba(34,211,238,.2)}
+
+/* Floating colour orbs & subtle grid behind the glass */
+.orb{position:fixed;border-radius:50%;filter:blur(70px);z-index:-1;pointer-events:none;opacity:.75;animation:drift 20s ease-in-out infinite alternate}
+.o1{width:460px;height:460px;background:var(--a1);top:-120px;left:-120px}
+.o2{width:420px;height:420px;background:var(--a3);bottom:-140px;right:-100px;animation-delay:-6s}
+.o3{width:340px;height:340px;background:var(--a2);top:40%;left:45%;opacity:.35;animation-delay:-12s}
+.o4{width:300px;height:300px;background:#fb923c;top:55%;left:-90px;opacity:.35;animation-delay:-3s}
+@keyframes drift{from{transform:translate(0,0) scale(1)}to{transform:translate(60px,40px) scale(1.12)}}
+@media (prefers-reduced-motion:reduce){.orb{animation:none}}
+.grid-bg{position:fixed;inset:0;z-index:-1;pointer-events:none;background-image:linear-gradient(rgba(255,255,255,.05) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.05) 1px,transparent 1px);background-size:56px 56px;-webkit-mask-image:radial-gradient(ellipse at center,#000 25%,transparent 75%);mask-image:radial-gradient(ellipse at center,#000 25%,transparent 75%)}
+
+/* Glass surfaces */
+.card{background:linear-gradient(160deg,rgba(255,255,255,.16),rgba(255,255,255,.05));backdrop-filter:blur(22px) saturate(180%);-webkit-backdrop-filter:blur(22px) saturate(180%);border:1px solid var(--edge);border-radius:var(--radius);box-shadow:inset 0 1px 0 rgba(255,255,255,.35),var(--shadow);overflow:hidden}
+.glass-inner{background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.16);border-radius:14px}
+
+/* Top bar */
+.topbar{position:sticky;top:0;z-index:20;background:rgba(15,12,41,.45);backdrop-filter:blur(20px) saturate(160%);-webkit-backdrop-filter:blur(20px) saturate(160%);border-bottom:1px solid var(--edge);box-shadow:0 4px 30px rgba(0,0,0,.25)}
+.topbar-inner{max-width:1128px;margin:0 auto;padding:8px 16px;display:flex;align-items:center;gap:12px}
+.brand{display:flex;align-items:center;gap:8px;cursor:pointer;font-weight:700;white-space:nowrap}
+.logo{width:36px;height:36px;border-radius:11px;background:var(--grad);color:#0b0a1f;display:grid;place-items:center;font-weight:800;box-shadow:0 0 18px rgba(167,139,250,.5)}
+.brand-name{font-weight:400;letter-spacing:.12em;text-transform:uppercase;font-size:16px}
+.search{flex:0 1 260px;padding:8px 14px;border-radius:999px}
+.navs{margin-left:auto;display:flex;align-items:center;gap:4px;flex-wrap:wrap}
+.nav-btn{background:none;border:0;color:var(--muted);display:flex;align-items:center;gap:6px;padding:7px 12px;cursor:pointer;font-size:13px;font-weight:500;border-radius:999px;white-space:nowrap;transition:color .2s,background .2s;position:relative}
+.nav-btn:hover{color:var(--text);background:var(--glass)}
+.nav-btn.active{color:var(--a1);background:rgba(34,211,238,.12);text-shadow:0 0 12px rgba(34,211,238,.6)}
+.badge-count{background:var(--danger);color:#fff;font-size:10px;font-weight:800;padding:1px 6px;border-radius:999px;box-shadow:0 0 8px rgba(251,113,133,.6)}
+
+/* Buttons */
+.btn{border:1px solid transparent;border-radius:999px;padding:8px 16px;font-weight:600;cursor:pointer;display:inline-flex;align-items:center;justify-content:center;gap:6px;text-decoration:none;color:var(--text);background:rgba(255,255,255,.08);white-space:nowrap;transition:transform .15s,box-shadow .2s,background .2s}
+.btn:hover{transform:translateY(-1px)}
+.btn-primary{background:var(--grad);color:#0b0a1f;box-shadow:0 6px 20px rgba(167,139,250,.35)}
+.btn-primary:hover{box-shadow:0 8px 26px rgba(244,114,182,.45)}
+.btn-outline{border-color:rgba(255,255,255,.4);color:var(--text);background:transparent}
+.btn-outline:hover{background:var(--glass-2)}
+.btn-ghost{color:var(--muted)}
+.btn-ghost:hover{background:var(--glass-2);color:var(--text)}
+.btn-danger{background:rgba(251,113,133,.18);border-color:rgba(251,113,133,.6);color:#fecdd3}
+.btn-danger:hover{background:rgba(251,113,133,.3)}
+.btn.btn-glow{background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.55);color:var(--text);box-shadow:0 0 16px rgba(34,211,238,.35),inset 0 0 10px rgba(255,255,255,.08)}
+.btn.btn-glow:hover{box-shadow:0 0 24px rgba(34,211,238,.55)}
+.btn.btn-hero{background:linear-gradient(135deg,#ffffff,#67e8f9);color:#0b0a1f;border-color:transparent;box-shadow:0 8px 28px rgba(103,232,249,.4)}
+.btn.btn-glass{background:linear-gradient(160deg,rgba(255,255,255,.22),rgba(255,255,255,.06));border:1px solid rgba(255,255,255,.35);color:var(--text);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px)}
+.small-btn{padding:5px 12px;font-size:12px}
+.icon-btn{background:none;border:0;cursor:pointer;font-size:17px;padding:6px;border-radius:50%;color:var(--muted);display:inline-grid;place-items:center}
+.icon-btn:hover{background:var(--glass-2);color:var(--text)}
+
+/* Hero & Feature Grid */
+.hero{padding:48px 30px 40px;text-align:center}
+.hero h1{margin:0 0 16px;font-size:48px;line-height:1.08;font-weight:800;letter-spacing:-.02em}
+.hero h1 span{color:#fff;text-shadow:0 0 30px rgba(167,139,250,.45)}
+.hero p{color:#dbe4f3;font-size:16px;max-width:640px;margin:0 auto}
+.hero .row{gap:12px;margin-top:26px;justify-content:center;flex-wrap:wrap}
+.hero .btn{padding:11px 24px;font-size:14px}
+.hero.landing{margin-bottom:-75px;padding-bottom:105px;position:relative;z-index:0}
+.hero.landing::before{content:"";position:absolute;top:0;left:18%;right:18%;height:1px;background:linear-gradient(90deg,transparent,#fff,transparent);box-shadow:0 0 18px rgba(255,255,255,.8);pointer-events:none}
+.feature-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:16px;margin-top:18px;position:relative;z-index:2}
+.feature{padding:22px;border-radius:20px;background:linear-gradient(160deg,rgba(255,255,255,.18),rgba(255,255,255,.05));border:1px solid var(--edge);box-shadow:inset 0 1px 0 rgba(255,255,255,.3),var(--shadow);backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);position:relative;min-height:175px;display:flex;flex-direction:column;justify-content:space-between;transition:transform .25s,border-color .2s;cursor:pointer}
+.feature:hover{transform:translateY(-4px);border-color:var(--a1)}
+.feature .ico{width:48px;height:48px;border-radius:14px;display:grid;place-items:center;font-size:22px;background:rgba(34,211,238,.16);border:1px solid rgba(255,255,255,.25);color:var(--a1);margin-bottom:14px;box-shadow:0 0 18px rgba(34,211,238,.3)}
+.feature h3{margin:0 0 4px;font-size:17px;font-weight:600}
+.feature .dl{position:absolute;top:22px;right:22px;color:var(--a1);font-size:20px;text-shadow:0 0 12px rgba(34,211,238,.7)}
+
+/* Layout */
+.layout{max-width:1128px;margin:18px auto;padding:0 16px;display:grid;grid-template-columns:245px minmax(0,1fr) 300px;gap:22px;align-items:start}
+.layout.wide{grid-template-columns:minmax(0,1fr)}
+.layout.wide .left,.layout.wide .right{display:none}
+.left,.center,.right{min-width:0}
+.foot{max-width:1128px;margin:26px auto 30px;padding:0 16px;text-align:center;color:var(--muted);font-size:12px}
+
+/* Generic Utilities */
+.pad{padding:18px}
+.card-title{margin:0 0 12px;font-size:16px}
+.muted{color:var(--muted)}
+.small{font-size:13px}
+.tiny{font-size:11px}
+.center-text{text-align:center}
+.row{display:flex;align-items:center}
+.between{display:flex;align-items:center;justify-content:space-between;gap:10px}
+.gap{gap:10px}
+.grow{flex:1;min-width:0}
+.block{display:flex;width:100%;margin:8px 0}
+.avatar{border-radius:50%;background:var(--grad);color:#0b0a1f;display:inline-grid;place-items:center;font-weight:800;flex-shrink:0;box-shadow:0 0 14px rgba(34,211,238,.35);overflow:hidden;position:relative;object-fit:cover}
+.avatar img{width:100%;height:100%;object-fit:cover;display:block}
+.status-dot{width:10px;height:10px;border-radius:50%;background:var(--ok);display:inline-block;box-shadow:0 0 8px var(--ok)}
+.linkish{background:none;border:0;padding:0;cursor:pointer;color:var(--text);text-align:left}
+.linkish:hover{text-decoration:underline;color:var(--a1)}
+.section-title{margin:18px 0 10px;font-size:16px}
+.pill{display:inline-block;padding:2px 10px;border-radius:999px;background:rgba(52,211,153,.18);color:var(--ok);font-size:12px;font-weight:700;margin-right:6px}
+.pill.limit{background:rgba(251,191,36,.18);color:#fde68a}
+.pill.info{background:rgba(34,211,238,.18);color:var(--a1)}
+.badge-sec{display:inline-flex;align-items:center;gap:4px;font-size:11px;padding:2px 9px;border-radius:999px;background:rgba(34,211,238,.14);border:1px solid rgba(34,211,238,.35);color:var(--a1);font-weight:600}
+.status-badge{display:inline-flex;align-items:center;gap:5px;font-size:11px;padding:3px 10px;border-radius:999px;background:rgba(52,211,153,.16);border:1px solid rgba(52,211,153,.4);color:#6ee7b7;font-weight:600}
+.sec-list{padding-left:0;list-style:none;margin:14px 0 0}
+.sec-list li{margin:10px 0}
+
+/* Cover Banner Themes */
+.cover{height:68px;background:radial-gradient(circle at 15% 35%,#22d3ee 0,transparent 45%),radial-gradient(circle at 55% 20%,#f472b6 0,transparent 42%),radial-gradient(circle at 85% 70%,#a78bfa 0,transparent 50%),radial-gradient(circle at 40% 100%,#34d399 0,transparent 40%),linear-gradient(135deg,#3b0764,#1e1b4b);background-size:cover;background-position:center;position:relative}
+.cover.theme-sunset{background:radial-gradient(circle at 20% 30%,#fb923c 0,transparent 50%),radial-gradient(circle at 80% 30%,#f43f5e 0,transparent 50%),linear-gradient(135deg,#4c0519,#1e1b4b)}
+.cover.theme-emerald{background:radial-gradient(circle at 20% 40%,#34d399 0,transparent 50%),radial-gradient(circle at 75% 60%,#06b6d4 0,transparent 50%),linear-gradient(135deg,#064e3b,#0f172a)}
+.cover.theme-cosmic{background:radial-gradient(circle at 30% 25%,#c084fc 0,transparent 48%),radial-gradient(circle at 75% 75%,#38bdf8 0,transparent 48%),linear-gradient(135deg,#1e1b4b,#090d16)}
+.cover.theme-gold{background:radial-gradient(circle at 25% 30%,#facc15 0,transparent 45%),radial-gradient(circle at 75% 60%,#fb7185 0,transparent 50%),linear-gradient(135deg,#422006,#1e1b4b)}
+
+/* Left profile card */
+.profile-card{text-align:center}
+.profile-card .avatar{display:grid;margin:-38px auto 8px;border:3px solid rgba(255,255,255,.75)}
+.profile-card .linkish{display:block;width:100%;text-align:center}
+.profile-card hr{border:0;border-top:1px solid var(--edge);margin:12px 0}
+.stat-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:6px;margin:10px 0;text-align:center}
+.stat-box{padding:6px 4px;border-radius:10px;background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.1)}
+.stat-box strong{display:block;font-size:14px;color:var(--a1)}
+
+/* Enhanced Profile Page */
+.profile-head .cover{height:165px}
+.profile-head .pad{padding-top:0}
+.profile-top-row{display:flex;align-items:flex-end;justify-content:space-between;flex-wrap:wrap;gap:12px;margin-top:-48px;margin-bottom:12px;position:relative;z-index:2}
+.profile-avatar-wrap{position:relative;display:inline-block}
+.profile-avatar-wrap .avatar{border:4px solid rgba(20,18,52,.9);box-shadow:0 8px 26px rgba(0,0,0,.45)}
+.avatar-upload-btn{position:absolute;bottom:2px;right:2px;width:30px;height:30px;border-radius:50%;background:var(--grad);color:#0b0a1f;border:2px solid #0b0a1f;display:grid;place-items:center;cursor:pointer;font-size:14px;box-shadow:0 2px 10px rgba(0,0,0,.4)}
+.cover-edit-bar{position:absolute;top:12px;right:12px;display:flex;gap:6px;z-index:3}
+.profile-tabs{display:flex;gap:6px;border-bottom:1px solid var(--edge);padding:0 18px;background:rgba(0,0,0,.15);overflow-x:auto}
+.tab-btn{background:none;border:0;border-bottom:3px solid transparent;color:var(--muted);padding:11px 14px;font-weight:600;cursor:pointer;white-space:nowrap;font-size:13px}
+.tab-btn:hover{color:var(--text)}
+.tab-btn.active{color:var(--a1);border-bottom-color:var(--a1)}
+.exp-item{display:flex;gap:12px;padding:12px 0;border-bottom:1px solid rgba(255,255,255,.1)}
+.exp-item:last-child{border-bottom:0;padding-bottom:0}
+.exp-ico{width:42px;height:42px;border-radius:12px;background:rgba(34,211,238,.12);border:1px solid rgba(34,211,238,.3);display:grid;place-items:center;font-size:18px;flex-shrink:0}
+.skill-list{display:flex;flex-wrap:wrap;gap:8px;margin-top:10px}
+.skill-tag{display:inline-flex;align-items:center;gap:6px;padding:6px 12px;border-radius:999px;background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.18);font-size:12px;font-weight:600}
+.skill-tag button{background:rgba(34,211,238,.18);border:0;color:var(--a1);border-radius:999px;padding:2px 7px;font-size:11px;font-weight:700;cursor:pointer}
+.skill-tag button:hover{background:var(--a1);color:#0b0a1f}
+.meta-links{display:flex;flex-wrap:wrap;gap:14px;margin-top:10px;font-size:13px;color:var(--muted)}
+.meta-links span,.meta-links a{display:inline-flex;align-items:center;gap:5px}
+.completeness-bar{height:7px;border-radius:999px;background:rgba(255,255,255,.12);overflow:hidden;margin-top:6px}
+.completeness-fill{height:100%;background:var(--grad);border-radius:999px;transition:width .3s}
+
+/* Composer */
+.composer{padding:18px}
+.composer textarea{flex:1;min-height:72px;resize:vertical;width:100%}
+.composer-actions{display:flex;gap:8px;align-items:center;margin-top:12px;flex-wrap:wrap}
+.pending-att{display:flex;gap:10px;align-items:center;border:1px solid rgba(255,255,255,.18);border-radius:14px;padding:8px;margin-top:10px;background:rgba(255,255,255,.06)}
+.pending-att img{width:56px;height:56px;object-fit:cover;border-radius:10px}
+.desc-input{width:100%;margin-top:6px;padding:6px 10px;font-size:13px}
+.vis-select{padding:6px 10px;font-size:12px;border-radius:999px}
+
+/* Posts */
+.post{padding:18px;margin-top:14px}
+.post-head{display:flex;gap:10px;align-items:flex-start}
+.post-text{margin:12px 0 0;word-break:break-word}
+.att-fig{margin:12px 0 0}
+.att-img{width:100%;display:block;border-radius:14px;border:1px solid rgba(255,255,255,.18)}
+.att-desc{font-size:13px;color:var(--muted);margin:6px 0}
+.att-doc{display:flex;align-items:center;gap:12px;padding:12px;margin-top:12px}
+.att-doc .att-desc{margin:2px 0 0}
+.doc-icon{font-size:28px}
+.post-stats{padding:10px 0 4px;border-bottom:1px solid var(--edge);display:flex;justify-content:space-between}
+.post-actions{display:flex;gap:4px;padding:4px 0;flex-wrap:wrap}
+.action{flex:1;background:none;border:0;padding:9px 8px;border-radius:12px;cursor:pointer;color:var(--muted);font-weight:600;font-size:13px;display:inline-flex;align-items:center;justify-content:center;gap:5px}
+.action:hover{background:var(--glass-2);color:var(--text)}
+.action.on{color:var(--a1)}
+.comments{padding-top:10px;display:flex;flex-direction:column;gap:10px}
+.comment{display:flex;gap:8px}
+.comment .bubble{background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.12);border-radius:14px;padding:8px 12px;flex:1}
+.person{display:flex;align-items:center;gap:10px;margin-top:14px}
+
+/* Enhanced Messaging Center */
+.chat-wrap{display:grid;grid-template-columns:300px minmax(0,1fr);height:calc(100vh - 115px);min-height:520px;overflow:hidden}
+.threads-pane{border-right:1px solid var(--edge);display:flex;flex-direction:column;min-width:0;background:rgba(0,0,0,.1)}
+.threads-top{padding:12px;border-bottom:1px solid var(--edge);display:flex;flex-direction:column;gap:8px}
+.thread-filters{display:flex;gap:4px}
+.filter-chip{background:rgba(255,255,255,.07);border:1px solid transparent;color:var(--muted);padding:4px 10px;border-radius:999px;font-size:11px;font-weight:600;cursor:pointer}
+.filter-chip.active{background:rgba(34,211,238,.16);border-color:rgba(34,211,238,.4);color:var(--a1)}
+.threads{flex:1;overflow:auto}
+.thread{width:100%;display:flex;gap:10px;align-items:center;padding:12px;background:none;border:0;border-bottom:1px solid rgba(255,255,255,.08);cursor:pointer;text-align:left;color:var(--text);transition:background .15s}
+.thread:hover{background:var(--glass-2)}
+.thread.active{background:rgba(34,211,238,.16);border-left:3px solid var(--a1)}
+.thread-preview{white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:170px}
+.chat{display:flex;flex-direction:column;min-width:0}
+.chat-head{display:flex;gap:10px;align-items:center;padding:12px 16px;border-bottom:1px solid var(--edge);flex-wrap:wrap;background:rgba(255,255,255,.03)}
+.messages{flex:1;overflow:auto;padding:16px;display:flex;flex-direction:column;gap:12px;background:rgba(0,0,0,.14)}
+.msg{max-width:76%;display:flex;flex-direction:column;position:relative}
+.msg.mine{align-self:flex-end;align-items:flex-end}
+.msg.theirs{align-self:flex-start;align-items:flex-start}
+.bubble-msg{padding:10px 14px;border-radius:16px;background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.16);word-break:break-word;display:flex;flex-direction:column;gap:6px;position:relative}
+.msg.mine .bubble-msg{background:var(--grad);color:#0b0a1f;border-color:transparent;font-weight:500}
+.msg.mine .bubble-msg a,.msg.mine .bubble-msg .linkish{color:#0b0a1f;font-weight:700}
+.reply-quote{padding:6px 10px;border-left:3px solid var(--a1);background:rgba(0,0,0,.22);border-radius:8px;font-size:12px;opacity:.9}
+.msg.mine .reply-quote{background:rgba(255,255,255,.28);border-left-color:#0b0a1f;color:#0b0a1f}
+.msg-meta{display:flex;align-items:center;gap:6px;margin-top:3px;font-size:11px;color:var(--muted)}
+.msg-tools{display:inline-flex;gap:4px;opacity:.75}
+.msg-tools button{background:none;border:0;color:var(--muted);cursor:pointer;font-size:11px;padding:2px 4px;border-radius:6px}
+.msg-tools button:hover{background:rgba(255,255,255,.14);color:var(--text)}
+.msg-reactions{display:flex;gap:4px;flex-wrap:wrap;margin-top:3px}
+.react-pill{background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.22);border-radius:999px;padding:1px 7px;font-size:11px;cursor:pointer;color:var(--text)}
+.react-pill.on{border-color:var(--a1);background:rgba(34,211,238,.2)}
+.chat-img{max-width:240px;border-radius:12px;display:block}
+.icebreakers{display:flex;gap:6px;overflow-x:auto;padding:8px 12px;border-top:1px solid rgba(255,255,255,.08);background:rgba(0,0,0,.15)}
+.ice-chip{background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.16);color:var(--text);border-radius:999px;padding:4px 11px;font-size:11px;white-space:nowrap;cursor:pointer}
+.ice-chip:hover{border-color:var(--a1);color:var(--a1)}
+.reply-banner{display:flex;align-items:center;justify-content:space-between;padding:6px 14px;background:rgba(34,211,238,.12);border-top:1px solid rgba(34,211,238,.3);font-size:12px}
+.chat-input{display:flex;align-items:center;gap:8px;padding:10px 12px;border-top:1px solid var(--edge);background:rgba(15,12,41,.35)}
+.chat-input input{flex:1}
+.emoji-bar{display:flex;gap:4px;padding:6px 12px;background:rgba(10,8,30,.6);border-top:1px solid rgba(255,255,255,.08);overflow-x:auto}
+.emoji-btn{background:none;border:0;font-size:17px;cursor:pointer;padding:2px 6px;border-radius:8px}
+.emoji-btn:hover{background:var(--glass-2)}
+
+/* Floating Quick-Message Dock */
+.quick-chat-dock{position:fixed;bottom:18px;right:20px;z-index:35;width:320px;max-width:calc(100vw - 24px)}
+.dock-head{display:flex;align-items:center;justify-content:space-between;padding:10px 14px;background:rgba(18,15,48,.92);backdrop-filter:blur(18px);-webkit-backdrop-filter:blur(18px);border:1px solid var(--edge);border-radius:16px;box-shadow:var(--shadow);cursor:pointer}
+.dock-body{margin-top:6px;background:rgba(18,15,48,.95);backdrop-filter:blur(22px);-webkit-backdrop-filter:blur(22px);border:1px solid var(--edge);border-radius:18px;box-shadow:var(--shadow);overflow:hidden;display:flex;flex-direction:column;height:360px}
+
+/* Privacy controls & audit */
+.toggle-row{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:10px 0;border-bottom:1px solid rgba(255,255,255,.1)}
+.toggle-row:last-child{border-bottom:0}
+.audit-box{max-height:220px;overflow:auto;font-family:ui-monospace,SFMono-Regular,Menlo,Monaco,Consolas,monospace;font-size:12px;padding:10px;background:rgba(4,4,18,.45);border-radius:12px;border:1px solid rgba(255,255,255,.14)}
+.audit-entry{padding:5px 0;border-bottom:1px solid rgba(255,255,255,.07);display:flex;justify-content:space-between;gap:10px}
+.audit-entry:last-child{border-bottom:0}
+.pw-meter{height:6px;border-radius:999px;background:rgba(255,255,255,.12);overflow:hidden;margin-top:6px}
+.pw-meter-bar{height:100%;width:0%;transition:width .2s,background .2s}
+
+/* Modal */
+.modal-bg{position:fixed;inset:0;background:rgba(5,5,20,.65);backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px);display:grid;place-items:center;z-index:50;padding:16px}
+.modal{background:rgba(22,19,55,.94);backdrop-filter:blur(24px);-webkit-backdrop-filter:blur(24px);border:1px solid var(--edge);border-radius:24px;box-shadow:var(--shadow);width:min(460px,100%);padding:26px;position:relative;max-height:92vh;overflow:auto}
+.modal h2{margin:0 0 4px}
+.modal label{display:block;font-weight:600;font-size:13px;margin:11px 0}
+.modal input,.modal select,.modal textarea{display:block;width:100%;margin-top:5px}
+.modal .close{position:absolute;top:10px;right:10px}
+.modal .switch{margin-top:14px;text-align:center}
+
+/* Toast */
+.toast{position:fixed;bottom:22px;left:50%;transform:translate(-50%,140px);background:rgba(15,12,41,.94);border:1px solid var(--edge);color:var(--text);padding:11px 20px;border-radius:14px;backdrop-filter:blur(12px);transition:transform .3s;z-index:60;max-width:90vw;box-shadow:var(--shadow)}
+.toast.show{transform:translate(-50%,0)}
+
+/* Responsive */
+@media (max-width:980px){
+  .layout{grid-template-columns:230px minmax(0,1fr)}
+  .right{display:none}
+}
+@media (max-width:720px){
+  .layout{grid-template-columns:minmax(0,1fr);padding:0 10px;gap:12px}
+  .left{display:none}
+  .search{flex:1;min-width:110px}
+  .brand-name{display:none}
+  .nav-x{display:none}
+  .chat-wrap{grid-template-columns:minmax(0,1fr);grid-template-rows:auto minmax(0,1fr);height:calc(100vh - 90px)}
+  .threads-pane{border-right:0;border-bottom:1px solid var(--edge);max-height:190px}
+  .msg{max-width:88%}
+  .hero{padding:30px 20px}
+  .hero.landing{margin-bottom:0;padding-bottom:30px}
+  .hero h1{font-size:32px}
+  .feature-grid{grid-template-columns:minmax(0,1fr);gap:12px}
+  .feature{min-height:120px}
+  .quick-chat-dock{display:none}
+}
+</style>
+</head>
+<body>
+<div class="grid-bg"></div><div class="orb o1"></div><div class="orb o2"></div><div class="orb o3"></div><div class="orb o4"></div>
+
+<div id="privacyShieldBanner" aria-hidden="true">
+  <div class="card pad" style="max-width:360px">
+    <h3 style="margin:0 0 6px">🛡 Privacy Screen Shield Active</h3>
+    <p class="muted small" style="margin:0 0 12px">Screen content is blurred while this window is locked or inactive to protect against shoulder surfing.</p>
+    <button class="btn btn-primary small-btn" data-act="resumeScreen">Resume session</button>
+  </div>
+</div>
+
+<header class="topbar">
+  <div class="topbar-inner">
+    <div class="brand" data-act="go" data-view="home">
+      <span class="logo">EM</span><span class="brand-name">Evolution Midset</span>
+    </div>
+    <input class="search" id="search" type="search" placeholder="Search posts, skills &amp; members" maxlength="80" autocomplete="off">
+    <nav class="navs" id="navs"></nav>
+  </div>
+</header>
+
+<main class="layout" id="layout">
+  <aside class="left" id="left"></aside>
+  <section class="center" id="center"></section>
+  <aside class="right" id="right"></aside>
+</main>
+
+<div class="quick-chat-dock" id="quickDock" hidden></div>
+
+<footer class="foot">🔒 End-to-end local AES-256-GCM encryption (DB + files) · EXIF scrubbed · <a href="#" data-act="go" data-view="privacy">Privacy &amp; Security Center</a></footer>
+
+<div class="modal-bg" id="authModal" hidden>
+  <div class="modal" id="authBox" role="dialog" aria-modal="true"></div>
+</div>
+<div class="modal-bg" id="confirmModal" hidden>
+  <div class="modal" id="confirmBox" role="alertdialog" aria-modal="true"></div>
+</div>
+<div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+<script>
+'use strict';
+
+/* ================= Safe Frame Handling & Resilient Storage ================= */
+const memLocal = new Map();
+const memSession = new Map();
+const safeLocal = {
+  getItem(k) { try { return localStorage.getItem(k); } catch (e) { return memLocal.get(k) ?? null; } },
+  setItem(k, v) { try { localStorage.setItem(k, String(v)); } catch (e) { memLocal.set(k, String(v)); } },
+  removeItem(k) { try { localStorage.removeItem(k); } catch (e) { memLocal.delete(k); } }
+};
+const safeSession = {
+  getItem(k) { try { return sessionStorage.getItem(k); } catch (e) { return memSession.get(k) ?? null; } },
+  setItem(k, v) { try { sessionStorage.setItem(k, String(v)); } catch (e) { memSession.set(k, String(v)); } },
+  removeItem(k) { try { sessionStorage.removeItem(k); } catch (e) { memSession.delete(k); } },
+  clear() { try { sessionStorage.clear(); } catch (e) { memSession.clear(); } }
+};
+
+/* ================= Config & Cryptographic Constants ================= */
+const $ = (s, r = document) => r.querySelector(s);
+const KEY = 'em-secure-v4';
+const LEGACY_KEYS = ['em-secure-v3', 'em-secure-v2'];
+const DB_NAME = 'evolution-midset';
+const LIMITS = {
+  file: 25 * 1024 * 1024, post: 2000, comment: 500, message: 2000,
+  name: 60, headline: 120, location: 80, bio: 600, website: 120,
+  role: 80, company: 80, period: 50, skill: 40, email: 120, password: 128, auditMax: 60
+};
+const IMG_TYPES = ['image/jpeg', 'image/png', 'image/gif', 'image/webp'];
+const DOC_EXT = ['pdf', 'doc', 'docx', 'ppt', 'pptx', 'xls', 'xlsx', 'txt', 'csv'];
+const PBKDF2_ROUNDS = 600000;
+const WEAK_PASSWORDS = new Set(['password', '12345678', '123456789', '1234567890', 'qwertyui', 'qwerty123', 'letmein1', 'welcome1', 'admin123', 'iloveyou', 'password1', 'password123', 'evolution']);
+const COVER_THEMES = ['default', 'theme-sunset', 'theme-emerald', 'theme-cosmic', 'theme-gold'];
+const STATUS_OPTIONS = [
+  '🟢 Open to Opportunities',
+  '🚀 Hiring & Collaborating',
+  '💡 Open to Mentoring',
+  '⚡ Deep Work / Building',
+  '📚 Studying & Researching'
+];
+const ICEBREAKERS = [
+  '👋 Hi! Loved your recent post—would love to connect.',
+  '🚀 Are you open to collaborating on an upcoming project?',
+  '📄 Thanks for sharing your study resources!',
+  '💡 Could I get your feedback on my architecture design?'
+];
+const QUICK_EMOJIS = ['👍', '❤️', '🔥', '🎉', '💡', '🚀', '🙌', '✨'];
+const enc = new TextEncoder(), dec = new TextDecoder();
+
+const uid = () => Array.from(crypto.getRandomValues(new Uint8Array(16)), x => x.toString(16).padStart(2, '0')).join('');
+const esc = s => String(s ?? '').replace(/[&<>"'`/]/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;', '`': '&#96;', '/': '&#47;' }[c]));
+const clean = (v, max) => String(v ?? '').replace(/[\u0000-\u0008\u000B\u000C\u000E-\u001F\u007F\u200E\u200F\u202A-\u202E\u2066-\u2069]/g, '').trim().slice(0, max);
+const initials = n => String(n || '').split(' ').filter(Boolean).map(p => p[0]).slice(0, 2).join('').toUpperCase() || '?';
+
+function avatar(u, s = 48) {
+  if (!u) return '';
+  const url = u.avatarBlobId ? blobUrl(u.avatarBlobId) : '';
+  const inner = url ? `<img src="${url}" alt="${esc(u.name)}">` : esc(initials(u.name));
+  return `<div class="avatar" style="width:${s}px;height:${s}px;font-size:${Math.round(s * .36)}px">${inner}</div>`;
+}
+
+const fmtSize = n => n < 1048576 ? Math.max(1, Math.round(n / 1024)) + ' KB' : (n / 1048576).toFixed(1) + ' MB';
+const threadKey = (a, b) => [a, b].sort().join('|');
+
+function timeAgo(t) {
+  const m = Math.floor((Date.now() - t) / 60000);
+  if (m < 1) return 'Just now';
+  if (m < 60) return m + 'm';
+  const h = Math.floor(m / 60);
+  return h < 24 ? h + 'h' : Math.floor(h / 24) + 'd';
+}
+function b64(bytes) {
+  let s = '';
+  const chunk = 0x8000;
+  for (let i = 0; i < bytes.length; i += chunk) {
+    s += String.fromCharCode.apply(null, bytes.subarray(i, i + chunk));
+  }
+  return btoa(s);
+}
+function unb64(str) {
+  const s = atob(str);
+  const u = new Uint8Array(s.length);
+  for (let i = 0; i < s.length; i++) u[i] = s.charCodeAt(i);
+  return u;
+}
+
+function timingSafeEqual(a, b) {
+  if (!(a instanceof Uint8Array) || !(b instanceof Uint8Array)) return false;
+  const len = Math.max(a.length, b.length);
+  let diff = a.length ^ b.length;
+  for (let i = 0; i < len; i++) diff |= (a[i] || 0) ^ (b[i] || 0);
+  return diff === 0;
+}
+
+function toast(msg) {
+  const t = $('#toast');
+  if (!t) return;
+  t.textContent = msg;
+  t.classList.add('show');
+  clearTimeout(toast.timer);
+  toast.timer = setTimeout(() => t.classList.remove('show'), 3000);
+}
+
+/* ================= Custom Confirmation Modal ================= */
+let pendingConfirmFn = null;
+function openConfirmModal({ title = 'Confirm action', message = 'Are you sure?', confirmText = 'Confirm', danger = false, onConfirm }) {
+  pendingConfirmFn = onConfirm || null;
+  const box = $('#confirmBox');
+  const modal = $('#confirmModal');
+  if (!box || !modal) return;
+  box.innerHTML = `
+    <button class="icon-btn close" data-act="closeConfirm" aria-label="Close">✕</button>
+    <h2>${esc(title)}</h2>
+    <p class="muted small" style="margin:10px 0 18px">${esc(message)}</p>
+    <div class="row gap" style="justify-content:flex-end">
+      <button class="btn btn-outline" data-act="closeConfirm" type="button">Cancel</button>
+      <button class="btn ${danger ? 'btn-danger' : 'btn-primary'}" data-act="acceptConfirm" type="button">${esc(confirmText)}</button>
+    </div>`;
+  modal.hidden = false;
+}
+function closeConfirmModal() {
+  const modal = $('#confirmModal');
+  if (modal) modal.hidden = true;
+  pendingConfirmFn = null;
+}
+
+/* ================= Storage (IndexedDB with In-Memory Fallback) ================= */
+const memKv = new Map();
+const memBlobs = new Map();
+let useMemIdb = false;
+
+const idbP = new Promise(res => {
+  try {
+    if (typeof indexedDB === 'undefined') { useMemIdb = true; return res(null); }
+    const r = indexedDB.open(DB_NAME, 1);
+    r.onupgradeneeded = () => {
+      const d = r.result;
+      if (!d.objectStoreNames.contains('kv')) d.createObjectStore('kv');
+      if (!d.objectStoreNames.contains('blobs')) d.createObjectStore('blobs');
+    };
+    r.onsuccess = () => res(r.result);
+    r.onerror = () => { useMemIdb = true; res(null); };
+    r.onblocked = () => { useMemIdb = true; res(null); };
+  } catch (e) {
+    useMemIdb = true;
+    res(null);
+  }
+});
+
+async function tx(store, mode, fn) {
+  const d = await idbP;
+  if (!d || useMemIdb) {
+    const map = store === 'kv' ? memKv : memBlobs;
+    return fn({
+      get: k => map.get(k),
+      put: (v, k) => { map.set(k, v); return k; },
+      delete: k => { map.delete(k); },
+      getAllKeys: () => Array.from(map.keys())
+    });
+  }
+  return new Promise((res, rej) => {
+    try {
+      const t = d.transaction(store, mode);
+      const req = fn(t.objectStore(store));
+      t.oncomplete = () => res(req.result);
+      t.onerror = () => rej(t.error);
+      t.onabort = () => rej(t.error);
+    } catch (err) {
+      useMemIdb = true;
+      const map = store === 'kv' ? memKv : memBlobs;
+      res(fn({
+        get: k => map.get(k),
+        put: (v, k) => { map.set(k, v); return k; },
+        delete: k => { map.delete(k); },
+        getAllKeys: () => Array.from(map.keys())
+      }));
+    }
+  });
+}
+const kvGet = k => tx('kv', 'readonly', s => s.get(k));
+const kvSet = (k, v) => tx('kv', 'readwrite', s => s.put(v, k));
+const blobGetRaw = id => tx('blobs', 'readonly', s => s.get(id));
+const blobPutRaw = (id, b) => tx('blobs', 'readwrite', s => s.put(b, id));
+const blobDel = id => tx('blobs', 'readwrite', s => s.delete(id));
+const blobAllKeys = () => tx('blobs', 'readonly', s => s.getAllKeys());
+
+let keyP, hmacKeyP, dummySaltP;
+const dataKey = () => keyP ||= (async () => {
+  let k = await kvGet('dataKey');
+  if (!k) {
+    k = await crypto.subtle.generateKey({ name: 'AES-GCM', length: 256 }, false, ['encrypt', 'decrypt']);
+    await kvSet('dataKey', k);
+  }
+  return k;
+})();
+
+const sessionHmacKey = () => hmacKeyP ||= (async () => {
+  let k = await kvGet('sessionHmacKey');
+  if (!k) {
+    k = await crypto.subtle.generateKey({ name: 'HMAC', hash: 'SHA-256' }, false, ['sign', 'verify']);
+    await kvSet('sessionHmacKey', k);
+  }
+  return k;
+})();
+
+const getDummySalt = () => dummySaltP ||= (async () => {
+  let s = await kvGet('dummySalt');
+  if (!s) {
+    s = b64(crypto.getRandomValues(new Uint8Array(16)));
+    await kvSet('dummySalt', s);
+  }
+  return s;
+})();
+
+async function encryptObj(o, aadStr = 'em-db-v4') {
+  const iv = crypto.getRandomValues(new Uint8Array(12));
+  const aad = enc.encode(aadStr);
+  const ct = await crypto.subtle.encrypt(
+    { name: 'AES-GCM', iv, additionalData: aad },
+    await dataKey(),
+    enc.encode(JSON.stringify(o))
+  );
+  return 'v4.' + b64(iv) + '.' + b64(new Uint8Array(ct));
+}
+
+async function decryptObj(s) {
+  if (s.startsWith('v4.') || s.startsWith('v3.')) {
+    const [ver, iv, ct] = s.split('.');
+    const aad = enc.encode(ver === 'v4' ? 'em-db-v4' : 'em-db-v3');
+    const pt = await crypto.subtle.decrypt(
+      { name: 'AES-GCM', iv: unb64(iv), additionalData: aad },
+      await dataKey(),
+      unb64(ct)
+    );
+    return JSON.parse(dec.decode(pt));
+  }
+  const [iv, ct] = s.split('.');
+  const pt = await crypto.subtle.decrypt({ name: 'AES-GCM', iv: unb64(iv) }, await dataKey(), unb64(ct));
+  return JSON.parse(dec.decode(pt));
+}
+
+async function blobPutEncrypted(id, blob) {
+  const iv = crypto.getRandomValues(new Uint8Array(12));
+  const mime = blob.type || 'application/octet-stream';
+  const aad = enc.encode(`blob:${id}:${mime}`);
+  const plainBuf = await blob.arrayBuffer();
+  const cipherBuf = await crypto.subtle.encrypt(
+    { name: 'AES-GCM', iv, additionalData: aad },
+    await dataKey(),
+    plainBuf
+  );
+  await blobPutRaw(id, { enc: true, iv, mime, cipherBuf });
+}
+
+async function blobGetDecrypted(id) {
+  const rec = await blobGetRaw(id);
+  if (!rec) return null;
+  if (rec instanceof Blob) {
+    await blobPutEncrypted(id, rec);
+    return rec;
+  }
+  if (rec && rec.enc && rec.cipherBuf) {
+    const aad = enc.encode(`blob:${id}:${rec.mime}`);
+    const plainBuf = await crypto.subtle.decrypt(
+      { name: 'AES-GCM', iv: rec.iv, additionalData: aad },
+      await dataKey(),
+      rec.cipherBuf
+    );
+    return new Blob([plainBuf], { type: rec.mime });
+  }
+  return null;
+}
+
+async function hashPw(pw, saltB64, rounds = PBKDF2_ROUNDS) {
+  const salt = saltB64 ? unb64(saltB64) : crypto.getRandomValues(new Uint8Array(16));
+  const key = await crypto.subtle.importKey('raw', enc.encode(pw), 'PBKDF2', false, ['deriveBits']);
+  const bits = await crypto.subtle.deriveBits({ name: 'PBKDF2', salt, iterations: rounds, hash: 'SHA-256' }, key, 256);
+  return { salt: b64(salt), hash: b64(new Uint8Array(bits)), rounds };
+}
+
+async function checkPw(pw, rec) {
+  if (!rec || !rec.salt || !rec.hash) return false;
+  const rounds = rec.rounds || 210000;
+  const derived = await hashPw(pw, rec.salt, rounds);
+  return timingSafeEqual(unb64(derived.hash), unb64(rec.hash));
+}
+
+let activeSessionUid = null;
+async function issueSession(userId) {
+  const ts = Date.now();
+  const payload = `${userId}.${ts}`;
+  const sigBuf = await crypto.subtle.sign('HMAC', await sessionHmacKey(), enc.encode(payload));
+  const token = `${payload}.${b64(new Uint8Array(sigBuf))}`;
+  safeSession.setItem('em-session', token);
+  safeSession.setItem('em-seen', String(ts));
+  safeSession.removeItem('em-uid');
+  activeSessionUid = userId;
+}
+
+async function verifySessionToken() {
+  const token = safeSession.getItem('em-session');
+  if (!token) { activeSessionUid = null; return null; }
+  const parts = token.split('.');
+  if (parts.length !== 3) { activeSessionUid = null; return null; }
+  const [userId, tsStr, sigB64] = parts;
+  const payload = `${userId}.${tsStr}`;
+  try {
+    const valid = await crypto.subtle.verify('HMAC', await sessionHmacKey(), unb64(sigB64), enc.encode(payload));
+    if (!valid) {
+      safeSession.removeItem('em-session');
+      activeSessionUid = null;
+      return null;
+    }
+    activeSessionUid = userId;
+    return userId;
+  } catch (e) {
+    activeSessionUid = null;
+    return null;
+  }
+}
+
+/* ================= Application State ================= */
+let db;
+const urls = new Map();
+const ui = {
+  view: 'home',
+  chatWith: null,
+  profileId: null,
+  profileTab: 'overview', // 'overview' | 'posts' | 'network' | 'saved'
+  openComments: {},
+  composer: [],
+  composerVis: 'public',
+  query: '',
+  threadQuery: '',
+  threadFilter: 'all',    // 'all' | 'unread' | 'connections'
+  replyToMsgId: null,
+  showEmojiBar: false,
+  dockOpen: false,
+  autoReplyDemo: true,
+  typingPeerId: null,
+  authMode: 'login',
+  manualLocked: false
+};
+
+let saveChain = Promise.resolve();
+function save() {
+  saveChain = saveChain
+    .then(async () => { safeLocal.setItem(KEY, await encryptObj(db)); })
+    .catch(() => toast('Could not save changes on this device.'));
+  return saveChain;
+}
+
+const userById = id => db && db.users ? db.users.find(u => u.id === id) : null;
+const me = () => activeSessionUid ? userById(activeSessionUid) || null : null;
+const touch = () => safeSession.setItem('em-seen', String(Date.now()));
+const blobUrl = id => urls.get(id) || '';
+
+function defaultPrivacy() {
+  return {
+    postVisibility: 'public',
+    profileVisibility: 'everyone',
+    allowMessagesFrom: 'everyone',
+    hideConnectionsCount: false,
+    stripExif: true,
+    blurOnInactive: true,
+    idleMinutes: 15,
+    ephemeralHours: 0
+  };
+}
+
+function getUserPrivacy(u) {
+  if (!u) return defaultPrivacy();
+  u.privacy = { ...defaultPrivacy(), ...(u.privacy || {}) };
+  return u.privacy;
+}
+
+function ensureUserFields(u) {
+  if (!u) return;
+  u.connections = u.connections || [];
+  u.savedPosts = u.savedPosts || [];
+  u.bio = u.bio ?? 'Passionate about building resilient systems, continuous learning, and mentoring peers across the engineering community.';
+  u.status = u.status || STATUS_OPTIONS[0];
+  u.website = u.website || '';
+  u.coverTheme = u.coverTheme || 'default';
+  u.avatarBlobId = u.avatarBlobId || null;
+  u.profileViews = u.profileViews ?? 42;
+  u.experience = u.experience || [];
+  u.education = u.education || [];
+  u.skills = u.skills || [];
+  u.privacy = { ...defaultPrivacy(), ...(u.privacy || {}) };
+}
+
+function calcProfileCompleteness(u) {
+  if (!u) return 0;
+  let pts = 20; // name + headline
+  if (u.location) pts += 15;
+  if (u.bio && u.bio.length > 20) pts += 20;
+  if ((u.experience || []).length > 0) pts += 15;
+  if ((u.education || []).length > 0) pts += 15;
+  if ((u.skills || []).length > 0) pts += 15;
+  return Math.min(100, pts);
+}
+
+function logAudit(event, detail = '') {
+  if (!db) return;
+  db.security = db.security || { failures: 0, lockUntil: 0, backoffLevel: 0, audit: [] };
+  db.security.audit = db.security.audit || [];
+  db.security.audit.unshift({
+    id: uid(),
+    time: Date.now(),
+    event: clean(event, 80),
+    detail: clean(detail, 140)
+  });
+  if (db.security.audit.length > LIMITS.auditMax) db.security.audit.length = LIMITS.auditMax;
+}
+
+async function cacheBlob(id) {
+  if (!id || urls.has(id)) return;
+  const b = await blobGetDecrypted(id);
+  if (b) urls.set(id, URL.createObjectURL(b));
+}
+
+async function loadActiveBlobs() {
+  if (!db) return;
+  const ids = [];
+  (db.users || []).forEach(u => { if (u.avatarBlobId) ids.push(u.avatarBlobId); });
+  (db.posts || []).forEach(p => (p.attachments || []).forEach(a => { if (a.blobId) ids.push(a.blobId); }));
+  Object.values(db.messages || {}).flat().forEach(x => { if (x && x.blobId) ids.push(x.blobId); });
+  await Promise.all(ids.map(cacheBlob));
+}
+
+function revokeAllObjectUrls() {
+  for (const u of urls.values()) {
+    try { URL.revokeObjectURL(u); } catch (e) {}
+  }
+  urls.clear();
+}
+
+async function purge(list) {
+  for (const x of (list || [])) {
+    if (!x || !x.blobId) continue;
+    const u = urls.get(x.blobId);
+    if (u) URL.revokeObjectURL(u);
+    urls.delete(x.blobId);
+    await blobDel(x.blobId);
+  }
+}
+
+async function sweepExpiredMessages() {
+  if (!db || !db.messages) return;
+  const now = Date.now();
+  let changed = false;
+  for (const k of Object.keys(db.messages)) {
+    const list = db.messages[k] || [];
+    const expired = list.filter(m => m.expiresAt && m.expiresAt <= now);
+    if (expired.length) {
+      await purge(expired);
+      db.messages[k] = list.filter(m => !m.expiresAt || m.expiresAt > now);
+      changed = true;
+    }
+  }
+  if (changed) save();
+}
+
+async function createSeedBannerBlob() {
+  const c = document.createElement('canvas');
+  c.width = 800;
+  c.height = 420;
+  const ctx = c.getContext('2d');
+  const g = ctx.createLinearGradient(0, 0, 800, 420);
+  g.addColorStop(0, '#22d3ee');
+  g.addColorStop(0.55, '#a78bfa');
+  g.addColorStop(1, '#f472b6');
+  ctx.fillStyle = g;
+  ctx.fillRect(0, 0, 800, 420);
+  ctx.fillStyle = '#0b0a1f';
+  ctx.textAlign = 'center';
+  ctx.font = 'bold 46px Inter, Arial, sans-serif';
+  ctx.fillText('3 Career Habits', 400, 185);
+  ctx.font = '600 28px Inter, Arial, sans-serif';
+  ctx.fillText('Consistency · Curiosity · Feedback', 400, 250);
+  return new Promise(res => c.toBlob(b => res(b), 'image/png'));
+}
+
+async function buildSeed() {
+  const DOC = 'Evolution Midset - Q4 Architecture Overview\n\n1. Services\n2. Data layer\n3. Zero-Trust Security & Client-Side Encryption';
+  const users = [];
+  const add = async (opts) => {
+    const u = {
+      id: uid(),
+      name: opts.name,
+      email: opts.email,
+      pw: await hashPw('demo123', null, 120000),
+      headline: opts.headline,
+      location: opts.location,
+      bio: opts.bio,
+      status: opts.status,
+      website: opts.website,
+      coverTheme: opts.coverTheme || 'default',
+      avatarBlobId: null,
+      profileViews: opts.profileViews || 64,
+      connections: [],
+      savedPosts: [],
+      experience: opts.experience || [],
+      education: opts.education || [],
+      skills: opts.skills || [],
+      privacy: defaultPrivacy()
+    };
+    users.push(u);
+    return u;
+  };
+
+  const aisha = await add({
+    name: 'Aisha Verma',
+    email: 'aisha@demo.com',
+    headline: 'Product Manager | Building ethical AI & analytics platforms',
+    location: 'Bengaluru, India',
+    status: '🟢 Open to Opportunities',
+    website: 'https://aishaverma.dev',
+    coverTheme: 'default',
+    profileViews: 128,
+    bio: 'Product leader with 6+ years crafting human-centric AI workflows, privacy-first analytics dashboards, and cross-functional engineering roadmaps.',
+    experience: [
+      { id: uid(), role: 'Senior Product Manager', company: 'NovaScale AI', period: '2024 – Present', desc: 'Leading the privacy-preserving analytics suite and enterprise workflow automation.' },
+      { id: uid(), role: 'Product Analyst', company: 'CloudPulse Systems', period: '2021 – 2024', desc: 'Launched real-time telemetry dashboards adopted by 40+ engineering teams.' }
+    ],
+    education: [
+      { id: uid(), degree: 'B.E. in Computer Science & Engineering', school: 'Visvesvaraya Technological University', year: '2017 – 2021' }
+    ],
+    skills: [
+      { name: 'Product Strategy', endorses: [] },
+      { name: 'Ethical AI', endorses: [] },
+      { name: 'Data Analytics', endorses: [] },
+      { name: 'Agile Roadmapping', endorses: [] }
+    ]
+  });
+
+  const rahul = await add({
+    name: 'Rahul Mehta',
+    email: 'rahul@demo.com',
+    headline: 'Senior Systems & Cloud Architect at Nimbus Cloud',
+    location: 'Pune, India',
+    status: '🚀 Hiring & Collaborating',
+    website: 'https://rahulcloud.io',
+    coverTheme: 'theme-emerald',
+    profileViews: 95,
+    bio: 'Distributed systems engineer specializing in zero-trust cloud architecture, WebCrypto security, and high-throughput microservices.',
+    experience: [
+      { id: uid(), role: 'Senior Software Engineer', company: 'Nimbus Cloud', period: '2023 – Present', desc: 'Architecting multi-region Kubernetes clusters and zero-trust service meshes.' },
+      { id: uid(), role: 'Backend Engineer', company: 'FinCore Labs', period: '2020 – 2023', desc: 'Built low-latency payment settlement pipelines and cryptographic key vaults.' }
+    ],
+    education: [
+      { id: uid(), degree: 'M.Tech in Distributed Computing', school: 'COEP Technological University', year: '2018 – 2020' }
+    ],
+    skills: [
+      { name: 'Cloud Architecture', endorses: [aisha.id] },
+      { name: 'Zero-Trust Security', endorses: [aisha.id] },
+      { name: 'Kubernetes', endorses: [] },
+      { name: 'Rust & Go', endorses: [] }
+    ]
+  });
+
+  const sara = await add({
+    name: 'Sara Khan',
+    email: 'sara@demo.com',
+    headline: 'Executive Career Coach & Engineering Leadership Mentor',
+    location: 'Dubai, UAE',
+    status: '💡 Open to Mentoring',
+    website: 'https://sarakhan.coach',
+    coverTheme: 'theme-sunset',
+    profileViews: 210,
+    bio: 'Helping engineers, researchers, and product builders transition into high-impact leadership roles with clarity and confidence.',
+    experience: [
+      { id: uid(), role: 'Founder & Leadership Coach', company: 'Elevate Mindset Coaching', period: '2022 – Present', desc: 'Mentored 300+ engineers and product managers across APAC and MENA.' }
+    ],
+    education: [
+      { id: uid(), degree: 'MBA in Organizational Leadership', school: 'INSEAD', year: '2019 – 2021' }
+    ],
+    skills: [
+      { name: 'Leadership Coaching', endorses: [aisha.id, rahul.id] },
+      { name: 'Public Speaking', endorses: [aisha.id] },
+      { name: 'Career Strategy', endorses: [] }
+    ]
+  });
+
+  aisha.connections = [rahul.id, sara.id];
+  rahul.connections = [aisha.id];
+  sara.connections = [aisha.id];
+  aisha.skills[0].endorses = [rahul.id, sara.id];
+  aisha.skills[1].endorses = [rahul.id];
+
+  const docId = uid(), imgId = uid();
+  await blobPutEncrypted(docId, new Blob([DOC], { type: 'application/octet-stream' }));
+  const pngBlob = await createSeedBannerBlob();
+  await blobPutEncrypted(imgId, pngBlob || new Blob([''], { type: 'image/png' }));
+  const now = Date.now();
+  const posts = [
+    { id: uid(), authorId: aisha.id, visibility: 'public', text: 'Excited to share that our team shipped the new analytics dashboard this week. Thanks to everyone who helped!',
+      attachments: [], likes: [rahul.id], comments: [{ id: uid(), authorId: sara.id, text: 'Congratulations, Aisha!', time: now - 3600000 }], time: now - 7200000 },
+    { id: uid(), authorId: rahul.id, visibility: 'public', text: 'Sharing our Q4 architecture overview. Happy to discuss in the comments or via direct message.',
+      attachments: [{ id: uid(), kind: 'doc', name: 'architecture-overview.txt', size: DOC.length, description: 'Q4 cloud architecture overview', blobId: docId }],
+      likes: [aisha.id], comments: [], time: now - 86400000 },
+    { id: uid(), authorId: sara.id, visibility: 'public', text: "Three habits that doubled my clients' follow-through this year. Save this graphic!",
+      attachments: [{ id: uid(), kind: 'image', name: 'career-habits.png', size: pngBlob ? pngBlob.size : 4096, description: 'Infographic: three career habits', blobId: imgId, exifStripped: true }],
+      likes: [aisha.id, rahul.id], comments: [], time: now - 172800000 }
+  ];
+
+  const messages = {
+    [threadKey(aisha.id, rahul.id)]: [
+      { id: uid(), from: rahul.id, kind: 'text', text: 'Hey Aisha! Congrats on shipping the analytics dashboard. Would love to review the Q4 architecture notes together.', time: now - 5400000, readBy: [rahul.id], reactions: {} },
+      { id: uid(), from: aisha.id, kind: 'text', text: 'Thanks Rahul! Let us sync this afternoon—I downloaded your architecture overview doc.', time: now - 5000000, readBy: [aisha.id, rahul.id], reactions: { '🚀': [rahul.id] } }
+    ],
+    [threadKey(aisha.id, sara.id)]: [
+      { id: uid(), from: sara.id, kind: 'text', text: 'Hi Aisha! Let me know if you want feedback on your upcoming leadership keynote.', time: now - 3200000, readBy: [sara.id], reactions: {} }
+    ]
+  };
+
+  return {
+    users,
+    posts,
+    messages,
+    security: {
+      failures: 0,
+      lockUntil: 0,
+      backoffLevel: 0,
+      keyCreatedAt: now,
+      audit: [{ id: uid(), time: now, event: 'Vault initialized', detail: 'AES-256-GCM database & encrypted blob store ready' }]
+    }
+  };
+}
+
+async function loadDb() {
+  let raw = safeLocal.getItem(KEY);
+  if (!raw) {
+    for (const lk of LEGACY_KEYS) {
+      if (safeLocal.getItem(lk)) { raw = safeLocal.getItem(lk); break; }
+    }
+  }
+  if (raw) {
+    try {
+      const loaded = await decryptObj(raw);
+      LEGACY_KEYS.forEach(lk => safeLocal.removeItem(lk));
+      loaded.security = loaded.security || { failures: 0, lockUntil: 0, backoffLevel: 0, keyCreatedAt: Date.now(), audit: [] };
+      (loaded.users || []).forEach(ensureUserFields);
+      (loaded.posts || []).forEach(p => { p.visibility = p.visibility || 'public'; });
+      return loaded;
+    } catch (e) {
+      toast('Stored data integrity check failed and vault was reset.');
+    }
+  }
+  return buildSeed();
+}
+
+/* ================= Session, Idle Timeout & Privacy Screen Shield ================= */
+function logout(msg) {
+  if (me()) logAudit('Signed out', msg || 'User signed out');
+  safeSession.removeItem('em-session');
+  safeSession.removeItem('em-seen');
+  safeSession.removeItem('em-uid');
+  activeSessionUid = null;
+  ui.composer = [];
+  ui.manualLocked = false;
+  ui.dockOpen = false;
+  revokeAllObjectUrls();
+  document.body.classList.remove('privacy-blur');
+  ui.view = 'home';
+  save();
+  if (msg) toast(msg);
+  loadActiveBlobs().then(render);
+}
+
+['pointerdown', 'keydown', 'scroll'].forEach(ev => addEventListener(ev, () => { if (me()) touch(); }, { passive: true }));
+
+setInterval(() => {
+  sweepExpiredMessages();
+  const m = me();
+  if (!m) return;
+  const idleLimitMs = (getUserPrivacy(m).idleMinutes || 15) * 60 * 1000;
+  if (Date.now() - Number(safeSession.getItem('em-seen') || 0) > idleLimitMs) {
+    logout(`Signed out after ${getUserPrivacy(m).idleMinutes || 15} minutes of inactivity.`);
+  }
+}, 15000);
+
+function updatePrivacyBlur(blurActive) {
+  const m = me();
+  if (!m) {
+    document.body.classList.remove('privacy-blur');
+    return;
+  }
+  if (ui.manualLocked) {
+    document.body.classList.add('privacy-blur');
+    return;
+  }
+  if (!getUserPrivacy(m).blurOnInactive) {
+    document.body.classList.remove('privacy-blur');
+    return;
+  }
+  document.body.classList.toggle('privacy-blur', !!blurActive);
+}
+document.addEventListener('visibilitychange', () => {
+  if (document.hidden) updatePrivacyBlur(true);
+  else if (!ui.manualLocked) updatePrivacyBlur(false);
+});
+
+window.addEventListener('storage', async e => {
+  if (e.key === KEY && e.newValue) {
+    try {
+      db = await decryptObj(e.newValue);
+      (db.users || []).forEach(ensureUserFields);
+      await loadActiveBlobs();
+      render();
+    } catch (err) {}
+  }
+});
+
+/* ================= File Validation & EXIF Stripping ================= */
+function sniffImage(type, b) {
+  if (b.length < 12) return false;
+  if (type === 'image/png') return b[0] === 0x89 && b[1] === 0x50 && b[2] === 0x4E && b[3] === 0x47;
+  if (type === 'image/jpeg') return b[0] === 0xFF && b[1] === 0xD8 && b[2] === 0xFF;
+  if (type === 'image/gif') return b[0] === 0x47 && b[1] === 0x49 && b[2] === 0x46;
+  if (type === 'image/webp') return b[0] === 0x52 && b[1] === 0x49 && b[2] === 0x46 && b[3] === 0x46 && b[8] === 0x57 && b[9] === 0x45 && b[10] === 0x42 && b[11] === 0x50;
+  return false;
+}
+
+function sniffDocument(ext, b) {
+  if (!b || b.length === 0) return false;
+  if ((b[0] === 0x4D && b[1] === 0x5A) || (b[0] === 0x7F && b[1] === 0x45 && b[2] === 0x4C && b[3] === 0x46)) return false;
+  if (ext === 'pdf') return b[0] === 0x25 && b[1] === 0x50 && b[2] === 0x44 && b[3] === 0x46 && b[4] === 0x2D;
+  if (['docx', 'xlsx', 'pptx'].includes(ext)) return b[0] === 0x50 && b[1] === 0x4B && b[2] === 0x03 && b[3] === 0x04;
+  if (['doc', 'xls', 'ppt'].includes(ext)) return b[0] === 0xD0 && b[1] === 0xCF && b[2] === 0x11 && b[3] === 0xE0;
+  if (['txt', 'csv'].includes(ext)) {
+    for (let i = 0; i < b.length; i++) if (b[i] === 0x00) return false;
+    const sample = dec.decode(b).toLowerCase();
+    if (/<\s*(script|svg|iframe|object|embed|html|meta|onload|onerror)/i.test(sample)) return false;
+    return true;
+  }
+  return false;
+}
+
+async function classify(f) {
+  const ext = (f.name.split('.').pop() || '').toLowerCase();
+  const head = new Uint8Array(await f.slice(0, 512).arrayBuffer());
+  if (IMG_TYPES.includes(f.type)) return sniffImage(f.type, head) ? 'image' : null;
+  if (DOC_EXT.includes(ext) && f.type !== 'image/svg+xml' && f.type !== 'text/html') {
+    return sniffDocument(ext, head) ? 'doc' : null;
+  }
+  return null;
+}
+
+async function stripImageMetadata(file, maxDim = 0) {
+  if (file.type === 'image/gif') return { blob: new Blob([file], { type: file.type }), stripped: false };
+  try {
+    let source, w, h;
+    if (typeof createImageBitmap === 'function') {
+      source = await createImageBitmap(file);
+      w = source.width;
+      h = source.height;
+    } else {
+      const tmpUrl = URL.createObjectURL(file);
+      try {
+        source = await new Promise((res, rej) => {
+          const img = new Image();
+          img.onload = () => res(img);
+          img.onerror = rej;
+          img.src = tmpUrl;
+        });
+        w = source.naturalWidth || source.width;
+        h = source.naturalHeight || source.height;
+      } finally {
+        URL.revokeObjectURL(tmpUrl);
+      }
+    }
+    if (maxDim > 0 && (w > maxDim || h > maxDim)) {
+      const scale = maxDim / Math.max(w, h);
+      w = Math.round(w * scale);
+      h = Math.round(h * scale);
+    }
+    const canvas = document.createElement('canvas');
+    canvas.width = w;
+    canvas.height = h;
+    const ctx = canvas.getContext('2d');
+    ctx.drawImage(source, 0, 0, w, h);
+    if (source && typeof source.close === 'function') source.close();
+    const outType = ['image/jpeg', 'image/png', 'image/webp'].includes(file.type) ? file.type : 'image/png';
+    const cleanBlob = await new Promise(res => canvas.toBlob(b => res(b), outType, 0.92));
+    if (cleanBlob) return { blob: cleanBlob, stripped: true };
+  } catch (e) {}
+  return { blob: new Blob([file], { type: file.type }), stripped: false };
+}
+
+const cleanName = n => clean(String(n).replace(/[\\/]/g, '_').replace(/^\.+/, ''), 120) || 'attachment';
+
+/* ================= Password Strength Analyzer ================= */
+function evaluatePassword(pw) {
+  const s = String(pw || '');
+  let score = 0;
+  if (s.length >= 10) score++;
+  if (s.length >= 14) score++;
+  if (/[a-z]/.test(s) && /[A-Z]/.test(s)) score++;
+  if (/\d/.test(s)) score++;
+  if (/[^A-Za-z0-9]/.test(s)) score++;
+  if (WEAK_PASSWORDS.has(s.toLowerCase()) || /^(.)\1+$/.test(s)) score = Math.min(score, 1);
+  const labels = ['Too weak', 'Weak', 'Fair', 'Good', 'Strong', 'Very strong'];
+  const colors = ['#fb7185', '#fb7185', '#fbbf24', '#34d399', '#22d3ee', '#a78bfa'];
+  return {
+    score,
+    valid: s.length >= 10 && score >= 3 && !WEAK_PASSWORDS.has(s.toLowerCase()),
+    label: labels[score],
+    color: colors[score],
+    pct: Math.max(12, score * 20)
+  };
+}
+
+/* ================= Access Control & Unread Helpers ================= */
+function canViewPost(p, viewer) {
+  const vis = p.visibility || 'public';
+  if (vis === 'public') return true;
+  if (!viewer) return false;
+  if (p.authorId === viewer.id) return true;
+  if (vis === 'connections') {
+    const author = userById(p.authorId);
+    return !!(author && author.connections.includes(viewer.id));
+  }
+  return false;
+}
+
+function canMessagePeer(sender, peer) {
+  if (!sender || !peer) return false;
+  const peerPriv = getUserPrivacy(peer);
+  if (peerPriv.allowMessagesFrom === 'connections' && !peer.connections.includes(sender.id)) {
+    return false;
+  }
+  return true;
+}
+
+function unreadCountForPeer(myId, peerId) {
+  const list = (db && db.messages && db.messages[threadKey(myId, peerId)]) || [];
+  return list.filter(x => x.from === peerId && !(x.readBy || []).includes(myId)).length;
+}
+
+function totalUnreadMessages(myId) {
+  if (!myId || !db || !db.users) return 0;
+  return db.users.reduce((sum, u) => u.id === myId ? sum : sum + unreadCountForPeer(myId, u.id), 0);
+}
+
+function markThreadRead(myId, peerId) {
+  if (!myId || !peerId || !db || !db.messages) return;
+  const list = db.messages[threadKey(myId, peerId)] || [];
+  let changed = false;
+  list.forEach(x => {
+    x.readBy = x.readBy || [x.from];
+    if (!x.readBy.includes(myId)) {
+      x.readBy.push(myId);
+      changed = true;
+    }
+  });
+  if (changed) save();
+}
+
+const VIS_BADGE = {
+  public: '🌐 Public',
+  connections: '👥 Connections only',
+  private: '🔒 Only me'
+};
+
+/* ================= UI Pieces ================= */
+function attachmentHTML(a) {
+  const name = esc(a.name);
+  const desc = a.description ? `<div class="att-desc">${esc(a.description)}</div>` : '';
+  const url = blobUrl(a.blobId);
+  const exifTag = a.exifStripped ? `<span class="badge-sec" title="GPS and camera EXIF metadata scrubbed">🛡 EXIF scrubbed</span>` : '';
+  if (a.kind === 'image') {
+    return `<figure class="att-fig">
+      <img class="att-img" src="${url}" alt="${esc(a.description || a.name)}" loading="lazy">
+      <div class="between" style="margin-top:6px;flex-wrap:wrap">
+        ${desc || '<span></span>'}
+        <div class="row gap">${exifTag}<button class="btn btn-outline small-btn" data-act="downloadBlob" data-blob-id="${esc(a.blobId)}" data-name="${name}">⬇ Download image</button></div>
+      </div>
+    </figure>`;
+  }
+  return `<div class="att-doc glass-inner">
+    <span class="doc-icon">📄</span>
+    <div class="grow"><strong>${name}</strong><div class="muted tiny">${fmtSize(a.size || 0)} · Encrypted at rest</div>${desc}</div>
+    <button class="btn btn-outline small-btn" data-act="downloadBlob" data-blob-id="${esc(a.blobId)}" data-name="${name}">⬇ Download</button>
+  </div>`;
+}
+
+function commentsHTML(p, m) {
+  const list = p.comments.map(c => {
+    const ca = userById(c.authorId);
+    return ca ? `<div class="comment">${avatar(ca, 32)}<div class="bubble">
+      <div class="between"><button class="linkish" data-act="viewProfile" data-id="${esc(ca.id)}"><strong>${esc(ca.name)}</strong></button><span class="tiny muted">${timeAgo(c.time || p.time)}</span></div>
+      <div>${esc(c.text)}</div>
+    </div></div>` : '';
+  }).join('');
+  const box = m
+    ? `<div class="row gap"><input id="c-${esc(p.id)}" maxlength="${LIMITS.comment}" placeholder="Write a comment..." class="grow" autocomplete="off"><button class="btn btn-primary small-btn" data-act="addComment" data-id="${esc(p.id)}">Post</button></div>`
+    : `<p class="muted small">Sign in to comment.</p>`;
+  return `<div class="comments">${list}${box}</div>`;
+}
+
+function postHTML(p, m) {
+  const a = userById(p.authorId);
+  if (!a || !canViewPost(p, m)) return '';
+  const liked = m && p.likes.includes(m.id);
+  const saved = m && (m.savedPosts || []).includes(p.id);
+  const canDelete = m && m.id === p.authorId;
+  const isOther = !m || m.id !== a.id;
+  const visLabel = VIS_BADGE[p.visibility || 'public'] || VIS_BADGE.public;
+  return `<article class="card post">
+    <div class="post-head">
+      ${avatar(a, 48)}
+      <div class="grow">
+        <div class="row gap" style="flex-wrap:wrap">
+          <button class="linkish" data-act="viewProfile" data-id="${esc(a.id)}"><strong>${esc(a.name)}</strong></button>
+          ${a.status ? `<span class="status-badge">${esc(a.status)}</span>` : ''}
+        </div>
+        <div class="muted small">${esc(a.headline)}</div>
+        <div class="muted tiny">${timeAgo(p.time)} · ${visLabel}</div>
+      </div>
+      ${isOther ? `<button class="btn btn-outline small-btn" data-act="openChat" data-id="${esc(a.id)}" title="Send direct message to ${esc(a.name)}">💬 Message</button>` : ''}
+      ${canDelete ? `<button class="icon-btn" data-act="deletePost" data-id="${esc(p.id)}" title="Delete post">🗑</button>` : ''}
+    </div>
+    ${p.text ? `<p class="post-text">${esc(p.text).replace(/\n/g, '<br>')}</p>` : ''}
+    ${p.attachments.map(attachmentHTML).join('')}
+    <div class="post-stats muted small">
+      <span>👍 ${p.likes.length} likes</span>
+      <span>${p.comments.length} comments</span>
+    </div>
+    <div class="post-actions">
+      <button class="action ${liked ? 'on' : ''}" data-act="like" data-id="${esc(p.id)}">👍 Like</button>
+      <button class="action" data-act="toggleComments" data-id="${esc(p.id)}">💬 Comment</button>
+      ${isOther ? `<button class="action" data-act="messageAuthorAboutPost" data-id="${esc(a.id)}" data-post-id="${esc(p.id)}">✉️ Message Author</button>` : ''}
+      <button class="action ${saved ? 'on' : ''}" data-act="toggleSavePost" data-id="${esc(p.id)}">${saved ? '🔖 Saved' : '🔖 Save'}</button>
+    </div>
+    ${ui.openComments[p.id] ? commentsHTML(p, m) : ''}
+  </article>`;
+}
+
+function matchesSearch(p, q) {
+  if (!q) return true;
+  const author = userById(p.authorId);
+  if (p.text && p.text.toLowerCase().includes(q)) return true;
+  if (author && (
+    author.name.toLowerCase().includes(q) ||
+    (author.headline || '').toLowerCase().includes(q) ||
+    (author.location || '').toLowerCase().includes(q) ||
+    (author.skills || []).some(s => s.name.toLowerCase().includes(q))
+  )) return true;
+  if ((p.attachments || []).some(a => (a.name || '').toLowerCase().includes(q) || (a.description || '').toLowerCase().includes(q))) return true;
+  return false;
+}
+
+function refreshFeed() {
+  const el = $('#feed');
+  if (!el) return;
+  const m = me();
+  let posts;
+  if (ui.view === 'profile') {
+    const u = userById(ui.profileId) || m;
+    if (ui.profileTab === 'saved' && u && m && u.id === m.id) {
+      posts = db.posts.filter(p => (m.savedPosts || []).includes(p.id) && canViewPost(p, m));
+    } else {
+      posts = db.posts.filter(p => u && p.authorId === u.id && canViewPost(p, m));
+    }
+  } else {
+    const q = ui.query.trim().toLowerCase();
+    posts = db.posts.filter(p => canViewPost(p, m) && matchesSearch(p, q));
+  }
+  posts.sort((a, b) => b.time - a.time);
+  el.innerHTML = posts.length
+    ? posts.map(p => postHTML(p, m)).join('')
+    : `<div class="card pad muted post">Nothing to show here yet.</div>`;
+}
+
+function renderComposerFiles() {
+  const el = $('#composerFiles');
+  if (!el) return;
+  el.innerHTML = ui.composer.map((a, i) => `
+    <div class="pending-att">
+      ${a.kind === 'image' ? `<img src="${blobUrl(a.blobId)}" alt="">` : `<span class="doc-icon">📄</span>`}
+      <div class="grow">
+        <div class="small"><strong>${esc(a.name)}</strong> <span class="muted tiny">${fmtSize(a.size)}</span> ${a.exifStripped ? '<span class="badge-sec">EXIF stripped</span>' : ''}</div>
+        <input class="desc-input" maxlength="200" placeholder="Add a description for this ${a.kind === 'image' ? 'photo' : 'document'}" value="${esc(a.description)}" data-att-idx="${i}">
+      </div>
+      <button class="icon-btn" data-act="removeComposer" data-i="${i}" title="Remove">✕</button>
+    </div>`).join('');
+}
+
+/* ================= Views ================= */
+function render() {
+  renderNav();
+  renderLeft();
+  renderCenter();
+  renderRight();
+  renderQuickDock();
+}
+
+function navBtn(view, icon, label, badge = 0) {
+  const badgeHTML = badge > 0 ? `<span class="badge-count">${badge}</span>` : '';
+  return `<button class="nav-btn ${ui.view === view ? 'active' : ''}" data-act="go" data-view="${view}"><span>${icon}</span>${label}${badgeHTML}</button>`;
+}
+
+function renderNav() {
+  const m = me();
+  const unread = m ? totalUnreadMessages(m.id) : 0;
+  $('#navs').innerHTML = m
+    ? `${navBtn('home', '🏠', 'Home')}
+       ${navBtn('messages', '💬', 'Message', unread)}
+       ${navBtn('profile', '👤', 'Profile')}
+       ${navBtn('privacy', '🛡', 'Privacy')}
+       <button class="nav-btn" data-act="lockScreen" title="Blur screen immediately"><span>🔒</span>Lock</button>
+       <button class="linkish" data-act="viewProfile" data-id="${esc(m.id)}" style="margin-left:4px" title="View my profile">${avatar(m, 34)}</button>
+       <button class="btn btn-glow small-btn" style="margin-left:4px" data-act="logout">Sign Out</button>`
+    : `${navBtn('home', '🏠', 'Home')}
+       ${navBtn('messages', '💬', 'Message')}
+       <button class="nav-btn nav-x" data-act="auth" data-mode="login">Post Upload</button>
+       <button class="nav-btn nav-x" data-act="auth" data-mode="login">Study</button>
+       <button class="btn btn-glass small-btn" style="margin-left:6px" data-act="auth" data-mode="login">Sign In</button>
+       <button class="btn btn-glow small-btn" data-act="auth" data-mode="signup">Join Now</button>`;
+}
+
+function renderLeft() {
+  const m = me();
+  const el = $('#left');
+  if (!m) {
+    el.innerHTML = `<div class="card pad">
+      <h3 class="card-title">Welcome to Evolution Midset</h3>
+      <p class="muted small">Your privacy-first professional network for growth, learning and opportunity.</p>
+      <button class="btn btn-primary block" data-act="auth" data-mode="signup">Join now</button>
+      <button class="btn btn-outline block" data-act="auth" data-mode="login">Sign in</button>
+      <p class="tiny muted" style="margin:10px 0 0">Demo login:<br><strong>aisha@demo.com</strong> / <strong>demo123</strong></p>
+    </div>`;
+    return;
+  }
+  ensureUserFields(m);
+  const myPosts = db.posts.filter(p => p.authorId === m.id);
+  const totalLikes = myPosts.reduce((s, p) => s + p.likes.length, 0);
+  const comp = calcProfileCompleteness(m);
+  const unread = totalUnreadMessages(m.id);
+
+  el.innerHTML = `<div class="card profile-card">
+    <div class="cover ${esc(m.coverTheme || '')}"></div>
+    <div class="pad">
+      ${avatar(m, 74)}
+      <button class="linkish" data-act="viewProfile" data-id="${esc(m.id)}"><strong style="font-size:15px">${esc(m.name)}</strong></button>
+      <div style="margin:4px 0"><span class="status-badge">${esc(m.status)}</span></div>
+      <p class="muted small" style="margin:4px 0">${esc(m.headline)}</p>
+      <p class="muted tiny" style="margin:2px 0">📍 ${esc(m.location || 'Add location')}</p>
+      <div class="stat-grid">
+        <div class="stat-box"><strong>${m.connections.length}</strong><span class="tiny muted">Network</span></div>
+        <div class="stat-box"><strong>${m.profileViews || 42}</strong><span class="tiny muted">Views</span></div>
+        <div class="stat-box"><strong>${totalLikes}</strong><span class="tiny muted">Likes</span></div>
+      </div>
+      <div style="text-align:left;margin:10px 0">
+        <div class="between tiny"><span class="muted">Profile strength</span><strong>${comp}%</strong></div>
+        <div class="completeness-bar"><div class="completeness-fill" style="width:${comp}%"></div></div>
+      </div>
+      <hr>
+      <button class="btn btn-primary block small-btn" data-act="go" data-view="profile">👤 View &amp; Improve Profile</button>
+      <button class="btn btn-outline block small-btn" data-act="go" data-view="messages">💬 Messages ${unread ? `(${unread})` : ''}</button>
+      <button class="btn btn-outline block small-btn" data-act="editProfileModal">✏️ Quick Edit Profile</button>
+    </div>
+  </div>`;
+}
+
+function renderCenter() {
+  const m = me();
+  const c = $('#center');
+  $('#layout').classList.toggle('wide', (!!m && ui.view === 'messages') || (!m && ui.view !== 'privacy'));
+  if (ui.view === 'privacy') return renderPrivacy(c, m);
+  if (!m) {
+    c.innerHTML = `<div class="card hero landing">
+      <h1>Evolve Your Mind,<br><span>Empower Your Future</span></h1>
+      <p>Connect through encrypted direct messages, showcase your rich professional profile, share post uploads, and download study materials to fuel your growth.</p>
+      <div class="row">
+        <button class="btn btn-hero" data-act="auth" data-mode="signup">Get Started</button>
+        <button class="btn btn-glass" data-act="auth" data-mode="login">Sign In (Demo)</button>
+      </div>
+    </div>
+    <div class="feature-grid">
+      <div class="feature" data-act="auth" data-mode="login">
+        <div class="ico">💬</div>
+        <div><h3>Message &amp; Connect</h3><p class="muted small" style="margin:4px 0 0">Instant encrypted direct messages, reactions, replies &amp; file sharing.</p></div>
+      </div>
+      <div class="feature" data-act="auth" data-mode="login">
+        <div class="ico">👤</div>
+        <div><h3>Rich Professional Profile</h3><p class="muted small" style="margin:4px 0 0">Showcase experience, education, endorsed skills &amp; custom themes.</p></div>
+      </div>
+      <div class="feature" data-act="auth" data-mode="login">
+        <div class="ico">📖</div>
+        <div><h3>Study &amp; Download</h3><p class="muted small" style="margin:4px 0 0">Upload &amp; download verified study notes, PDFs and graphics.</p></div>
+        <span class="dl">⤓</span>
+      </div>
+    </div>
+    <div style="max-width:780px;margin:24px auto 0">
+      <h3 class="section-title">🌐 Public Community Feed</h3>
+      <div id="feed"></div>
+    </div>`;
+    refreshFeed();
+    return;
+  }
+  if (ui.view === 'messages') return renderMessages(c, m);
+  if (ui.view === 'profile') return renderProfile(c, m);
+  renderHome(c, m);
+}
+
+function renderHome(c, m) {
+  const priv = getUserPrivacy(m);
+  const vis = ui.composerVis || priv.postVisibility || 'public';
+  c.innerHTML = `
+    <div class="card composer">
+      <div class="row gap">
+        ${avatar(m, 48)}
+        <textarea id="postText" maxlength="${LIMITS.post}" placeholder="Share an update, study resource, or engineering milestone..."></textarea>
+      </div>
+      <div id="composerFiles"></div>
+      <div class="composer-actions">
+        <label class="btn btn-ghost">📷 Photo
+          <input type="file" accept="image/png,image/jpeg,image/gif,image/webp" multiple hidden data-file="post-img">
+        </label>
+        <label class="btn btn-ghost">📄 Document
+          <input type="file" accept=".pdf,.doc,.docx,.ppt,.pptx,.xls,.xlsx,.txt,.csv" multiple hidden data-file="post-doc">
+        </label>
+        <select id="postVisSelect" class="vis-select" title="Who can see this post">
+          <option value="public" ${vis === 'public' ? 'selected' : ''}>🌐 Public</option>
+          <option value="connections" ${vis === 'connections' ? 'selected' : ''}>👥 Connections only</option>
+          <option value="private" ${vis === 'private' ? 'selected' : ''}>🔒 Only me</option>
+        </select>
+        <button class="btn btn-primary" data-act="publish" style="margin-left:auto">Post</button>
+      </div>
+      <p class="tiny muted" style="margin:10px 0 0">Files up to 25 MB · Encrypted with AES-256-GCM · ${priv.stripExif ? 'Photo EXIF metadata automatically scrubbed' : 'EXIF scrubbing paused'}.</p>
+    </div>
+    <div id="feed"></div>`;
+  renderComposerFiles();
+  refreshFeed();
+}
+
+/* ================= Comprehensive Profile View ================= */
+function renderProfile(c, m) {
+  const u = userById(ui.profileId) || m;
+  ensureUserFields(u);
+  const isMe = u.id === m.id;
+  const connected = m.connections.includes(u.id);
+  const uPriv = getUserPrivacy(u);
+  const profileRestricted = !isMe && uPriv.profileVisibility === 'connections' && !connected;
+  const connText = (!isMe && uPriv.hideConnectionsCount) ? 'Connections hidden' : `${u.connections.length} connections`;
+  const userPosts = db.posts.filter(p => p.authorId === u.id && canViewPost(p, m));
+  const totalLikes = userPosts.reduce((s, p) => s + p.likes.length, 0);
+  const tab = ui.profileTab || 'overview';
+
+  let tabContent = '';
+  if (profileRestricted) {
+    tabContent = `<div class="card pad muted post">🔒 ${esc(u.name)} only shares full profile sections and activity with connections. Connect or send a message to introduce yourself.</div>`;
+  } else if (tab === 'overview') {
+    const expHTML = (u.experience || []).map(ex => `
+      <div class="exp-item">
+        <div class="exp-ico">💼</div>
+        <div class="grow">
+          <div class="between">
+            <strong>${esc(ex.role)}</strong>
+            ${isMe ? `<button class="icon-btn tiny" data-act="deleteExp" data-id="${esc(ex.id)}" title="Delete experience">🗑</button>` : ''}
+          </div>
+          <div class="small" style="color:var(--a1)">${esc(ex.company)} · <span class="muted">${esc(ex.period)}</span></div>
+          ${ex.desc ? `<p class="muted small" style="margin:4px 0 0">${esc(ex.desc)}</p>` : ''}
+        </div>
+      </div>`).join('') || `<p class="muted small">No work experience listed yet.</p>`;
+
+    const eduHTML = (u.education || []).map(ed => `
+      <div class="exp-item">
+        <div class="exp-ico">🎓</div>
+        <div class="grow">
+          <div class="between">
+            <strong>${esc(ed.degree)}</strong>
+            ${isMe ? `<button class="icon-btn tiny" data-act="deleteEdu" data-id="${esc(ed.id)}" title="Delete education">🗑</button>` : ''}
+          </div>
+          <div class="small muted">${esc(ed.school)} · ${esc(ed.year)}</div>
+        </div>
+      </div>`).join('') || `<p class="muted small">No education listed yet.</p>`;
+
+    const skillsHTML = (u.skills || []).map((sk, idx) => {
+      const endorses = sk.endorses || [];
+      const endorsedByMe = endorses.includes(m.id);
+      return `<div class="skill-tag">
+        <span>${esc(sk.name)}</span>
+        <span class="badge-sec">${endorses.length}</span>
+        ${!isMe ? `<button data-act="endorseSkill" data-uid="${esc(u.id)}" data-idx="${idx}" title="${endorsedByMe ? 'Remove endorsement' : 'Endorse skill'}">${endorsedByMe ? '✓ Endorsed' : '+ Endorse'}</button>` : `<button data-act="removeSkill" data-idx="${idx}" title="Remove skill">✕</button>`}
+      </div>`;
+    }).join('') || `<p class="muted small">No skills added yet.</p>`;
+
+    tabContent = `
+      <div class="card pad" style="margin-top:14px">
+        <div class="between">
+          <h3 class="card-title" style="margin:0">📖 About</h3>
+          ${isMe ? `<button class="btn btn-ghost small-btn" data-act="editProfileModal">✏️ Edit</button>` : ''}
+        </div>
+        <p style="margin:8px 0 0;white-space:pre-line">${esc(u.bio || 'No bio added yet.')}</p>
+      </div>
+
+      <div class="card pad" style="margin-top:14px">
+        <div class="between">
+          <h3 class="card-title" style="margin:0">💼 Experience</h3>
+          ${isMe ? `<button class="btn btn-outline small-btn" data-act="addExpModal">+ Add Experience</button>` : ''}
+        </div>
+        <div style="margin-top:8px">${expHTML}</div>
+      </div>
+
+      <div class="card pad" style="margin-top:14px">
+        <div class="between">
+          <h3 class="card-title" style="margin:0">🎓 Education &amp; Certifications</h3>
+          ${isMe ? `<button class="btn btn-outline small-btn" data-act="addEduModal">+ Add Education</button>` : ''}
+        </div>
+        <div style="margin-top:8px">${eduHTML}</div>
+      </div>
+
+      <div class="card pad" style="margin-top:14px">
+        <div class="between">
+          <h3 class="card-title" style="margin:0">⚡ Skills &amp; Endorsements</h3>
+          ${isMe ? `<button class="btn btn-outline small-btn" data-act="addSkillModal">+ Add Skill</button>` : ''}
+        </div>
+        <div class="skill-list">${skillsHTML}</div>
+      </div>
+
+      <h3 class="section-title">Recent Posts (${userPosts.length})</h3>
+      <div id="feed"></div>`;
+  } else if (tab === 'posts' || tab === 'saved') {
+    tabContent = `<div id="feed"></div>`;
+  } else if (tab === 'network') {
+    const connUsers = (u.connections || []).map(userById).filter(Boolean);
+    tabContent = `
+      <div class="card pad" style="margin-top:14px">
+        <h3 class="card-title">👥 Connections (${connUsers.length})</h3>
+        ${connUsers.length ? connUsers.map(cu => `
+          <div class="person" style="padding:8px 0;border-bottom:1px solid rgba(255,255,255,.08)">
+            ${avatar(cu, 48)}
+            <div class="grow">
+              <button class="linkish" data-act="viewProfile" data-id="${esc(cu.id)}"><strong>${esc(cu.name)}</strong></button>
+              <div class="muted small">${esc(cu.headline)}</div>
+              <div class="muted tiny">📍 ${esc(cu.location || '')}</div>
+            </div>
+            <div class="row gap">
+              ${cu.id !== m.id ? `<button class="btn btn-primary small-btn" data-act="openChat" data-id="${esc(cu.id)}">💬 Message</button>` : ''}
+              <button class="btn btn-outline small-btn" data-act="viewProfile" data-id="${esc(cu.id)}">Profile</button>
+            </div>
+          </div>`).join('') : `<p class="muted small">No connections yet. Connect with members in the right sidebar!</p>`}
+      </div>`;
+  }
+
+  c.innerHTML = `
+    <div class="card profile-head">
+      <div class="cover ${esc(u.coverTheme || '')}">
+        ${isMe ? `<div class="cover-edit-bar">
+          <button class="btn btn-glass small-btn" data-act="cycleCoverTheme" title="Switch banner theme">🎨 Banner Theme</button>
+        </div>` : ''}
+      </div>
+      <div class="pad">
+        <div class="profile-top-row">
+          <div class="profile-avatar-wrap">
+            ${avatar(u, 96)}
+            ${isMe ? `<label class="avatar-upload-btn" title="Upload profile photo">📷<input type="file" accept="image/png,image/jpeg,image/gif,image/webp" hidden data-file="avatar-img"></label>` : ''}
+          </div>
+          <div class="row gap" style="flex-wrap:wrap;margin-bottom:6px">
+            ${isMe
+              ? `<button class="btn btn-primary" data-act="editProfileModal">✏️ Edit Profile</button>
+                 <button class="btn btn-outline" data-act="addExpModal">+ Experience</button>
+                 <button class="btn btn-outline" data-act="go" data-view="privacy">🛡 Privacy</button>`
+              : `<button class="btn btn-primary" data-act="openChat" data-id="${esc(u.id)}">💬 Message ${esc(u.name.split(' ')[0])}</button>
+                 <button class="btn btn-outline" data-act="connect" data-id="${esc(u.id)}">${connected ? '✓ Connected' : '+ Connect'}</button>`}
+          </div>
+        </div>
+
+        <div class="row gap" style="flex-wrap:wrap">
+          <h2 style="margin:0">${esc(u.name)}</h2>
+          <span class="status-badge">${esc(u.status)}</span>
+        </div>
+        <p style="margin:4px 0;font-size:15px">${esc(u.headline)}</p>
+
+        <div class="meta-links">
+          ${u.location ? `<span>📍 ${esc(u.location)}</span>` : ''}
+          <span>👥 ${esc(connText)}</span>
+          <span>👁 ${u.profileViews || 42} profile views</span>
+          <span>👍 ${totalLikes} post likes</span>
+          ${u.website ? `<a href="${esc(u.website)}" target="_blank" rel="noopener noreferrer">🔗 ${esc(u.website.replace(/^https?:\/\//, ''))}</a>` : ''}
+        </div>
+      </div>
+
+      <div class="profile-tabs">
+        <button class="tab-btn ${tab === 'overview' ? 'active' : ''}" data-act="setProfileTab" data-tab="overview">Overview</button>
+        <button class="tab-btn ${tab === 'posts' ? 'active' : ''}" data-act="setProfileTab" data-tab="posts">Posts (${userPosts.length})</button>
+        <button class="tab-btn ${tab === 'network' ? 'active' : ''}" data-act="setProfileTab" data-tab="network">Network (${u.connections.length})</button>
+        ${isMe ? `<button class="tab-btn ${tab === 'saved' ? 'active' : ''}" data-act="setProfileTab" data-tab="saved">🔖 Saved (${(m.savedPosts || []).length})</button>` : ''}
+      </div>
+    </div>
+    ${tabContent}`;
+
+  if (!profileRestricted && (tab === 'overview' || tab === 'posts' || tab === 'saved')) {
+    refreshFeed();
+  }
+}
+
+/* ================= Enhanced Messaging Center ================= */
+function renderMessages(c, m) {
+  sweepExpiredMessages();
+  const others = db.users.filter(u => u.id !== m.id);
+  if (!ui.chatWith || !userById(ui.chatWith)) ui.chatWith = others[0] ? others[0].id : null;
+  if (ui.chatWith) markThreadRead(m.id, ui.chatWith);
+
+  const peer = ui.chatWith ? userById(ui.chatWith) : null;
+  const allowed = peer ? canMessagePeer(m, peer) : false;
+  const myPriv = getUserPrivacy(m);
+  const tq = ui.threadQuery.trim().toLowerCase();
+
+  const filteredOthers = others.filter(u => {
+    if (tq && !u.name.toLowerCase().includes(tq) && !(u.headline || '').toLowerCase().includes(tq)) return false;
+    if (ui.threadFilter === 'unread') return unreadCountForPeer(m.id, u.id) > 0;
+    if (ui.threadFilter === 'connections') return m.connections.includes(u.id);
+    return true;
+  });
+
+  const replyMsg = (ui.replyToMsgId && peer)
+    ? (db.messages[threadKey(m.id, peer.id)] || []).find(x => x.id === ui.replyToMsgId)
+    : null;
+
+  c.innerHTML = `
+    <div class="card chat-wrap">
+      <aside class="threads-pane">
+        <div class="threads-top">
+          <div class="between">
+            <strong>💬 Messaging</strong>
+            <label class="tiny muted row gap" style="cursor:pointer" title="Simulate instant replies from demo members">
+              <input type="checkbox" id="autoReplyToggle" ${ui.autoReplyDemo ? 'checked' : ''}> Smart Demo Reply
+            </label>
+          </div>
+          <input id="threadSearch" type="search" placeholder="Search conversations..." value="${esc(ui.threadQuery)}" autocomplete="off" style="padding:6px 10px;font-size:12px">
+          <div class="thread-filters">
+            <button class="filter-chip ${ui.threadFilter === 'all' ? 'active' : ''}" data-act="setThreadFilter" data-filter="all">All</button>
+            <button class="filter-chip ${ui.threadFilter === 'unread' ? 'active' : ''}" data-act="setThreadFilter" data-filter="unread">Unread</button>
+            <button class="filter-chip ${ui.threadFilter === 'connections' ? 'active' : ''}" data-act="setThreadFilter" data-filter="connections">Connections</button>
+          </div>
+        </div>
+        <div class="threads">
+          ${filteredOthers.map(u => {
+            const list = db.messages[threadKey(m.id, u.id)] || [];
+            const last = list[list.length - 1];
+            const unread = unreadCountForPeer(m.id, u.id);
+            const snippet = last
+              ? (last.kind === 'text' ? last.text : (last.kind === 'image' ? '📷 Photo' : '📄 ' + (last.name || 'Document')))
+              : u.headline;
+            return `
+              <button class="thread ${u.id === ui.chatWith ? 'active' : ''}" data-act="openChat" data-id="${esc(u.id)}">
+                ${avatar(u, 42)}
+                <div class="grow">
+                  <div class="between">
+                    <strong>${esc(u.name)}</strong>
+                    ${last ? `<span class="tiny muted">${timeAgo(last.time)}</span>` : ''}
+                  </div>
+                  <div class="between">
+                    <div class="muted tiny thread-preview">${esc(snippet)}</div>
+                    ${unread ? `<span class="badge-count">${unread}</span>` : ''}
+                  </div>
+                </div>
+              </button>`;
+          }).join('') || `<p class="pad muted small">No matching conversations.</p>`}
+        </div>
+      </aside>
+
+      <section class="chat">
+        ${peer ? `
+          <header class="chat-head">
+            ${avatar(peer, 40)}
+            <div class="grow">
+              <div class="row gap">
+                <button class="linkish" data-act="viewProfile" data-id="${esc(peer.id)}"><strong>${esc(peer.name)}</strong></button>
+                <span class="status-dot" title="Active"></span>
+                <span class="tiny muted">${esc(peer.status || '')}</span>
+              </div>
+              <div class="muted tiny">${esc(peer.headline)} · 🔒 AES-256-GCM encrypted ${myPriv.ephemeralHours ? `· ⏱ Disappearing (${myPriv.ephemeralHours}h)` : ''}</div>
+            </div>
+            <div class="row gap">
+              <button class="btn btn-outline small-btn" data-act="viewProfile" data-id="${esc(peer.id)}">👤 Profile</button>
+              <button class="btn btn-outline small-btn" data-act="clearThread" data-id="${esc(peer.id)}" title="Delete all messages in this conversation">🗑 Clear</button>
+            </div>
+          </header>
+
+          <div class="messages" id="messages"></div>
+
+          ${allowed ? `
+            <div class="icebreakers">
+              ${ICEBREAKERS.map(txt => `<button class="ice-chip" data-act="sendIcebreaker" data-text="${esc(txt)}">${esc(txt)}</button>`).join('')}
+            </div>
+            ${replyMsg ? `
+              <div class="reply-banner">
+                <span>↩ Replying to: <strong>${esc((replyMsg.text || replyMsg.name || 'attachment').slice(0, 60))}</strong></span>
+                <button class="icon-btn tiny" data-act="cancelReply">✕</button>
+              </div>` : ''}
+            ${ui.showEmojiBar ? `
+              <div class="emoji-bar">
+                ${QUICK_EMOJIS.map(em => `<button class="emoji-btn" data-act="insertEmoji" data-emoji="${em}">${em}</button>`).join('')}
+              </div>` : ''}
+            <footer class="chat-input">
+              <label class="icon-btn" title="Send an encrypted photo">📷
+                <input type="file" accept="image/png,image/jpeg,image/gif,image/webp" hidden data-file="chat-img">
+              </label>
+              <label class="icon-btn" title="Send an encrypted document">📄
+                <input type="file" accept=".pdf,.doc,.docx,.ppt,.pptx,.xls,.xlsx,.txt,.csv" hidden data-file="chat-doc">
+              </label>
+              <button class="icon-btn" data-act="toggleEmojiBar" title="Insert emoji">😊</button>
+              <input id="chatText" maxlength="${LIMITS.message}" placeholder="Write a message to ${esc(peer.name.split(' ')[0])}..." autocomplete="off">
+              <button class="btn btn-primary" data-act="sendText">Send ➤</button>
+            </footer>`
+          : `<footer class="chat-input"><p class="muted small" style="margin:4px auto">🔒 ${esc(peer.name)} only accepts messages from connections. <button class="linkish" data-act="connect" data-id="${esc(peer.id)}" style="color:var(--a1);font-weight:700">Connect now</button></p></footer>`}`
+        : `<p class="pad muted">No other members yet.</p>`}
+      </section>
+    </div>`;
+  renderMessagesList();
+}
+
+function renderMessagesList() {
+  const el = $('#messages');
+  if (!el) return;
+  const m = me();
+  if (!m || !ui.chatWith) return;
+  const list = db.messages[threadKey(m.id, ui.chatWith)] || [];
+  const peer = userById(ui.chatWith);
+
+  const itemsHTML = list.map(x => {
+    const mine = x.from === m.id;
+    const url = blobUrl(x.blobId);
+    let quoteHTML = '';
+    if (x.replyTo) {
+      const orig = list.find(o => o.id === x.replyTo);
+      if (orig) {
+        const origAuthor = orig.from === m.id ? 'You' : (peer ? peer.name.split(' ')[0] : 'Member');
+        quoteHTML = `<div class="reply-quote"><strong>${esc(origAuthor)}:</strong> ${esc((orig.text || orig.name || 'Attachment').slice(0, 80))}</div>`;
+      }
+    }
+    let body;
+    if (x.kind === 'text') body = `<div>${esc(x.text).replace(/\n/g, '<br>')}</div>`;
+    else if (x.kind === 'image') body = `<img class="chat-img" src="${url}" alt="${esc(x.name)}"><button class="linkish small" data-act="downloadBlob" data-blob-id="${esc(x.blobId)}" data-name="${esc(x.name)}">⬇ Download photo</button>`;
+    else body = `<div class="row gap"><span class="doc-icon">📄</span><div class="grow"><strong>${esc(x.name)}</strong><div class="tiny">${fmtSize(x.size || 0)}</div></div><button class="linkish small" data-act="downloadBlob" data-blob-id="${esc(x.blobId)}" data-name="${esc(x.name)}">⬇ Download</button></div>`;
+
+    const reactions = x.reactions || {};
+    const reactPills = Object.entries(reactions).filter(([, arr]) => arr && arr.length > 0).map(([em, arr]) => {
+      const iReacted = arr.includes(m.id);
+      return `<button class="react-pill ${iReacted ? 'on' : ''}" data-act="reactMsg" data-id="${esc(x.id)}" data-emoji="${em}">${em} ${arr.length}</button>`;
+    }).join('');
+
+    const expText = x.expiresAt ? ` · ⏱ ${Math.max(1, Math.ceil((x.expiresAt - Date.now()) / 60000))}m` : '';
+    const readStatus = mine ? ((x.readBy || []).includes(ui.chatWith) ? ' · ✓✓ Read' : ' · ✓ Sent') : '';
+
+    return `<div class="msg ${mine ? 'mine' : 'theirs'}">
+      <div class="bubble-msg">${quoteHTML}${body}</div>
+      ${reactPills ? `<div class="msg-reactions">${reactPills}</div>` : ''}
+      <div class="msg-meta">
+        <span>${new Date(x.time).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}${expText}${readStatus}</span>
+        <span class="msg-tools">
+          <button data-act="reactMsg" data-id="${esc(x.id)}" data-emoji="👍" title="Like message">👍</button>
+          <button data-act="reactMsg" data-id="${esc(x.id)}" data-emoji="❤️" title="Love message">❤️</button>
+          <button data-act="replyMsg" data-id="${esc(x.id)}" title="Reply">↩ Reply</button>
+          ${mine ? `<button data-act="deleteMsg" data-id="${esc(x.id)}" title="Delete message">🗑</button>` : ''}
+        </span>
+      </div>
+    </div>`;
+  }).join('');
+
+  const typingHTML = (ui.typingPeerId && ui.typingPeerId === ui.chatWith && peer)
+    ? `<div class="msg theirs"><div class="bubble-msg muted small"><em>${esc(peer.name.split(' ')[0])} is typing...</em></div></div>`
+    : '';
+
+  el.innerHTML = (itemsHTML || `<p class="muted center-text" style="margin:auto">Say hello 👋 Click an icebreaker below or send an encrypted message.</p>`) + typingHTML;
+  el.scrollTop = el.scrollHeight;
+}
+
+/* ================= Floating Quick-Chat Dock ================= */
+function renderQuickDock() {
+  const dock = $('#quickDock');
+  if (!dock) return;
+  const m = me();
+  if (!m || ui.view === 'messages') {
+    dock.hidden = true;
+    return;
+  }
+  dock.hidden = false;
+  const unread = totalUnreadMessages(m.id);
+  const others = db.users.filter(u => u.id !== m.id);
+  if (!ui.chatWith || !userById(ui.chatWith)) ui.chatWith = others[0] ? others[0].id : null;
+  const peer = ui.chatWith ? userById(ui.chatWith) : null;
+  const list = peer ? (db.messages[threadKey(m.id, peer.id)] || []).slice(-6) : [];
+
+  dock.innerHTML = `
+    <div class="dock-head" data-act="toggleDock">
+      <div class="row gap">
+        <span class="status-dot"></span>
+        <strong>💬 Quick Message</strong>
+        ${unread ? `<span class="badge-count">${unread}</span>` : ''}
+      </div>
+      <span class="muted small">${ui.dockOpen ? '▾' : '▴'}</span>
+    </div>
+    ${ui.dockOpen ? `
+      <div class="dock-body">
+        <div style="padding:8px 10px;border-bottom:1px solid var(--edge);display:flex;gap:6px;align-items:center">
+          <select id="dockPeerSelect" style="flex:1;padding:5px 8px;font-size:12px">
+            ${others.map(u => `<option value="${esc(u.id)}" ${u.id === ui.chatWith ? 'selected' : ''}>${esc(u.name)} — ${esc(u.headline.slice(0, 28))}</option>`).join('')}
+          </select>
+          <button class="btn btn-outline small-btn" data-act="go" data-view="messages" title="Open full messaging view">⤢</button>
+        </div>
+        <div class="messages" id="dockMessages" style="padding:10px;font-size:12px">
+          ${list.length ? list.map(x => `
+            <div class="msg ${x.from === m.id ? 'mine' : 'theirs'}" style="max-width:85%">
+              <div class="bubble-msg" style="padding:6px 10px;font-size:12px">${esc(x.text || x.name || 'Attachment')}</div>
+            </div>`).join('') : `<p class="muted center-text small" style="margin:auto">Start a quick chat with ${peer ? esc(peer.name.split(' ')[0]) : 'a member'}.</p>`}
+        </div>
+        <div class="chat-input" style="padding:8px">
+          <input id="dockChatText" maxlength="${LIMITS.message}" placeholder="Quick message..." style="padding:6px 10px;font-size:12px" autocomplete="off">
+          <button class="btn btn-primary small-btn" data-act="sendDockText">➤</button>
+        </div>
+      </div>` : ''}`;
+  const dm = $('#dockMessages');
+  if (dm) dm.scrollTop = dm.scrollHeight;
+}
+
+/* ================= Right Sidebar ================= */
+function renderRight() {
+  const m = me();
+  const el = $('#right');
+  if (!db || !db.users) { el.innerHTML = ''; return; }
+  const q = ui.query.trim().toLowerCase();
+  const people = db.users.filter(u => (!m || u.id !== m.id) && (
+    !q ||
+    u.name.toLowerCase().includes(q) ||
+    (u.headline || '').toLowerCase().includes(q) ||
+    (u.location || '').toLowerCase().includes(q) ||
+    (u.skills || []).some(s => s.name.toLowerCase().includes(q))
+  ));
+  el.innerHTML = `<div class="card pad">
+    <h3 class="card-title">${q ? 'Matching Members' : 'People You May Know'}</h3>
+    ${people.map(u => {
+      const on = m && m.connections.includes(u.id);
+      return `<div class="person" style="align-items:flex-start">
+        ${avatar(u, 44)}
+        <div class="grow">
+          <button class="linkish" data-act="viewProfile" data-id="${esc(u.id)}"><strong>${esc(u.name)}</strong></button>
+          <div class="muted tiny">${esc(u.headline)}</div>
+          <div class="row gap" style="margin-top:6px">
+            <button class="btn btn-outline small-btn" data-act="connect" data-id="${esc(u.id)}">${on ? '✓ Connected' : '+ Connect'}</button>
+            <button class="btn btn-primary small-btn" data-act="openChat" data-id="${esc(u.id)}" title="Send message">💬 Message</button>
+          </div>
+        </div>
+      </div>`;
+    }).join('') || '<p class="muted small">No matching members found.</p>'}
+  </div>`;
+}
+
+function renderPrivacy(c, m) {
+  const priv = m ? getUserPrivacy(m) : defaultPrivacy();
+  const sec = db.security || { audit: [], keyCreatedAt: Date.now() };
+  const auditHTML = (sec.audit || []).slice(0, 20).map(a => `
+    <div class="audit-entry">
+      <span><strong>${esc(a.event)}</strong> ${a.detail ? `— <span class="muted">${esc(a.detail)}</span>` : ''}</span>
+      <span class="muted">${new Date(a.time).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit', second: '2-digit' })}</span>
+    </div>`).join('') || '<div class="muted">No security events recorded yet.</div>';
+
+  c.innerHTML = `
+    <div class="card pad">
+      <div class="between" style="flex-wrap:wrap">
+        <div>
+          <h2 style="margin:0 0 4px">🛡 Privacy &amp; Security Center</h2>
+          <p class="muted" style="margin:0">Zero-trust client-side protections active on this device.</p>
+        </div>
+        <span class="badge-sec">AES-256-GCM + PBKDF2 (600K)</span>
+      </div>
+      <ul class="sec-list">
+        <li><span class="pill">Active</span> <strong>Hardened Password Hashing:</strong> PBKDF2-HMAC-SHA256 (${PBKDF2_ROUNDS.toLocaleString()} iterations) with per-user 128-bit cryptographic salt and constant-time verification.</li>
+        <li><span class="pill">Active</span> <strong>Full Vault &amp; File Encryption at Rest:</strong> Database records, profile avatars, posts, and chat attachments are encrypted with non-extractable AES-256-GCM keys in IndexedDB.</li>
+        <li><span class="pill">Active</span> <strong>Automatic EXIF Metadata Scrubbing:</strong> Uploaded JPEG/PNG/WebP photos are re-encoded via an offscreen canvas to strip GPS coordinates and camera metadata.</li>
+        <li><span class="pill">Active</span> <strong>HMAC-Signed Sessions &amp; Memory Hygiene:</strong> Active sessions are verified via non-extractable HMAC-SHA256 signatures and auto-expire on inactivity.</li>
+      </ul>
+    </div>
+
+    ${m ? `
+    <div class="card pad" style="margin-top:14px">
+      <h3 class="card-title">🔒 Granular Privacy &amp; Messaging Controls</h3>
+      <div class="toggle-row">
+        <div><strong>Default Post Audience</strong><div class="muted tiny">Choose who can see your new posts by default.</div></div>
+        <select data-priv="postVisibility" style="width:185px">
+          <option value="public" ${priv.postVisibility === 'public' ? 'selected' : ''}>🌐 Public (All members)</option>
+          <option value="connections" ${priv.postVisibility === 'connections' ? 'selected' : ''}>👥 Connections only</option>
+          <option value="private" ${priv.postVisibility === 'private' ? 'selected' : ''}>🔒 Only me</option>
+        </select>
+      </div>
+      <div class="toggle-row">
+        <div><strong>Profile Activity Visibility</strong><div class="muted tiny">Control who can view full sections on your profile page.</div></div>
+        <select data-priv="profileVisibility" style="width:185px">
+          <option value="everyone" ${priv.profileVisibility === 'everyone' ? 'selected' : ''}>Everyone</option>
+          <option value="connections" ${priv.profileVisibility === 'connections' ? 'selected' : ''}>Connections only</option>
+        </select>
+      </div>
+      <div class="toggle-row">
+        <div><strong>Direct Messaging Permissions</strong><div class="muted tiny">Restrict who can send you direct messages and files.</div></div>
+        <select data-priv="allowMessagesFrom" style="width:185px">
+          <option value="everyone" ${priv.allowMessagesFrom === 'everyone' ? 'selected' : ''}>Everyone</option>
+          <option value="connections" ${priv.allowMessagesFrom === 'connections' ? 'selected' : ''}>Connections only</option>
+        </select>
+      </div>
+      <div class="toggle-row">
+        <div><strong>Disappearing Messages Timer</strong><div class="muted tiny">Automatically purge new messages you send after the selected duration.</div></div>
+        <select data-priv="ephemeralHours" style="width:185px">
+          <option value="0" ${!priv.ephemeralHours ? 'selected' : ''}>Off (Keep until deleted)</option>
+          <option value="1" ${priv.ephemeralHours === 1 ? 'selected' : ''}>⏱ 1 Hour</option>
+          <option value="24" ${priv.ephemeralHours === 24 ? 'selected' : ''}>⏱ 24 Hours</option>
+          <option value="168" ${priv.ephemeralHours === 168 ? 'selected' : ''}>⏱ 7 Days</option>
+        </select>
+      </div>
+      <div class="toggle-row">
+        <div><strong>Scrub EXIF Metadata on Photo Uploads</strong><div class="muted tiny">Strip GPS location and camera details before encrypting images.</div></div>
+        <input type="checkbox" data-priv-chk="stripExif" ${priv.stripExif ? 'checked' : ''} style="width:20px;height:20px">
+      </div>
+      <div class="toggle-row">
+        <div><strong>Hide Connections Count on Profile</strong><div class="muted tiny">Prevent other members from seeing your total number of connections.</div></div>
+        <input type="checkbox" data-priv-chk="hideConnectionsCount" ${priv.hideConnectionsCount ? 'checked' : ''} style="width:20px;height:20px">
+      </div>
+    </div>
+
+    <div class="card pad" style="margin-top:14px">
+      <h3 class="card-title">🔑 Credentials &amp; Cryptographic Key Management</h3>
+      <div class="row gap" style="flex-wrap:wrap">
+        <button class="btn btn-outline" data-act="changePwModal">🔐 Change password</button>
+        <button class="btn btn-outline" data-act="rotateKey">🔄 Rotate AES-256-GCM master key</button>
+        <button class="btn btn-outline" data-act="lockScreen">🛡 Activate Privacy Screen Shield</button>
+      </div>
+    </div>` : ''}
+
+    <div class="card pad" style="margin-top:14px">
+      <div class="between" style="margin-bottom:8px">
+        <h3 class="card-title" style="margin:0">📋 Local Security Audit Log</h3>
+        ${m ? `<button class="btn btn-ghost small-btn" data-act="clearAudit">Clear log</button>` : ''}
+      </div>
+      <div class="audit-box">${auditHTML}</div>
+    </div>
+
+    <div class="card pad" style="margin-top:14px">
+      <h3 class="card-title">🗂 Your Data &amp; Right to Erasure</h3>
+      <p class="muted small" style="margin:0 0 10px">${m ? 'Export a portable JSON copy of your profile, posts and message history, or permanently shred your account and encrypted blobs.' : 'Sign in to manage your privacy settings, export your data, or delete your account. You can also erase all Evolution Midset data stored on this device.'}</p>
+      <div class="row gap" style="flex-wrap:wrap">
+        ${m ? `<button class="btn btn-outline" data-act="exportData">⬇ Export my data (JSON)</button>` : ''}
+        <button class="btn btn-outline" data-act="clearDevice">Erase this device</button>
+        ${m ? `<button class="btn btn-danger" data-act="deleteAccount">Delete my account</button>` : ''}
+      </div>
+    </div>`;
+}
+
+/* ================= Modals (Auth, Profile, Experience, Education, Skills, Password) ================= */
+function openAuth(mode) {
+  ui.authMode = mode || 'login';
+  renderAuth();
+  $('#authModal').hidden = false;
+  const first = $('#authBox input');
+  if (first) first.focus();
+}
+function closeAuth() { $('#authModal').hidden = true; }
+
+function renderAuth() {
+  const signup = ui.authMode === 'signup';
+  $('#authBox').innerHTML = `
+    <button class="icon-btn close" data-act="closeAuth" aria-label="Close">✕</button>
+    <h2>${signup ? 'Join Evolution Midset' : 'Sign in'}</h2>
+    <p class="muted small">${signup ? 'Create your encrypted professional profile.' : 'Welcome back to Evolution Midset.'}</p>
+    <form id="authForm" data-mode="${signup ? 'signup' : 'login'}" autocomplete="on">
+      ${signup ? `
+        <label>Full name<input name="name" required maxlength="${LIMITS.name}" autocomplete="name"></label>
+        <label>Headline<input name="headline" maxlength="${LIMITS.headline}" placeholder="e.g. Mechanical &amp; Embedded Systems Engineer"></label>
+        <label>Location (optional)<input name="location" maxlength="${LIMITS.location}" placeholder="e.g. Chennai, India"></label>` : ''}
+      <label>Email<input type="email" name="email" required maxlength="${LIMITS.email}" autocomplete="email"></label>
+      <label>Password<input type="password" id="authPwInput" name="password" required maxlength="${LIMITS.password}" autocomplete="${signup ? 'new-password' : 'current-password'}" ${signup ? 'minlength="10"' : ''}></label>
+      ${signup ? `
+        <div class="pw-meter"><div class="pw-meter-bar" id="pwMeterBar"></div></div>
+        <p class="tiny muted" id="pwMeterText" style="margin:6px 0 0">At least 10 characters with mixed case, numbers or symbols.</p>` : ''}
+      <button class="btn btn-primary block" type="submit">${signup ? 'Agree &amp; Join' : 'Sign in'}</button>
+    </form>
+    <p class="switch small">${signup ? 'Already on Evolution Midset?' : 'New to Evolution Midset?'}
+      <button class="linkish" data-act="switchAuth" type="button" style="color:var(--a1);font-weight:700">${signup ? 'Sign in' : 'Join now'}</button></p>
+    <p class="tiny muted" style="text-align:center;margin-top:10px">Demo login: <strong>aisha@demo.com</strong> / <strong>demo123</strong></p>`;
+}
+
+function openEditProfileModal() {
+  const m = me();
+  if (!m) return openAuth('login');
+  ensureUserFields(m);
+  $('#authBox').innerHTML = `
+    <button class="icon-btn close" data-act="closeAuth" aria-label="Close">✕</button>
+    <h2>✏️ Edit Profile</h2>
+    <p class="muted small">Customize your professional identity and availability.</p>
+    <form id="profileForm" autocomplete="off">
+      <label>Full name<input name="name" required maxlength="${LIMITS.name}" value="${esc(m.name)}"></label>
+      <label>Professional headline<input name="headline" required maxlength="${LIMITS.headline}" value="${esc(m.headline)}"></label>
+      <label>Availability status
+        <select name="status">
+          ${STATUS_OPTIONS.map(st => `<option value="${esc(st)}" ${m.status === st ? 'selected' : ''}>${esc(st)}</option>`).join('')}
+        </select>
+      </label>
+      <label>Location<input name="location" maxlength="${LIMITS.location}" value="${esc(m.location || '')}" placeholder="e.g. Bengaluru, India"></label>
+      <label>Portfolio / Website URL<input name="website" maxlength="${LIMITS.website}" value="${esc(m.website || '')}" placeholder="https://yourportfolio.dev"></label>
+      <label>About / Bio<textarea name="bio" rows="4" maxlength="${LIMITS.bio}" placeholder="Share your engineering focus, achievements and goals...">${esc(m.bio || '')}</textarea></label>
+      <button class="btn btn-primary block" type="submit">Save profile</button>
+    </form>`;
+  $('#authModal').hidden = false;
+}
+
+function openAddExpModal() {
+  const m = me();
+  if (!m) return openAuth('login');
+  $('#authBox').innerHTML = `
+    <button class="icon-btn close" data-act="closeAuth" aria-label="Close">✕</button>
+    <h2>💼 Add Experience</h2>
+    <form id="expForm" autocomplete="off">
+      <label>Role / Title<input name="role" required maxlength="${LIMITS.role}" placeholder="e.g. Robotics &amp; Automation Intern"></label>
+      <label>Company / Organization<input name="company" required maxlength="${LIMITS.company}" placeholder="e.g. Annamalai Innovation Lab"></label>
+      <label>Period<input name="period" required maxlength="${LIMITS.period}" placeholder="e.g. 2025 – Present"></label>
+      <label>Description<textarea name="desc" rows="3" maxlength="300" placeholder="Key responsibilities, tools and impact..."></textarea></label>
+      <button class="btn btn-primary block" type="submit">Add experience</button>
+    </form>`;
+  $('#authModal').hidden = false;
+}
+
+function openAddEduModal() {
+  const m = me();
+  if (!m) return openAuth('login');
+  $('#authBox').innerHTML = `
+    <button class="icon-btn close" data-act="closeAuth" aria-label="Close">✕</button>
+    <h2>🎓 Add Education</h2>
+    <form id="eduForm" autocomplete="off">
+      <label>Degree / Certification<input name="degree" required maxlength="${LIMITS.headline}" placeholder="e.g. B.E. Mechanical Engineering"></label>
+      <label>Institution / University<input name="school" required maxlength="${LIMITS.company}" placeholder="e.g. Annamalai University"></label>
+      <label>Years<input name="year" required maxlength="${LIMITS.period}" placeholder="e.g. 2025 – 2029"></label>
+      <button class="btn btn-primary block" type="submit">Add education</button>
+    </form>`;
+  $('#authModal').hidden = false;
+}
+
+function openAddSkillModal() {
+  const m = me();
+  if (!m) return openAuth('login');
+  $('#authBox').innerHTML = `
+    <button class="icon-btn close" data-act="closeAuth" aria-label="Close">✕</button>
+    <h2>⚡ Add Skill</h2>
+    <form id="skillForm" autocomplete="off">
+      <label>Skill name<input name="skill" required maxlength="${LIMITS.skill}" placeholder="e.g. AutoCAD, Embedded Systems, Python, Thermodynamics"></label>
+      <button class="btn btn-primary block" type="submit">Add skill</button>
+    </form>`;
+  $('#authModal').hidden = false;
+}
+
+function openChangePwModal() {
+  const m = me();
+  if (!m) return openAuth('login');
+  $('#authBox').innerHTML = `
+    <button class="icon-btn close" data-act="closeAuth" aria-label="Close">✕</button>
+    <h2>🔐 Change Password</h2>
+    <p class="muted small">Your new password will be hashed with ${PBKDF2_ROUNDS.toLocaleString()} rounds of PBKDF2-HMAC-SHA256.</p>
+    <form id="changePwForm" autocomplete="off">
+      <label>Current password<input type="password" name="currentPw" required maxlength="${LIMITS.password}" autocomplete="current-password"></label>
+      <label>New password (min 10 chars)<input type="password" id="authPwInput" name="newPw" required minlength="10" maxlength="${LIMITS.password}" autocomplete="new-password"></label>
+      <div class="pw-meter"><div class="pw-meter-bar" id="pwMeterBar"></div></div>
+      <p class="tiny muted" id="pwMeterText" style="margin:6px 0 0">Use at least 10 characters with upper/lowercase, numbers or symbols.</p>
+      <button class="btn btn-primary block" type="submit">Update password</button>
+    </form>`;
+  $('#authModal').hidden = false;
+}
+
+/* ================= Smart Demo Auto-Reply ================= */
+function triggerDemoAutoReply(peerId, userText) {
+  if (!ui.autoReplyDemo) return;
+  const m = me();
+  const peer = userById(peerId);
+  if (!m || !peer) return;
+  if (!['aisha@demo.com', 'rahul@demo.com', 'sara@demo.com'].includes(peer.email)) return;
+
+  ui.typingPeerId = peerId;
+  renderMessagesList();
+
+  setTimeout(() => {
+    const curMe = me();
+    if (!curMe) return;
+    ui.typingPeerId = null;
+    const lower = (userText || '').toLowerCase();
+    let reply = `Thanks for reaching out, ${curMe.name.split(' ')[0]}! Happy to connect and collaborate.`;
+    if (lower.includes('post') || lower.includes('resource') || lower.includes('study')) {
+      reply = `Glad you found the post helpful, ${curMe.name.split(' ')[0]}! Feel free to download the attached materials anytime.`;
+    } else if (lower.includes('architecture') || lower.includes('project') || lower.includes('collaborat')) {
+      reply = `That sounds like an exciting engineering project! Share your schematics or docs here and I'll take a look.`;
+    } else if (lower.includes('mentor') || lower.includes('career') || lower.includes('feedback')) {
+      reply = `I'd be delighted to share feedback on your profile and career roadmap. What area are you focusing on right now?`;
+    }
+    const k = threadKey(curMe.id, peerId);
+    const isViewing = ui.view === 'messages' && ui.chatWith === peerId;
+    (db.messages[k] = db.messages[k] || []).push({
+      id: uid(),
+      from: peerId,
+      kind: 'text',
+      text: reply,
+      time: Date.now(),
+      readBy: isViewing ? [peerId, curMe.id] : [peerId],
+      reactions: {}
+    });
+    save();
+    renderNav();
+    if (ui.view === 'messages') renderMessages($('#center'), curMe);
+    else renderQuickDock();
+  }, 1300);
+}
+
+/* ================= Actions ================= */
+const ACT = {
+  downloadBlob: async d => {
+    const blobId = d.blobId;
+    const fileName = d.name || 'download';
+    if (!blobId) return;
+    let url = blobUrl(blobId);
+    let revokeAfter = false;
+    if (!url) {
+      const b = await blobGetDecrypted(blobId);
+      if (!b) return toast('Attachment is unavailable.');
+      url = URL.createObjectURL(b);
+      revokeAfter = true;
+    }
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = fileName;
+    document.body.appendChild(a);
+    a.click();
+    a.remove();
+    if (revokeAfter) setTimeout(() => URL.revokeObjectURL(url), 1500);
+  },
+
+  closeConfirm: () => closeConfirmModal(),
+  acceptConfirm: async () => {
+    const fn = pendingConfirmFn;
+    closeConfirmModal();
+    if (fn) await fn();
+  },
+
+  auth: d => openAuth(d.mode),
+  closeAuth: () => closeAuth(),
+  switchAuth: () => { ui.authMode = ui.authMode === 'login' ? 'signup' : 'login'; renderAuth(); },
+  logout: () => logout('You have signed out safely.'),
+  lockScreen: () => { ui.manualLocked = true; document.body.classList.add('privacy-blur'); },
+  resumeScreen: () => { ui.manualLocked = false; document.body.classList.remove('privacy-blur'); touch(); },
+  editProfileModal: () => openEditProfileModal(),
+  addExpModal: () => openAddExpModal(),
+  addEduModal: () => openAddEduModal(),
+  addSkillModal: () => openAddSkillModal(),
+  changePwModal: () => openChangePwModal(),
+
+  go: d => {
+    if (d.view !== 'home' && d.view !== 'privacy' && !me()) return openAuth('login');
+    if (d.view === 'profile') {
+      ui.profileId = me().id;
+      ui.profileTab = 'overview';
+    }
+    ui.view = d.view;
+    render();
+    window.scrollTo({ top: 0 });
+  },
+  viewProfile: d => {
+    if (!me()) return openAuth('login');
+    const target = userById(d.id);
+    if (target && target.id !== me().id) {
+      target.profileViews = (target.profileViews || 42) + 1;
+      save();
+    }
+    ui.profileId = d.id;
+    ui.profileTab = 'overview';
+    ui.view = 'profile';
+    render();
+    window.scrollTo({ top: 0 });
+  },
+  setProfileTab: d => {
+    ui.profileTab = d.tab || 'overview';
+    renderCenter();
+  },
+  cycleCoverTheme: () => {
+    const m = me();
+    if (!m) return;
+    const idx = COVER_THEMES.indexOf(m.coverTheme || 'default');
+    m.coverTheme = COVER_THEMES[(idx + 1) % COVER_THEMES.length];
+    save();
+    render();
+    toast('Profile banner theme updated!');
+  },
+  deleteExp: d => {
+    const m = me();
+    if (!m) return;
+    m.experience = (m.experience || []).filter(x => x.id !== d.id);
+    save();
+    renderCenter();
+    renderLeft();
+    toast('Experience entry removed.');
+  },
+  deleteEdu: d => {
+    const m = me();
+    if (!m) return;
+    m.education = (m.education || []).filter(x => x.id !== d.id);
+    save();
+    renderCenter();
+    renderLeft();
+    toast('Education entry removed.');
+  },
+  removeSkill: d => {
+    const m = me();
+    if (!m) return;
+    m.skills.splice(+d.idx, 1);
+    save();
+    renderCenter();
+    renderLeft();
+  },
+  endorseSkill: d => {
+    const m = me();
+    if (!m) return openAuth('login');
+    const u = userById(d.uid);
+    if (!u || !u.skills || !u.skills[+d.idx]) return;
+    const sk = u.skills[+d.idx];
+    sk.endorses = sk.endorses || [];
+    const has = sk.endorses.includes(m.id);
+    sk.endorses = has ? sk.endorses.filter(x => x !== m.id) : [...sk.endorses, m.id];
+    save();
+    renderCenter();
+    toast(has ? `Removed endorsement for ${sk.name}` : `Endorsed ${u.name.split(' ')[0]} for ${sk.name}!`);
+  },
+
+  openChat: d => {
+    if (!me()) return openAuth('login');
+    ui.chatWith = d.id;
+    ui.replyToMsgId = null;
+    ui.view = 'messages';
+    render();
+    const input = $('#chatText');
+    if (input) input.focus();
+  },
+
+  messageAuthorAboutPost: d => {
+    if (!me()) return openAuth('login');
+    const p = db.posts.find(x => x.id === d.postId);
+    ui.chatWith = d.id;
+    ui.view = 'messages';
+    render();
+    const input = $('#chatText');
+    if (input) {
+      const snippet = p && p.text ? p.text.slice(0, 50) + '...' : 'your recent post';
+      input.value = `Hi! Regarding your post ("${snippet}"): `;
+      input.focus();
+    }
+  },
+
+  setThreadFilter: d => {
+    ui.threadFilter = d.filter || 'all';
+    renderCenter();
+  },
+
+  connect: d => {
+    const m = me();
+    if (!m) return openAuth('login');
+    const u = userById(d.id);
+    if (!u || u.id === m.id) return;
+    const on = m.connections.includes(u.id);
+    m.connections = on ? m.connections.filter(x => x !== u.id) : [...m.connections, u.id];
+    u.connections = on ? u.connections.filter(x => x !== m.id) : [...u.connections, m.id];
+    save();
+    toast(on ? 'Connection removed' : 'Connected with ' + u.name);
+    render();
+  },
+
+  publish: () => {
+    const m = me();
+    if (!m) return openAuth('login');
+    const text = clean($('#postText') ? $('#postText').value : '', LIMITS.post);
+    const visSel = $('#postVisSelect');
+    const visibility = visSel && ['public', 'connections', 'private'].includes(visSel.value) ? visSel.value : getUserPrivacy(m).postVisibility;
+    if (!text && ui.composer.length === 0) return toast('Write something or add a photo or document first.');
+    db.posts.unshift({
+      id: uid(),
+      authorId: m.id,
+      visibility,
+      text,
+      attachments: ui.composer.map(a => ({ ...a, description: clean(a.description, 200) })),
+      likes: [],
+      comments: [],
+      time: Date.now()
+    });
+    ui.composer = [];
+    save();
+    toast(`Your post is live (${VIS_BADGE[visibility]}).`);
+    render();
+  },
+  removeComposer: async d => {
+    const [item] = ui.composer.splice(+d.i, 1);
+    if (item) await purge([item]);
+    renderComposerFiles();
+  },
+
+  like: d => {
+    const m = me();
+    if (!m) return openAuth('login');
+    const p = db.posts.find(x => x.id === d.id);
+    if (!p || !canViewPost(p, m)) return;
+    p.likes = p.likes.includes(m.id) ? p.likes.filter(x => x !== m.id) : [...p.likes, m.id];
+    save();
+    refreshFeed();
+    renderLeft();
+  },
+  toggleSavePost: d => {
+    const m = me();
+    if (!m) return openAuth('login');
+    m.savedPosts = m.savedPosts || [];
+    const on = m.savedPosts.includes(d.id);
+    m.savedPosts = on ? m.savedPosts.filter(x => x !== d.id) : [...m.savedPosts, d.id];
+    save();
+    refreshFeed();
+    toast(on ? 'Removed from saved posts.' : 'Post saved to your profile!');
+  },
+  toggleComments: d => { ui.openComments[d.id] = !ui.openComments[d.id]; refreshFeed(); },
+  addComment: d => {
+    const m = me();
+    if (!m) return openAuth('login');
+    const input = document.getElementById('c-' + d.id);
+    const text = clean(input ? input.value : '', LIMITS.comment);
+    if (!text) return;
+    const p = db.posts.find(x => x.id === d.id);
+    if (!p || !canViewPost(p, m)) return;
+    p.comments.push({ id: uid(), authorId: m.id, text, time: Date.now() });
+    ui.openComments[d.id] = true;
+    save();
+    refreshFeed();
+    const newInput = document.getElementById('c-' + d.id);
+    if (newInput) newInput.focus();
+  },
+  deletePost: d => {
+    const m = me();
+    const p = db.posts.find(x => x.id === d.id);
+    if (!m || !p || p.authorId !== m.id) return;
+    openConfirmModal({
+      title: 'Delete post?',
+      message: 'This post and its encrypted attachments will be permanently shredded from this device.',
+      confirmText: 'Delete post',
+      danger: true,
+      onConfirm: async () => {
+        await purge(p.attachments);
+        db.posts = db.posts.filter(x => x.id !== d.id);
+        logAudit('Post deleted', `Post ${d.id.slice(0, 8)} and attachments purged`);
+        save();
+        refreshFeed();
+        renderLeft();
+        toast('Post deleted.');
+      }
+    });
+  },
+
+  /* Messaging Actions */
+  sendText: () => {
+    const m = me();
+    if (!m || !ui.chatWith) return;
+    const peer = userById(ui.chatWith);
+    if (!canMessagePeer(m, peer)) return toast('This member only accepts messages from connections.');
+    const input = $('#chatText');
+    const text = clean(input ? input.value : '', LIMITS.message);
+    if (!text) return;
+    pushMessage(ui.chatWith, { kind: 'text', text, replyTo: ui.replyToMsgId || null });
+    ui.replyToMsgId = null;
+    input.value = '';
+    renderCenter();
+    const nextInput = $('#chatText');
+    if (nextInput) nextInput.focus();
+    triggerDemoAutoReply(ui.chatWith, text);
+  },
+
+  sendIcebreaker: d => {
+    const m = me();
+    if (!m || !ui.chatWith) return;
+    const peer = userById(ui.chatWith);
+    if (!canMessagePeer(m, peer)) return toast('This member only accepts messages from connections.');
+    const text = clean(d.text, LIMITS.message);
+    if (!text) return;
+    pushMessage(ui.chatWith, { kind: 'text', text });
+    renderCenter();
+    triggerDemoAutoReply(ui.chatWith, text);
+  },
+
+  toggleEmojiBar: () => {
+    ui.showEmojiBar = !ui.showEmojiBar;
+    renderCenter();
+    const input = $('#chatText');
+    if (input) input.focus();
+  },
+
+  insertEmoji: d => {
+    const input = $('#chatText');
+    if (!input) return;
+    input.value += d.emoji || '';
+    input.focus();
+  },
+
+  replyMsg: d => {
+    ui.replyToMsgId = d.id;
+    renderCenter();
+    const input = $('#chatText');
+    if (input) input.focus();
+  },
+
+  cancelReply: () => {
+    ui.replyToMsgId = null;
+    renderCenter();
+  },
+
+  reactMsg: d => {
+    const m = me();
+    if (!m || !ui.chatWith) return;
+    const list = db.messages[threadKey(m.id, ui.chatWith)] || [];
+    const msg = list.find(x => x.id === d.id);
+    if (!msg) return;
+    msg.reactions = msg.reactions || {};
+    const em = d.emoji || '👍';
+    const arr = msg.reactions[em] || [];
+    msg.reactions[em] = arr.includes(m.id) ? arr.filter(x => x !== m.id) : [...arr, m.id];
+    save();
+    renderMessagesList();
+  },
+
+  deleteMsg: async d => {
+    const m = me();
+    if (!m || !ui.chatWith) return;
+    const k = threadKey(m.id, ui.chatWith);
+    const list = db.messages[k] || [];
+    const msg = list.find(x => x.id === d.id && x.from === m.id);
+    if (!msg) return;
+    if (msg.blobId) await purge([msg]);
+    db.messages[k] = list.filter(x => x.id !== d.id);
+    save();
+    renderMessagesList();
+    toast('Message deleted.');
+  },
+
+  toggleDock: () => {
+    ui.dockOpen = !ui.dockOpen;
+    if (ui.dockOpen && me() && ui.chatWith) markThreadRead(me().id, ui.chatWith);
+    renderNav();
+    renderQuickDock();
+  },
+
+  sendDockText: () => {
+    const m = me();
+    if (!m || !ui.chatWith) return;
+    const peer = userById(ui.chatWith);
+    if (!canMessagePeer(m, peer)) return toast('Connect first to message this member.');
+    const input = $('#dockChatText');
+    const text = clean(input ? input.value : '', LIMITS.message);
+    if (!text) return;
+    pushMessage(ui.chatWith, { kind: 'text', text });
+    input.value = '';
+    renderQuickDock();
+    const nextInput = $('#dockChatText');
+    if (nextInput) nextInput.focus();
+    triggerDemoAutoReply(ui.chatWith, text);
+  },
+
+  clearThread: d => {
+    const m = me();
+    if (!m || !d.id) return;
+    openConfirmModal({
+      title: 'Clear conversation?',
+      message: 'Permanently delete all messages and encrypted files in this conversation?',
+      confirmText: 'Clear chat',
+      danger: true,
+      onConfirm: async () => {
+        const k = threadKey(m.id, d.id);
+        if (db.messages[k]) {
+          await purge(db.messages[k]);
+          delete db.messages[k];
+          logAudit('Conversation cleared', 'Thread and encrypted attachments purged');
+          save();
+          renderCenter();
+          toast('Conversation permanently deleted.');
+        }
+      }
+    });
+  },
+
+  rotateKey: async () => {
+    const m = me();
+    if (!m) return openAuth('login');
+    toast('Rotating AES-256-GCM master key...');
+    try {
+      const keys = await blobAllKeys();
+      const plainBlobs = [];
+      for (const k of keys) {
+        const b = await blobGetDecrypted(k);
+        if (b) plainBlobs.push([k, b]);
+      }
+      const newKey = await crypto.subtle.generateKey({ name: 'AES-GCM', length: 256 }, false, ['encrypt', 'decrypt']);
+      await kvSet('dataKey', newKey);
+      keyP = Promise.resolve(newKey);
+      for (const [k, b] of plainBlobs) {
+        await blobPutEncrypted(k, b);
+      }
+      db.security.keyCreatedAt = Date.now();
+      logAudit('Master key rotated', `Re-encrypted database and ${plainBlobs.length} binary blobs with new AES-256-GCM key`);
+      await save();
+      render();
+      toast('AES-256-GCM master key rotated and all data re-encrypted.');
+    } catch (e) {
+      toast('Could not rotate encryption key.');
+    }
+  },
+
+  clearAudit: () => {
+    if (!me()) return;
+    db.security.audit = [];
+    logAudit('Audit log cleared', 'Cleared by user');
+    save();
+    render();
+  },
+
+  exportData: () => {
+    const m = me();
+    if (!m) return openAuth('login');
+    const threads = {};
+    Object.entries(db.messages).forEach(([k, list]) => {
+      if (!k.split('|').includes(m.id)) return;
+      threads[k] = list.map(x => ({
+        from: x.from === m.id ? 'me' : (userById(x.from)?.name || 'member'),
+        time: new Date(x.time).toISOString(),
+        kind: x.kind,
+        text: x.text,
+        file: x.name
+      }));
+    });
+    const data = {
+      exportedAt: new Date().toISOString(),
+      profile: {
+        name: m.name, email: m.email, headline: m.headline, status: m.status,
+        location: m.location, website: m.website, bio: m.bio,
+        experience: m.experience, education: m.education, skills: m.skills,
+        connections: m.connections.length, privacy: getUserPrivacy(m)
+      },
+      posts: db.posts.filter(p => p.authorId === m.id).map(p => ({
+        visibility: p.visibility || 'public',
+        text: p.text,
+        time: new Date(p.time).toISOString(),
+        attachments: p.attachments.map(a => ({ name: a.name, description: a.description, exifStripped: !!a.exifStripped }))
+      })),
+      messages: threads
+    };
+    logAudit('Data exported', 'Portable JSON archive downloaded');
+    save();
+    const url = URL.createObjectURL(new Blob([JSON.stringify(data, null, 2)], { type: 'application/json' }));
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = 'evolution-midset-my-data.json';
+    document.body.appendChild(a);
+    a.click();
+    a.remove();
+    setTimeout(() => URL.revokeObjectURL(url), 1000);
+    toast('Your data export has been downloaded.');
+  },
+
+  deleteAccount: () => {
+    const m = me();
+    if (!m) return openAuth('login');
+    openConfirmModal({
+      title: 'Delete your account?',
+      message: 'Permanently delete your account, profile, posts, encrypted photos, documents and messages from this device? This cannot be undone.',
+      confirmText: 'Delete account',
+      danger: true,
+      onConfirm: async () => {
+        if (m.avatarBlobId) await purge([{ blobId: m.avatarBlobId }]);
+        for (const p of db.posts.filter(p => p.authorId === m.id)) await purge(p.attachments);
+        db.posts = db.posts.filter(p => p.authorId !== m.id);
+        for (const p of db.posts) {
+          p.likes = p.likes.filter(x => x !== m.id);
+          p.comments = p.comments.filter(c => c.authorId !== m.id);
+        }
+        for (const k of Object.keys(db.messages)) {
+          if (!k.split('|').includes(m.id)) continue;
+          await purge(db.messages[k]);
+          delete db.messages[k];
+        }
+        db.users = db.users.filter(u => u.id !== m.id);
+        db.users.forEach(u => { u.connections = u.connections.filter(x => x !== m.id); });
+        logAudit('Account deleted', 'User account and associated blobs shredded');
+        logout('Your account and data were permanently deleted.');
+      }
+    });
+  },
+
+  clearDevice: () => {
+    openConfirmModal({
+      title: 'Erase this device?',
+      message: 'Erase all Evolution Midset data and cryptographic keys stored on this device and restore default demo state? This cannot be undone.',
+      confirmText: 'Erase device',
+      danger: true,
+      onConfirm: async () => {
+        revokeAllObjectUrls();
+        safeSession.clear();
+        safeLocal.removeItem(KEY);
+        LEGACY_KEYS.forEach(lk => safeLocal.removeItem(lk));
+        memKv.clear();
+        memBlobs.clear();
+        keyP = null;
+        hmacKeyP = null;
+        dummySaltP = null;
+        activeSessionUid = null;
+        try {
+          const d = await idbP;
+          if (d) d.close();
+          if (typeof indexedDB !== 'undefined') {
+            await new Promise(res => {
+              const q = indexedDB.deleteDatabase(DB_NAME);
+              q.onsuccess = q.onerror = q.onblocked = () => res();
+            });
+          }
+        } catch (e) {}
+        db = await buildSeed();
+        await loadActiveBlobs();
+        await save();
+        ui.view = 'home';
+        render();
+        toast('All device data erased and reset to clean state.');
+      }
+    });
+  }
+};
+
+function pushMessage(peerId, msg) {
+  const m = me();
+  const k = threadKey(m.id, peerId);
+  const ephHours = getUserPrivacy(m).ephemeralHours || 0;
+  const expiresAt = ephHours > 0 ? Date.now() + ephHours * 3600000 : null;
+  (db.messages[k] = db.messages[k] || []).push({
+    id: uid(),
+    from: m.id,
+    time: Date.now(),
+    expiresAt,
+    readBy: [m.id],
+    reactions: {},
+    ...msg
+  });
+  save();
+}
+
+async function handleFiles(input) {
+  const slot = input.dataset.file;
+  const files = [...input.files];
+  input.value = '';
+  const m = me();
+  if (!m) return openAuth('login');
+
+  if (slot === 'avatar-img') {
+    const f = files[0];
+    if (!f) return;
+    const kind = await classify(f);
+    if (kind !== 'image') return toast('Please choose a valid PNG, JPEG, WebP or GIF image.');
+    if (f.size > LIMITS.file) return toast('Image must be under 25 MB.');
+    const res = await stripImageMetadata(f, 320);
+    const id = uid();
+    await blobPutEncrypted(id, res.blob);
+    urls.set(id, URL.createObjectURL(res.blob));
+    if (m.avatarBlobId) await purge([{ blobId: m.avatarBlobId }]);
+    m.avatarBlobId = id;
+    logAudit('Avatar updated', 'Profile photo scrubbed of EXIF & encrypted');
+    save();
+    render();
+    toast('Profile photo updated!');
+    return;
+  }
+
+  const isChat = slot.startsWith('chat');
+  if (isChat) {
+    const peer = userById(ui.chatWith);
+    if (!peer || !canMessagePeer(m, peer)) return toast('Cannot send files to this member.');
+  }
+  const shouldStripExif = getUserPrivacy(m).stripExif;
+  for (const f of files) {
+    const kind = await classify(f);
+    if (!kind) {
+      logAudit('Blocked file upload', `Rejected "${cleanName(f.name)}" (failed signature check)`);
+      save();
+      toast(`"${f.name}" failed security signature verification.`);
+      continue;
+    }
+    if (f.size > LIMITS.file) { toast(`"${f.name}" is over 25 MB. Please choose a smaller file.`); continue; }
+    try {
+      const id = uid();
+      let blobToStore;
+      let exifStripped = false;
+      if (kind === 'image' && shouldStripExif) {
+        const res = await stripImageMetadata(f);
+        blobToStore = res.blob;
+        exifStripped = res.stripped;
+      } else {
+        blobToStore = new Blob([f], { type: kind === 'image' ? f.type : 'application/octet-stream' });
+      }
+      await blobPutEncrypted(id, blobToStore);
+      urls.set(id, URL.createObjectURL(blobToStore));
+      const item = { id: uid(), kind, name: cleanName(f.name), size: blobToStore.size, description: '', blobId: id, exifStripped };
+      if (isChat) {
+        pushMessage(ui.chatWith, { ...item, kind: kind === 'image' ? 'image' : 'file' });
+        triggerDemoAutoReply(ui.chatWith, item.name);
+      } else {
+        ui.composer.push(item);
+      }
+    } catch (e) {
+      toast(`Could not encrypt and store "${f.name}".`);
+    }
+  }
+  if (isChat) renderMessagesList();
+  else renderComposerFiles();
+}
+
+/* ================= Global Event Wiring ================= */
+document.addEventListener('click', e => {
+  if (!(e.target instanceof Element)) return;
+  if (e.target.id === 'authModal') { closeAuth(); return; }
+  if (e.target.id === 'confirmModal') { closeConfirmModal(); return; }
+  const el = e.target.closest('[data-act]');
+  if (!el) return;
+  e.preventDefault();
+  const fn = ACT[el.dataset.act];
+  if (fn) fn(el.dataset);
+});
+
+document.addEventListener('submit', async e => {
+  const formId = e.target.id;
+  if (!['authForm', 'profileForm', 'expForm', 'eduForm', 'skillForm', 'changePwForm'].includes(formId)) return;
+  e.preventDefault();
+
+  if (formId === 'profileForm') {
+    const m = me();
+    if (!m) return;
+    const f = new FormData(e.target);
+    const name = clean(f.get('name'), LIMITS.name);
+    const headline = clean(f.get('headline'), LIMITS.headline);
+    const status = clean(f.get('status'), 60);
+    const location = clean(f.get('location'), LIMITS.location);
+    const website = clean(f.get('website'), LIMITS.website);
+    const bio = clean(f.get('bio'), LIMITS.bio);
+    if (!name || !headline) return toast('Name and headline are required.');
+    m.name = name;
+    m.headline = headline;
+    m.status = status || STATUS_OPTIONS[0];
+    m.location = location;
+    m.website = website && !/^https?:\/\//i.test(website) ? 'https://' + website : website;
+    m.bio = bio;
+    logAudit('Profile updated', 'Modified profile identity & bio');
+    save();
+    closeAuth();
+    render();
+    toast('Profile updated!');
+    return;
+  }
+
+  if (formId === 'expForm') {
+    const m = me();
+    if (!m) return;
+    const f = new FormData(e.target);
+    const role = clean(f.get('role'), LIMITS.role);
+    const company = clean(f.get('company'), LIMITS.company);
+    const period = clean(f.get('period'), LIMITS.period);
+    const desc = clean(f.get('desc'), 300);
+    if (!role || !company) return;
+    m.experience = m.experience || [];
+    m.experience.unshift({ id: uid(), role, company, period, desc });
+    save();
+    closeAuth();
+    render();
+    toast('Experience added to your profile!');
+    return;
+  }
+
+  if (formId === 'eduForm') {
+    const m = me();
+    if (!m) return;
+    const f = new FormData(e.target);
+    const degree = clean(f.get('degree'), LIMITS.headline);
+    const school = clean(f.get('school'), LIMITS.company);
+    const year = clean(f.get('year'), LIMITS.period);
+    if (!degree || !school) return;
+    m.education = m.education || [];
+    m.education.unshift({ id: uid(), degree, school, year });
+    save();
+    closeAuth();
+    render();
+    toast('Education added to your profile!');
+    return;
+  }
+
+  if (formId === 'skillForm') {
+    const m = me();
+    if (!m) return;
+    const f = new FormData(e.target);
+    const skill = clean(f.get('skill'), LIMITS.skill);
+    if (!skill) return;
+    m.skills = m.skills || [];
+    if (!m.skills.some(s => s.name.toLowerCase() === skill.toLowerCase())) {
+      m.skills.push({ name: skill, endorses: [] });
+      save();
+    }
+    closeAuth();
+    render();
+    toast(`Added "${skill}" to your skills!`);
+    return;
+  }
+
+  if (formId === 'changePwForm') {
+    const m = me();
+    if (!m) return;
+    const f = new FormData(e.target);
+    const curPw = String(f.get('currentPw') ?? '').slice(0, LIMITS.password);
+    const newPw = String(f.get('newPw') ?? '').slice(0, LIMITS.password);
+    const ok = await checkPw(curPw, m.pw);
+    if (!ok) {
+      logAudit('Password change failed', 'Incorrect current password');
+      save();
+      return toast('Current password is incorrect.');
+    }
+    const check = evaluatePassword(newPw);
+    if (!check.valid) return toast('Please choose a stronger password (at least 10 characters with mixed types).');
+    m.pw = await hashPw(newPw, null, PBKDF2_ROUNDS);
+    logAudit('Password changed', `Upgraded PBKDF2-SHA256 hash (${PBKDF2_ROUNDS.toLocaleString()} rounds)`);
+    save();
+    closeAuth();
+    toast('Your password has been updated.');
+    return;
+  }
+
+  /* authForm (Login / Signup) */
+  const f = new FormData(e.target);
+  const email = clean(f.get('email'), LIMITS.email).toLowerCase();
+  const pw = String(f.get('password') ?? '').slice(0, LIMITS.password);
+  const signup = e.target.dataset.mode === 'signup';
+  db.security = db.security || { failures: 0, lockUntil: 0, backoffLevel: 0, audit: [] };
+  const wait = (db.security.lockUntil || 0) - Date.now();
+  if (wait > 0) return toast(`Account sign-in locked due to failed attempts. Try again in ${Math.ceil(wait / 1000)}s.`);
+
+  if (signup) {
+    const name = clean(f.get('name'), LIMITS.name);
+    const headline = clean(f.get('headline'), LIMITS.headline) || 'Professional';
+    const location = clean(f.get('location'), LIMITS.location);
+    if (!name) return toast('Please enter your name.');
+    if (!/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(email)) return toast('Please enter a valid email address.');
+    const check = evaluatePassword(pw);
+    if (!check.valid) return toast('Password must be at least 10 characters and not a common weak password.');
+    if (db.users.some(u => u.email === email)) {
+      await hashPw(pw, await getDummySalt(), 120000);
+      return toast('Could not create the account. Try signing in instead.');
+    }
+    const user = {
+      id: uid(), name, email, pw: await hashPw(pw, null, PBKDF2_ROUNDS),
+      headline, location, bio: '', status: STATUS_OPTIONS[0], website: '',
+      coverTheme: 'default', avatarBlobId: null, profileViews: 1,
+      connections: [], savedPosts: [], experience: [], education: [],
+      skills: [{ name: 'Engineering', endorses: [] }, { name: 'Problem Solving', endorses: [] }],
+      privacy: defaultPrivacy()
+    };
+    db.users.push(user);
+    await issueSession(user.id);
+    logAudit('Account created', `New profile initialized with ${PBKDF2_ROUNDS.toLocaleString()} PBKDF2 rounds`);
+  } else {
+    const u = db.users.find(x => x.email === email);
+    let ok = false;
+    if (u) {
+      ok = await checkPw(pw, u.pw);
+      if (ok && (!u.pw.rounds || u.pw.rounds < PBKDF2_ROUNDS)) {
+        u.pw = await hashPw(pw, null, PBKDF2_ROUNDS);
+        logAudit('Password hash upgraded', `Transparently migrated to ${PBKDF2_ROUNDS.toLocaleString()} PBKDF2 rounds`);
+      }
+    } else {
+      await hashPw(pw, await getDummySalt(), 120000);
+      ok = false;
+    }
+
+    if (!ok) {
+      db.security.failures = (db.security.failures || 0) + 1;
+      logAudit('Failed sign-in attempt', `Attempt #${db.security.failures}`);
+      if (db.security.failures >= 5) {
+        db.security.backoffLevel = (db.security.backoffLevel || 0) + 1;
+        const lockSecs = Math.min(900, 30 * Math.pow(2, db.security.backoffLevel - 1));
+        db.security.lockUntil = Date.now() + lockSecs * 1000;
+        db.security.failures = 0;
+        logAudit('Brute-force lockout triggered', `Locked for ${lockSecs}s (exponential backoff)`);
+      }
+      save();
+      return toast('Invalid email or password.');
+    }
+    db.security.failures = 0;
+    db.security.backoffLevel = 0;
+    db.security.lockUntil = 0;
+    await issueSession(u.id);
+    logAudit('Signed in', 'HMAC-SHA256 session token issued');
+  }
+  await loadActiveBlobs();
+  save();
+  closeAuth();
+  ui.view = 'home';
+  toast('Welcome to Evolution Midset!');
+  render();
+});
+
+document.addEventListener('input', e => {
+  const t = e.target;
+  if (t.id === 'search') {
+    ui.query = t.value;
+    if (ui.view !== 'home') {
+      ui.view = 'home';
+      render();
+      const s = $('#search');
+      if (s) { s.focus(); s.setSelectionRange(s.value.length, s.value.length); }
+    } else {
+      refreshFeed();
+      renderRight();
+    }
+  } else if (t.id === 'threadSearch') {
+    ui.threadQuery = t.value;
+    renderCenter();
+    const ts = $('#threadSearch');
+    if (ts) { ts.focus(); ts.setSelectionRange(ts.value.length, ts.value.length); }
+  } else if (t.id === 'authPwInput') {
+    const bar = $('#pwMeterBar');
+    const txt = $('#pwMeterText');
+    if (bar && txt) {
+      const res = evaluatePassword(t.value);
+      bar.style.width = res.pct + '%';
+      bar.style.background = res.color;
+      txt.textContent = `Strength: ${res.label} ${res.valid ? '✓' : '(min 10 chars, mix upper/lower/numbers/symbols)'}`;
+    }
+  } else if (t.dataset && t.dataset.attIdx !== undefined) {
+    const a = ui.composer[+t.dataset.attIdx];
+    if (a) a.description = t.value.slice(0, 200);
+  }
+});
+
+document.addEventListener('change', e => {
+  const t = e.target;
+  if (t.matches && t.matches('input[type=file][data-file]')) {
+    handleFiles(t);
+    return;
+  }
+  if (t.id === 'postVisSelect') {
+    ui.composerVis = t.value;
+    return;
+  }
+  if (t.id === 'dockPeerSelect') {
+    ui.chatWith = t.value;
+    if (me()) markThreadRead(me().id, ui.chatWith);
+    renderNav();
+    renderQuickDock();
+    return;
+  }
+  if (t.id === 'autoReplyToggle') {
+    ui.autoReplyDemo = !!t.checked;
+    toast(ui.autoReplyDemo ? 'Smart Demo Replies enabled.' : 'Smart Demo Replies paused.');
+    return;
+  }
+  const m = me();
+  if (!m) return;
+  if (t.dataset && t.dataset.priv) {
+    const k = t.dataset.priv;
+    const priv = getUserPrivacy(m);
+    priv[k] = (k === 'idleMinutes' || k === 'ephemeralHours') ? Number(t.value) : t.value;
+    if (k === 'postVisibility') ui.composerVis = t.value;
+    logAudit('Privacy setting updated', `${k} = ${t.value}`);
+    save();
+    toast('Privacy preference saved.');
+  } else if (t.dataset && t.dataset.privChk) {
+    const k = t.dataset.privChk;
+    const priv = getUserPrivacy(m);
+    priv[k] = !!t.checked;
+    logAudit('Privacy toggle updated', `${k} = ${t.checked}`);
+    save();
+    renderLeft();
+    toast('Privacy preference saved.');
+  }
+});
+
+document.addEventListener('keydown', e => {
+  if (e.key === 'Escape') {
+    if (!$('#confirmModal').hidden) { closeConfirmModal(); return; }
+    if (!$('#authModal').hidden) { closeAuth(); return; }
+  }
+  if (e.key !== 'Enter' || e.shiftKey) return;
+  if (e.target.id === 'chatText') { e.preventDefault(); ACT.sendText(); }
+  else if (e.target.id === 'dockChatText') { e.preventDefault(); ACT.sendDockText(); }
+  else if (e.target.id && e.target.id.startsWith('c-')) { e.preventDefault(); ACT.addComment({ id: e.target.id.slice(2) }); }
+});
+
+/* ================= Start ================= */
+(async function init() {
+  try {
+    db = await loadDb();
+    await verifySessionToken();
+    await sweepExpiredMessages();
+    await loadActiveBlobs();
+    if (me()) {
+      touch();
+      ui.composerVis = getUserPrivacy(me()).postVisibility;
+    }
+    await save();
+    render();
+  } catch (e) {
+    toast('Running in temporary memory mode.');
+    db = { users: [], posts: [], messages: {}, security: { failures: 0, lockUntil: 0, backoffLevel: 0, audit: [] } };
+    render();
+  }
+})();
+</script>
+</body>
+</html>
